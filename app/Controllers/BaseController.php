@@ -28,8 +28,9 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = [];
+	protected $helpers = ['form', 'url'];
 	protected $session;
+	protected $validation;
 
 	protected $userModel;
 
@@ -49,6 +50,7 @@ class BaseController extends Controller
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
     $this->session = \CodeIgniter\Config\Services::session();
+    $this->validation = \CodeIgniter\Config\Services::validation();
 
     $this->userModel = new UserModel();
 	}

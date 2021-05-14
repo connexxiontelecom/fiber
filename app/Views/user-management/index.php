@@ -1,5 +1,5 @@
 <?php
-$session = session();
+  $session = session();
 ?>
 <!DOCTYPE html>
 <html lang="en" class="js">
@@ -31,7 +31,7 @@ $session = session();
                             <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
                             <div class="dropdown-menu dropdown-menu-right">
                               <ul class="link-list-opt no-bdr">
-                                <li><a href="#"><span>Add Admin</span></a></li>
+                                <li><a href="/user/new_admin"><span>Add Admin</span></a></li>
                                 <li><a href="#"><span>Add Member</span></a></li>
                               </ul>
                             </div>
