@@ -10,8 +10,8 @@ class User extends BaseController {
   }
 
   public function new_admin() {
-
-    return view('user-management/new-admin');
+    $page_data['title'] = 'New Admin';
+    return view('user-management/new-admin', $page_data);
   }
 
   public function create_admin() {

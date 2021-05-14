@@ -32,7 +32,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                               <ul class="link-list-opt no-bdr">
                                 <li><a href="/user/new_admin"><span>Add Admin</span></a></li>
-                                <li><a href="#"><span>Add Member</span></a></li>
+                                <li><a href="#"><span>Add Customer</span></a></li>
                               </ul>
                             </div>
                           </div>
@@ -49,10 +49,13 @@
                           <th class="tb-member-info">
                             <span class="overline-title">User</span>
                           </th>
+                          <th class="tb-member-type tb-col-md">
+                            <span class="overline-title">Email</span>
+                          </th>
                           <th class="tb-member-type tb-col-sm">
                             <span class="overline-title">Role</span>
                           </th>
-                          <th class="tb-member-role tb-col-md">
+                          <th class="tb-member-role tb-col-sm text-center">
                             <span class="overline-title">Status</span>
                           </th>
                           <th class="tb-member-action">
@@ -61,6 +64,54 @@
                         </tr>
                       </thead>
                       <tbody class="tb-member-body">
+                        <?php if (empty($users)):?>
+                          <tr class="tb-member-item">
+                            <td colspan="4" class="text-center font-weight-bold">No Users Exist</td>
+                          </tr>
+                        <?php else: foreach ($users as $user):?>
+                          <tr class="tb-member-item">
+                            <td class="tb-member-info">
+                              <div class="user-card">
+                                <div class="user-avatar bg-primary">
+<!--                                  <span>AB</span>-->
+                                  <em class="icon ni ni-user-alt"></em>
+                                </div>
+                                <div class="user-info">
+                                  <span class="lead-text"><?=$user['name']?></span>
+                                  <span class="sub-text"><?=$user['login']?></span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="tb-member-type tb-col-md">
+                              <span><?=$user['email']?></span>
+                            </td>
+                            <td class="tb-member-type tb-col-sm font-weight-bold">
+                              <span><?=$user['is_admin'] == 1 ? 'Admin' : 'Customer'?></span>
+                            </td>
+                            <td class="tb-member-type tb-col-sm text-center">
+                              <?php if ($user['status'] == 1): ?>
+                                <div class="badge badge-dot badge-success">Active</div>
+                              <?php else:?>
+                                <div class="badge badge-dim badge-danger">Inactive</div>
+                              <?php endif;?>
+                            </td>
+                            <td class="tb-member-action">
+                              <div class="d-none d-md-inline">
+                                <a href="#" class="link link-sm"><span>Edit</span></a>
+                                <a href="#" class="link link-sm link-danger"><span>Disable</span></a>
+                              </div>
+                              <div class="dropdown d-md-none">
+                                <a class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-v"></em></a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+                                  <ul class="link-list-plain no-bdr">
+                                    <li class="active"><a class="link link-sm" href="#">Edit</a></li>
+                                    <li><a class="link link-sm link-danger" href="#">Disable</a></li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        <?php endforeach; endif;?>
                       </tbody>
                     </table>
                   </div>
