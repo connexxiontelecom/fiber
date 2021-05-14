@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -27,7 +28,11 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = [];
+	protected $helpers = ['form', 'url'];
+	protected $session;
+	protected $validation;
+
+	protected $userModel;
 
 	/**
 	 * Constructor.
@@ -44,6 +49,9 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
-		// E.g.: $this->session = \Config\Services::session();
+    $this->session = \CodeIgniter\Config\Services::session();
+    $this->validation = \CodeIgniter\Config\Services::validation();
+
+    $this->userModel = new UserModel();
 	}
 }
