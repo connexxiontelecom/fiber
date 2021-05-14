@@ -34,6 +34,8 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('dashboard', 'Home::index');
 
+$routes->get('auth', 'Auth::index');
+
 //$routes->post('create-admin', 'User::create_admin');
 /*
  * --------------------------------------------------------------------

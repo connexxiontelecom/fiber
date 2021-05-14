@@ -5,7 +5,7 @@
   <div class="container-lg wide-xl">
     <div class="nk-header-wrap">
       <div class="nk-header-brand">
-        <a href="html/subscription/index.html" class="logo-link">
+        <a href="/dashboard" class="logo-link">
           <img class="logo-light logo-img" src="/assets/images/logo-01-2.png" srcset="/assets/images/logo2x.png 2x" alt="logo">
           <img class="logo-dark logo-img" src="/assets/images/logo-01-2.png" srcset="/assets/images/logo-dark2x.png 2x" alt="logo-dark">
           <span class="nio-version text-dark">Self-Service</span>
@@ -19,7 +19,7 @@
                 <div class="user-avatar sm">
                   <em class="icon ni ni-user-alt"></em>
                 </div>
-                <div class="user-name dropdown-indicator d-none d-sm-block">Abu Bin Ishityak</div>
+                <div class="user-name dropdown-indicator d-none d-sm-block"><?=$session->get('name')?></div>
               </div>
             </a>
             <div class="dropdown-menu dropdown-menu-md dropdown-menu-right dropdown-menu-s1">
@@ -29,8 +29,8 @@
                     <span>AB</span>
                   </div>
                   <div class="user-info">
-                    <span class="lead-text">Abu Bin Ishtiyak</span>
-                    <span class="sub-text">info@softnio.com</span>
+                    <span class="lead-text"><?=$session->get('name')?></span>
+                    <span class="sub-text"><?=$session->get('is_admin') == 1 ? 'Admin':'Customer' ?></span>
                   </div>
                   <div class="user-action">
                     <a class="btn btn-icon mr-n2" href="html/subscription/profile-setting.html"><em class="icon ni ni-setting"></em></a>
@@ -47,7 +47,7 @@
               </div>
               <div class="dropdown-inner">
                 <ul class="link-list">
-                  <li><a href="#"><em class="icon ni ni-signout"></em><span>Sign out</span></a></li>
+                  <li><a href="auth/logout"><em class="icon ni ni-signout"></em><span>Logout</span></a></li>
                 </ul>
               </div>
             </div>

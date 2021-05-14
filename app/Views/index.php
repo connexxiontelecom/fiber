@@ -18,9 +18,13 @@
                     <div class="nk-block-head nk-block-head-lg">
                       <div class="nk-block-between-md g-4">
                         <div class="nk-block-head-content">
-                          <h2 class="nk-block-title fw-normal">Welcome, Abu Bin Ishtiyak</h2>
+                          <h2 class="nk-block-title fw-normal">Welcome, <?=$session->get('name')?></h2>
                           <div class="nk-block-des">
-                            <p>Welcome to our dashboard. Manage your account and your subscriptions.</p>
+                            <?php if ($session->get('is_admin') == 1): ?>
+                              <p>Welcome to your admin dashboard. You can manage the Connexxion Telecom Fibre portal here.</p>
+                            <?php else:?>
+                              <p>Welcome to your self-service dashboard. You can manage your Connexxion Telecom Fibre subscription here.</p>
+                            <?php endif; ?>
                           </div>
                         </div>
                       </div>
