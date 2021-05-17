@@ -21,7 +21,10 @@ $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
-$routes->set404Override();
+$routes->set404Override(function () {
+  $page_data['title'] = 'Not Found';
+  return view('_404', $page_data);
+});
 $routes->setAutoRoute(true);
 
 /*

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\SubscriptionModel;
 use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
@@ -32,6 +33,7 @@ class BaseController extends Controller
 	protected $session;
 	protected $validation;
 
+	protected $subscriptionModel;
 	protected $userModel;
 
 	/**
@@ -52,6 +54,12 @@ class BaseController extends Controller
     $this->session = \CodeIgniter\Config\Services::session();
     $this->validation = \CodeIgniter\Config\Services::validation();
 
+    $this->subscriptionModel = new SubscriptionModel();
     $this->userModel = new UserModel();
 	}
+
+	protected function _unauthorized(): string {
+    $page_data['title'] = 'Unauthorized';
+    return view('_401', $page_data);
+  }
 }
