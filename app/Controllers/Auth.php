@@ -21,16 +21,21 @@ class Auth extends BaseController {
       $user = $this->userModel->where('login', $post_data['login'])->first();
       if ($user) {
         if (password_verify($post_data['password'], $user['password'])) {
-          $user_data = array(
-            'login' => $user['login'],
-            'name' => $user['name'],
-            'email' => $user['email'],
-            'is_admin' => $user['is_admin'],
-            'status' => $user['status'],
-            'active' => true,
-          );
-          $this->session->set($user_data);
-          $response_data['success'] = true;
+          if ($user['status']) {
+            $user_data = array(
+              'login' => $user['login'],
+              'name' => $user['name'],
+              'email' => $user['email'],
+              'is_admin' => $user['is_admin'],
+              'status' => $user['status'],
+              'active' => true,
+            );
+            $this->session->set($user_data);
+            $response_data['success'] = true;
+            return $this->response->setJSON($response_data);
+          }
+          $response_data['success'] = false;
+          $response_data['msg'] = 'This user account is currently inactive!';
           return $this->response->setJSON($response_data);
         }
       }
