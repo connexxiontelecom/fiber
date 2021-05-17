@@ -14,11 +14,18 @@ class Subscription extends BaseController {
     if ($this->session->active) {
       if ($this->session->is_admin) {
         $page_data['title'] = 'New Subscription';
-        $page_data['customers'] = $this->userModel->where('is_admin', 0)->findAll();
+        $page_data['customers'] = $this->userModel->where(['is_admin' => 0, 'status' => 1])->findAll();
+        $page_data['plans'] = $this->planModel->where('status', 1)->findAll();
         return view('subscription/new-subscription', $page_data);
       }
       return $this->_unauthorized();
     }
     return redirect('auth');
+  }
+
+  public function create_subscription() {
+    if ($this->session->active) {
+
+    }
   }
 }

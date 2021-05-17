@@ -48,7 +48,7 @@ $session = session();
                             <th>Plan</th>
                             <th>Price</th>
                             <th>Start Date</th>
-                            <th>Duration</th>
+                            <th>End Date</th>
                             <th>IPv4 Address</th>
                             <th>Status</th>
                             <th>Action</th>

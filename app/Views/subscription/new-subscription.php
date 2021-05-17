@@ -39,12 +39,56 @@ $session = session();
                               <label class="form-label" for="user">Customer <span style="color: red"> *</span></label>
                               <div class="form-control-wrap">
                                 <select class="form-select form-control form-control-lg" data-search="on" id="user">
-                                  <option value="default_option">Default Option</option>
+                                  <option value="default">Default Option</option>
                                   <?php foreach ($customers as $customer):?>
                                     <option value="<?= $customer['user_id'] ?>"><?=$customer['name']?></option>
                                   <?php endforeach;?>
                                 </select>
                               </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="form-label" for="plan">Plan <span style="color: red"> *</span></label>
+                              <div class="form-control-wrap">
+                                <select class="form-select form-control form-control-lg" data-search="on" id="plan">
+                                  <option value="default">Default Option</option>
+                                  <?php foreach ($plans as $plan):?>
+                                    <option value="<?= $plan['plan_id'] ?>"><?=$plan['name']?></option>
+                                  <?php endforeach;?>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="form-label" for="start-date">Start Date <span style="color: red"> *</span></label>
+                              <div class="form-control-wrap">
+                                <input autocomplete="off" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" id="start-date" name="start_date">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="form-label" for="end-date">End Date <span style="color: red"> *</span></label>
+                              <div class="form-control-wrap">
+                                <input autocomplete="off" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" id="end-date" name="end_date">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="form-label" for="ip-addr">IPv4 Address </label>
+                              <div class="form-control-wrap">
+                                <input autocomplete="off" type="text" class="form-control" id="ip-addr" name="ip_addr">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="form-label" for="mac-addr">MAC Address </label>
+                              <div class="form-control-wrap">
+                                <input autocomplete="off" type="text" class="form-control" id="mac-addr" name="mac_addr">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="form-label" for="description">Description </label>
+                              <div class="form-control-wrap">
+                                <textarea class="form-control" id="description" name="description" ></textarea>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <button type="submit" class="btn btn-primary">Create New Subscription</button>
                             </div>
                           </form>
                         </div>
@@ -62,5 +106,6 @@ $session = session();
   </div>
 </div>
 <?php include(APPPATH.'/Views/_scripts.php'); ?>
+<?php include('_subscription-scripts.php'); ?>
 </body>
 </html>
