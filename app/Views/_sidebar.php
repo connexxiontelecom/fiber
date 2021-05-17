@@ -72,6 +72,12 @@
           <span class="nk-menu-text">User Management</span>
         </a>
       </li>
+      <li class="nk-menu-item">
+        <a href="/plan" class="nk-menu-link">
+          <span class="nk-menu-icon"><em class="icon ni ni-coins"></em></span>
+          <span class="nk-menu-text">Plans</span>
+        </a>
+      </li>
     </ul>
   </div><!-- .nk-sidebar-menu -->
   <div class="nk-aside-close">

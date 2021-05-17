@@ -34,7 +34,9 @@
               data: formData,
               success: function (data) {
                 if (data.success) {
-                  Swal.fire('Confirmed!', data.msg, 'success').then(() => location.reload())
+                  Swal.fire('Confirmed!', data.msg, 'success').then(() => {
+                    location.href = '<?=site_url('/user')?>'
+                  })
                 } else {
                   Swal.fire('Sorry!', data.msg, 'error')
                   console.log(data.meta)
