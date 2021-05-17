@@ -4,18 +4,24 @@ namespace App\Controllers;
 class User extends BaseController {
   public function index() {
     if ($this->session->active) {
-      $users = $this->userModel->findAll();
-      $page_data['title'] = 'User Management';
-      $page_data['users'] = $users;
-      return view('user-management/index', $page_data);
+      if ($this->session->is_admin) {
+        $users = $this->userModel->findAll();
+        $page_data['title'] = 'User Management';
+        $page_data['users'] = $users;
+        return view('user-management/index', $page_data);
+      }
+      return $this->_unauthorized();
     }
     return redirect('auth');
   }
 
   public function new_user() {
     if ($this->session->active) {
-      $page_data['title'] = 'New User';
-      return view('user-management/new-user', $page_data);
+      if ($this->session->is_admin) {
+        $page_data['title'] = 'New User';
+        return view('user-management/new-user', $page_data);
+      }
+      return $this->_unauthorized();
     }
     return redirect('auth');
   }
