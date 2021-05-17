@@ -26,17 +26,7 @@
                     </div>
                     <div class="nk-block-head-content">
                       <ul class="nk-block-tools gx-3">
-                        <li class="nk-block-tools-opt">
-                          <div class="drodown">
-                            <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                              <ul class="link-list-opt no-bdr">
-                                <li><a href="/user/new_admin"><span>Add Admin</span></a></li>
-                                <li><a href="#"><span>Add Customer</span></a></li>
-                              </ul>
-                            </div>
-                          </div>
-                        </li>
+                        <li><a href="/user/new_user" class="btn btn-primary">Add New User</a></li>
                       </ul>
                     </div>
                   </div>
@@ -92,20 +82,28 @@
                               <?php if ($user['status'] == 1): ?>
                                 <div class="badge badge-dot badge-success">Active</div>
                               <?php else:?>
-                                <div class="badge badge-dim badge-danger">Inactive</div>
+                                <div class="badge badge-dot badge-danger">Inactive</div>
                               <?php endif;?>
                             </td>
                             <td class="tb-member-action">
                               <div class="d-none d-md-inline">
-                                <a href="#" class="link link-sm"><span>Edit</span></a>
-                                <a href="#" class="link link-sm link-danger"><span>Disable</span></a>
+                                <a href="javascript:void(0)" class="link link-sm" data-toggle="modal" data-target="#edit-form-<?=$user['user_id']?>"><span>Edit</span></a>
+                                <?php if ($user['status'] == 1): ?>
+                                  <a href="#" class="link link-sm link-danger" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Disable</span></a>
+                                <?php else: ?>
+                                  <a href="#" class="link link-sm link-success" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Enable</span></a>
+                                <?php endif?>
                               </div>
                               <div class="dropdown d-md-none">
                                 <a class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-v"></em></a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
                                   <ul class="link-list-plain no-bdr">
-                                    <li class="active"><a class="link link-sm" href="#">Edit</a></li>
-                                    <li><a class="link link-sm link-danger" href="#">Disable</a></li>
+                                    <li class="active"><a class="link link-sm" href="javascript:void(0)" data-toggle="modal" data-target="#edit-form-<?=$user['user_id']?>">Edit</a></li>
+                                    <?php if ($user['status'] == 1): ?>
+                                      <a href="#" class="link link-sm link-danger" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Disable</span></a>
+                                    <?php else: ?>
+                                      <a href="#" class="link link-sm link-success" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Enable</span></a>
+                                    <?php endif?>
                                   </ul>
                                 </div>
                               </div>
@@ -125,6 +123,41 @@
     </div>
   </div>
 </div>
+<?php foreach ($users as $user): ?>
+  <div class="modal fade zoom" tabindex="-1" id="edit-form-<?=$user['user_id']?>">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">User Info</h5>
+          <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+            <em class="icon ni ni-cross"></em>
+          </a>
+        </div>
+        <div class="modal-body">
+          <form action="" id="edit-user-form">
+            <div class="form-group">
+              <label class="form-label" for="name">Full Name  <span style="color: red"> *</span></label>
+              <div class="form-control-wrap">
+                <input type="text" class="form-control" id="name" name="name" value="<?=$user['name']?>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email  <span style="color: red"> *</span></label>
+              <div class="form-control-wrap">
+                <input type="email" class="form-control" id="email" name="email" value="<?=$user['email']?>">
+              </div>
+            </div>
+            <input type="hidden" value="<?=$user['user_id']?>" class="user-id">
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Save Information</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php endforeach;?>
 <?php include(APPPATH.'/Views/_scripts.php'); ?>
+<?php include('_user-management-scripts.php'); ?>
 </body>
 </html>

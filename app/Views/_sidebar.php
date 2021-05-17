@@ -16,34 +16,53 @@
       </li>
       <li class="nk-menu-item">
         <a href="html/subscription/subscriptions.html" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-file-text"></em></span>
-          <span class="nk-menu-text">My Subscription</span>
+          <span class="nk-menu-icon"><em class="icon ni ni-activity-round"></em></span>
+          <span class="nk-menu-text">Internet Statistics</span>
         </a>
       </li>
       <li class="nk-menu-item">
-        <a href="html/subscription/payments.html" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-report-profit"></em></span>
+        <a href="html/subscription/subscriptions.html" class="nk-menu-link">
+          <span class="nk-menu-icon"><em class="icon ni ni-file-text"></em></span>
+          <span class="nk-menu-text">Subscriptions</span>
+        </a>
+      </li>
+      <li class="nk-menu-item">
+        <a href="html/subscription/subscriptions.html" class="nk-menu-link">
+          <span class="nk-menu-icon"><em class="icon ni ni-meter"></em></span>
+          <span class="nk-menu-text">SpeedTest Gauges</span>
+        </a>
+      </li>
+      <li class="nk-menu-item">
+        <a href="html/subscription/subscriptions.html" class="nk-menu-link">
+          <span class="nk-menu-icon"><em class="icon ni ni-sign-kobo"></em></span>
           <span class="nk-menu-text">Payment History</span>
         </a>
       </li>
       <li class="nk-menu-item">
+        <a href="html/subscription/subscriptions.html" class="nk-menu-link">
+          <span class="nk-menu-icon"><em class="icon ni ni-task"></em></span>
+          <span class="nk-menu-text">Invoices</span>
+        </a>
+      </li>
+      <li class="nk-menu-item">
+        <a href="html/subscription/payments.html" class="nk-menu-link">
+          <span class="nk-menu-icon"><em class="icon ni ni-notice"></em></span>
+          <span class="nk-menu-text">Notifications</span>
+        </a>
+      </li>
+      <li class="nk-menu-item">
         <a href="html/subscription/team-access.html" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-          <span class="nk-menu-text">Manage Team</span>
+          <span class="nk-menu-icon"><em class="icon ni ni-ticket"></em></span>
+          <span class="nk-menu-text">Tickets</span>
         </a>
       </li>
       <li class="nk-menu-item">
         <a href="html/subscription/downloads.html" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-download-cloud"></em></span>
-          <span class="nk-menu-text">Download</span>
-        </a>
-      </li>
-      <li class="nk-menu-item">
-        <a href="html/subscription/profile-setting.html" class="nk-menu-link">
           <span class="nk-menu-icon"><em class="icon ni ni-account-setting"></em></span>
-          <span class="nk-menu-text">Account Setting</span>
+          <span class="nk-menu-text">Profile</span>
         </a>
       </li>
+      <!-- // admin-->
       <li class="nk-menu-heading">
         <h6 class="overline-title">Admin Config</h6>
       </li>
@@ -51,58 +70,6 @@
         <a href="/user" class="nk-menu-link">
           <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
           <span class="nk-menu-text">User Management</span>
-        </a>
-      </li>
-      <li class="nk-menu-heading">
-        <h6 class="overline-title">See Others</h6>
-      </li>
-      <li class="nk-menu-item">
-        <a href="#" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-files"></em></span>
-          <span class="nk-menu-text">Pre-Built Pages</span>
-        </a>
-        <ul class="nk-menu-sub">
-          <li class="nk-menu-item"><a href="html/subscription/pricing.html" class="nk-menu-link"><span class="nk-menu-text">Pricing</span></a></li>
-          <li class="nk-menu-item"><a href="html/subscription/invoices.html" class="nk-menu-link"><span class="nk-menu-text">Invoices <span class="count">(2)</span></span></a></li>
-          <li class="nk-menu-item"><a href="html/subscription/tickets.html" class="nk-menu-link"><span class="nk-menu-text">Tickets <span class="count">(5)</span></span></a></li>
-          <li class="nk-menu-item"><a href="html/subscription/subscriptions-detail.html" class="nk-menu-link"><span class="nk-menu-text">Subscription Details</span></a></li>
-        </ul>
-      </li>
-      <li class="nk-menu-heading">
-        <h6 class="overline-title">Return To</h6>
-      </li>
-      <li class="nk-menu-item">
-        <a href="html/index.html" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-dashlite"></em></span>
-          <span class="nk-menu-text">Main Dashboard</span>
-        </a>
-      </li>
-      <li class="nk-menu-item">
-        <a href="html/components.html" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-layers"></em></span>
-          <span class="nk-menu-text">All Components</span>
-        </a>
-      </li>
-    </ul>
-    <!-- Menu -->
-    <ul class="nk-menu nk-menu-sm">
-      <!-- Menu -->
-      <li class="nk-menu-heading">
-        <span>Help Center</span>
-      </li>
-      <li class="nk-menu-item">
-        <a href="html/subscription/faqs.html" class="nk-menu-link">
-          <span class="nk-menu-text">FAQs</span>
-        </a>
-      </li>
-      <li class="nk-menu-item">
-        <a href="html/subscription/contact.html" class="nk-menu-link">
-          <span class="nk-menu-text">Contact</span>
-        </a>
-      </li>
-      <li class="nk-menu-item">
-        <a href="html/subscription/support.html" class="nk-menu-link">
-          <span class="nk-menu-text">Support</span>
         </a>
       </li>
     </ul>

@@ -19,9 +19,9 @@ $session = session();
                   <div class="nk-block-head-sub"><a class="back-to" href="/user"><em class="icon ni ni-arrow-left"></em><span>User Management</span></a></div>
                   <div class="nk-block-between-md g-4">
                     <div class="nk-block-head-content">
-                      <h2 class="nk-block-title fw-normal">Add New Admin</h2>
+                      <h2 class="nk-block-title fw-normal">Add New User</h2>
                       <div class="nk-block-des">
-                        <p>Add an admin user here.</p>
+                        <p>Add an admin or customer here.</p>
                       </div>
                     </div>
                   </div>
@@ -32,9 +32,9 @@ $session = session();
                       <div class="card card-bordered">
                         <div class="card-inner">
                           <div class="card-head">
-                            <h5 class="card-title">Admin Info</h5>
+                            <h5 class="card-title">User Info</h5>
                           </div>
-                          <form action="" class="pt-3" id="add-admin-form">
+                          <form action="" class="pt-3" id="add-user-form">
                             <div class="form-group">
                               <label class="form-label" for="name">Full Name <span style="color: red"> *</span></label>
                               <div class="form-control-wrap">
@@ -60,7 +60,18 @@ $session = session();
                               </div>
                             </div>
                             <div class="form-group">
-                              <button type="submit" class="btn btn-primary">Create New Admin</button>
+                              <label class="form-label" for="">User Role</label><br>
+                              <div class="custom-control custom-radio">
+                                <input type="radio" id="admin-role" name="is_admin" class="custom-control-input is_admin" value="1" checked>
+                                <label class="custom-control-label" for="admin-role">Admin</label>
+                              </div>
+                              <div class="custom-control custom-radio ml-3">
+                                <input type="radio" id="customer-role" name="is_admin" class="custom-control-input is_admin" value="0">
+                                <label class="custom-control-label" for="customer-role">Customer</label>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <button type="submit" class="btn btn-primary">Create New User</button>
                             </div>
                           </form>
                         </div>
