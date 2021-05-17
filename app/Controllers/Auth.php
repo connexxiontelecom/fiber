@@ -23,6 +23,7 @@ class Auth extends BaseController {
         if (password_verify($post_data['password'], $user['password'])) {
           if ($user['status']) {
             $user_data = array(
+              'user_id' => $user['user_id'],
               'login' => $user['login'],
               'name' => $user['name'],
               'email' => $user['email'],

@@ -90,4 +90,36 @@
       }
     })
   })
+
+  function toggleStatus(userID, status) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: status === 1 ? 'This will disable the user account' : 'This will enable the user account',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm'
+    }).then(function (confirm) {
+      if (confirm.value) {
+        let formData = new FormData()
+        formData.set('user_id', userID)
+        formData.set('status', status)
+        $.ajax({
+          url: '<?=site_url('user/toggle_status')?>',
+          type: 'post',
+          data: formData,
+          success: function (data) {
+            if (data.success) {
+              Swal.fire('Confirmed!', data.msg, 'success').then(() => location.reload())
+            } else {
+              Swal.fire('Sorry!', data.msg, 'error')
+              console.log(data.meta)
+            }
+          },
+          cache: false,
+          contentType: false,
+          processData: false
+        })
+      }
+    })
+  }
 </script>

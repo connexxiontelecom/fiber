@@ -89,9 +89,9 @@
                               <div class="d-none d-md-inline">
                                 <a href="javascript:void(0)" class="link link-sm" data-toggle="modal" data-target="#edit-form-<?=$user['user_id']?>"><span>Edit</span></a>
                                 <?php if ($user['status'] == 1): ?>
-                                  <a href="#" class="link link-sm link-danger"><span>Disable</span></a>
+                                  <a href="#" class="link link-sm link-danger" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Disable</span></a>
                                 <?php else: ?>
-                                  <a href="#" class="link link-sm link-success"><span>Enable</span></a>
+                                  <a href="#" class="link link-sm link-success" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Enable</span></a>
                                 <?php endif?>
                               </div>
                               <div class="dropdown d-md-none">
@@ -100,9 +100,9 @@
                                   <ul class="link-list-plain no-bdr">
                                     <li class="active"><a class="link link-sm" href="javascript:void(0)" data-toggle="modal" data-target="#edit-form-<?=$user['user_id']?>">Edit</a></li>
                                     <?php if ($user['status'] == 1): ?>
-                                      <a href="#" class="link link-sm link-danger"><span>Disable</span></a>
+                                      <a href="#" class="link link-sm link-danger" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Disable</span></a>
                                     <?php else: ?>
-                                      <a href="#" class="link link-sm link-success"><span>Enable</span></a>
+                                      <a href="#" class="link link-sm link-success" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Enable</span></a>
                                     <?php endif?>
                                   </ul>
                                 </div>
