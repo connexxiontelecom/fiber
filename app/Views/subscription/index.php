@@ -48,13 +48,32 @@ $session = session();
                             <th>Plan</th>
                             <th>Price</th>
                             <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>IPv4 Address</th>
                             <th>Status</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
+                          <?php foreach ($subscriptions as $subscription):?>
+                            <tr>
+                              <td><?=$subscription['customer']['name']?></td>
+                              <td><?=$subscription['plan']['name']?></td>
+                              <td><?=number_format($subscription['plan']['price'])?></td>
+                              <td>
+                                <?php
+                                  $date = date_create($subscription['start_date']);
+                                  echo date_format($date, 'd M Y');
+                                ?>
+                              </td>
+                              <td>
+                                <?php if ($subscription['status'] == 1): ?>
+                                  <div class="badge badge-dot badge-success">Active</div>
+                                <?php else:?>
+                                  <div class="badge badge-dot badge-danger">Inactive</div>
+                                <?php endif;?>
+                              </td>
+                              <td></td>
+                            </tr>
+                          <?php endforeach;?>
                         </tbody>
                       </table>
                     </div>
