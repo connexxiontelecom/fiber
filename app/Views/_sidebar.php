@@ -16,7 +16,7 @@
       </li>
       <li class="nk-menu-item">
         <a href="html/subscription/subscriptions.html" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-activity-round"></em></span>
+          <span class="nk-menu-icon"><em class="icon ni ni-bar-chart"></em></span>
           <span class="nk-menu-text">Internet Statistics</span>
         </a>
       </li>
@@ -34,7 +34,7 @@
       </li>
       <li class="nk-menu-item">
         <a href="html/subscription/subscriptions.html" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-sign-kobo"></em></span>
+          <span class="nk-menu-icon"><em class="icon ni ni-tranx"></em></span>
           <span class="nk-menu-text">Payment History</span>
         </a>
       </li>
@@ -63,21 +63,26 @@
         </a>
       </li>
       <!-- // admin-->
-      <li class="nk-menu-heading">
-        <h6 class="overline-title">Admin Config</h6>
-      </li>
-      <li class="nk-menu-item">
-        <a href="/user" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-          <span class="nk-menu-text">User Management</span>
-        </a>
-      </li>
-      <li class="nk-menu-item">
-        <a href="/plan" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-coins"></em></span>
-          <span class="nk-menu-text">Plans</span>
-        </a>
-      </li>
+      <?php if ($session->is_admin): ?>
+        <li class="nk-menu-item">
+          <a href="#" class="nk-menu-link">
+            <span class="nk-menu-icon"><em class="icon ni ni-activity-round"></em></span>
+            <span class="nk-menu-text">Activity Logs</span>
+          </a>
+        </li>
+        <li class="nk-menu-item">
+          <a href="#" class="nk-menu-link">
+            <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>
+            <span class="nk-menu-text">Admin Configuration</span>
+          </a>
+          <ul class="nk-menu-sub">
+            <li class="nk-menu-item"><a href="/user" class="nk-menu-link"><span class="nk-menu-text">User Management</span></a></li>
+            <li class="nk-menu-item"><a href="/plan" class="nk-menu-link"><span class="nk-menu-text">Plan</span></a></li>
+            <li class="nk-menu-item"><a href="/service" class="nk-menu-link"><span class="nk-menu-text">Service</span></a></li>
+            <li class="nk-menu-item"><a href="/#" class="nk-menu-link"><span class="nk-menu-text">Payment Method</span></a></li>
+            </ul>
+        </li>
+      <?php endif;?>
     </ul>
   </div><!-- .nk-sidebar-menu -->
   <div class="nk-aside-close">

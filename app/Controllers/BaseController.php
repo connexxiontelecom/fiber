@@ -2,9 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Models\PaymentMethodModel;
 use App\Models\PlanModel;
+use App\Models\ServiceModel;
 use App\Models\SubscriptionModel;
 use App\Models\UserModel;
+
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -34,7 +37,9 @@ class BaseController extends Controller
 	protected $session;
 	protected $validation;
 
+	protected $paymentMethodModel;
 	protected $planModel;
+	protected $serviceModel;
 	protected $subscriptionModel;
 	protected $userModel;
 
@@ -56,7 +61,9 @@ class BaseController extends Controller
     $this->session = \CodeIgniter\Config\Services::session();
     $this->validation = \CodeIgniter\Config\Services::validation();
 
+    $this->paymentMethodModel = new PaymentMethodModel();
     $this->planModel = new PlanModel();
+    $this->serviceModel = new ServiceModel();
     $this->subscriptionModel = new SubscriptionModel();
     $this->userModel = new UserModel();
 	}
@@ -64,5 +71,10 @@ class BaseController extends Controller
 	protected function _unauthorized(): string {
     $page_data['title'] = 'Unauthorized';
     return view('_401', $page_data);
+  }
+
+  protected function _not_found(): string {
+    $page_data['title'] = 'Not Found';
+    return view('_404', $page_data);
   }
 }

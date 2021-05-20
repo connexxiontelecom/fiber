@@ -38,7 +38,7 @@ $session = session();
                             <div class="form-group">
                               <label class="form-label" for="user">Customer <span style="color: red"> *</span></label>
                               <div class="form-control-wrap">
-                                <select class="form-select form-control form-control-lg" data-search="on" id="user">
+                                <select class="form-select form-control form-control-lg" data-search="on" id="user" name="user">
                                   <option value="default">Default Option</option>
                                   <?php foreach ($customers as $customer):?>
                                     <option value="<?= $customer['user_id'] ?>"><?=$customer['name']?></option>
@@ -49,7 +49,7 @@ $session = session();
                             <div class="form-group">
                               <label class="form-label" for="plan">Plan <span style="color: red"> *</span></label>
                               <div class="form-control-wrap">
-                                <select class="form-select form-control form-control-lg" data-search="on" id="plan">
+                                <select class="form-select form-control form-control-lg" data-search="on" id="plan" name="plan">
                                   <option value="default">Default Option</option>
                                   <?php foreach ($plans as $plan):?>
                                     <option value="<?= $plan['plan_id'] ?>"><?=$plan['name']?></option>

@@ -16,12 +16,12 @@ $session = session();
             <div class="nk-content-body">
               <div class="nk-content-wrap">
                 <div class="nk-block-head nk-block-head-lg">
-                  <div class="nk-block-head-sub"><a class="back-to" href="/plan"><em class="icon ni ni-arrow-left"></em><span>Plan</span></a></div>
+                  <div class="nk-block-head-sub"><a class="back-to" href="/service"><em class="icon ni ni-arrow-left"></em><span>Service</span></a></div>
                   <div class="nk-block-between-md g-4">
                     <div class="nk-block-head-content">
-                      <h2 class="nk-block-title fw-normal">Add New Plan</h2>
+                      <h2 class="nk-block-title fw-normal">Add New Service</h2>
                       <div class="nk-block-des">
-                        <p>Add a plan here.</p>
+                        <p>Add a service here.</p>
                       </div>
                     </div>
                   </div>
@@ -32,7 +32,7 @@ $session = session();
                       <div class="card card-bordered">
                         <div class="card-inner">
                           <div class="card-head">
-                            <h5 class="card-title">Plan Info</h5>
+                            <h5 class="card-title">Service Info</h5>
                           </div>
                           <form action="" class="pt-3" id="add-plan-form">
                             <div class="form-group">
@@ -48,7 +48,7 @@ $session = session();
                               </div>
                             </div>
                             <div class="form-group">
-                              <button type="submit" class="btn btn-primary">Create New Plan</button>
+                              <button type="submit" class="btn btn-primary">Create New Service</button>
                             </div>
                           </form>
                         </div>
@@ -66,6 +66,5 @@ $session = session();
   </div>
 </div>
 <?php include(APPPATH.'/Views/_scripts.php'); ?>
-<?php include('_plan-scripts.php')?>
 </body>
 </html>
