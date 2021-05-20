@@ -63,21 +63,23 @@
         </a>
       </li>
       <!-- // admin-->
-      <li class="nk-menu-heading">
-        <h6 class="overline-title">Admin Config</h6>
-      </li>
-      <li class="nk-menu-item">
-        <a href="/user" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-          <span class="nk-menu-text">User Management</span>
-        </a>
-      </li>
-      <li class="nk-menu-item">
-        <a href="/plan" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-coins"></em></span>
-          <span class="nk-menu-text">Plans</span>
-        </a>
-      </li>
+      <?php if ($session->is_admin): ?>
+        <li class="nk-menu-heading">
+          <h6 class="overline-title">Admin Config</h6>
+        </li>
+        <li class="nk-menu-item">
+          <a href="/user" class="nk-menu-link">
+            <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+            <span class="nk-menu-text">User Management</span>
+          </a>
+        </li>
+        <li class="nk-menu-item">
+          <a href="/plan" class="nk-menu-link">
+            <span class="nk-menu-icon"><em class="icon ni ni-coins"></em></span>
+            <span class="nk-menu-text">Plans</span>
+          </a>
+        </li>
+      <?php endif;?>
     </ul>
   </div><!-- .nk-sidebar-menu -->
   <div class="nk-aside-close">

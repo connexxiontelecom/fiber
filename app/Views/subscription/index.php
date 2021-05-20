@@ -71,7 +71,23 @@ $session = session();
                                   <div class="badge badge-dot badge-danger">Inactive</div>
                                 <?php endif;?>
                               </td>
-                              <td></td>
+                              <td>
+                                <div class="drodown">
+                                  <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                  <div class="dropdown-menu dropdown-menu-right">
+                                    <ul class="link-list-opt no-bdr">
+                                      <li><a href="#"><em class="icon ni ni-focus"></em><span>Quick View</span></a></li>
+                                      <li><a href="#"><em class="icon ni ni-eye"></em><span>View Details</span></a></li>
+                                      <li><a href="#"><em class="icon ni ni-repeat"></em><span>Transaction</span></a></li>
+                                      <li><a href="#"><em class="icon ni ni-activity-round"></em><span>Activities</span></a></li>
+                                      <li class="divider"></li>
+                                      <li><a href="#"><em class="icon ni ni-shield-star"></em><span>Reset Pass</span></a></li>
+                                      <li><a href="#"><em class="icon ni ni-shield-off"></em><span>Reset 2FA</span></a></li>
+                                      <li><a href="#"><em class="icon ni ni-na"></em><span>Suspend User</span></a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </td>
                             </tr>
                           <?php endforeach;?>
                         </tbody>

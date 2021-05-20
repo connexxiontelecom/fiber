@@ -4,9 +4,16 @@ namespace App\Controllers;
 class Subscription extends BaseController {
   public function index() {
     if ($this->session->active) {
-      $page_data['title'] = 'Subscriptions';
-      $page_data['subscriptions'] = $this->_get_subscriptions();
-      return view('subscription/index', $page_data);
+      if ($this->session->is_admin) {
+        $page_data['title'] = 'Subscriptions';
+        $page_data['subscriptions'] = $this->_get_subscriptions();
+        return view('subscription/index', $page_data);
+      } else {
+        $user_id = $this->session->user_id;
+        $page_data['title'] = 'My Subscriptions';
+        $page_data['subscriptions'] = $this->_get_customer_subscriptions($user_id);
+        return view('subscription/index-alt', $page_data);
+      }
     }
     return redirect('auth');
   }
@@ -69,6 +76,15 @@ class Subscription extends BaseController {
       $customer = $this->userModel->where('user_id', $subscription['user_id'])->first();
       $plan = $this->planModel->where('plan_id', $subscription['plan_id'])->first();
       $subscriptions[$key]['customer'] = $customer;
+      $subscriptions[$key]['plan'] = $plan;
+    }
+    return $subscriptions;
+  }
+
+  private function _get_customer_subscriptions($user_id) {
+    $subscriptions = $this->subscriptionModel->where('user_id', $user_id)->findAll();
+    foreach ($subscriptions as $key => $subscription) {
+      $plan = $this->planModel->where('plan_id', $subscription['plan_id'])->first();
       $subscriptions[$key]['plan'] = $plan;
     }
     return $subscriptions;
