@@ -31,6 +31,21 @@ class Subscription extends BaseController {
     return redirect('auth');
   }
 
+  public function manage_subscription($subscription_id) {
+    if ($this->session->active) {
+      $subscription = $this->_get_subscription($subscription_id);
+      if (!$subscription) {
+        return $this->_not_found();
+      }
+      if ($this->session->is_admin) {
+        $page_data['title'] = 'Manage Subscription';
+        $page_data['subscription'] = $subscription;
+        return view('subscription/manage-subscription', $page_data);
+      }
+    }
+    return redirect('auth');
+  }
+
   public function create_subscription() {
     if ($this->session->active) {
       $this->validation->setRules([
@@ -68,6 +83,15 @@ class Subscription extends BaseController {
       return $this->response->setJSON($response_data);
     }
     return redirect('auth');
+  }
+
+  private function _get_subscription($subscription_id) {
+    $subscription = $this->subscriptionModel->find($subscription_id);
+    if ($subscription) {
+      $subscription['customer'] = $this->userModel->where('user_id', $subscription['user_id'])->first();
+      $subscription['plan'] = $this->planModel->where('plan_id', $subscription['plan_id'])->first();
+    }
+    return $subscription;
   }
 
   private function _get_subscriptions() {
