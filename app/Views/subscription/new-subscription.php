@@ -45,6 +45,9 @@ $session = session();
                                   <?php endforeach;?>
                                 </select>
                               </div>
+                              <div class="form-note">
+                                <a href="/user"><em class="icon ni ni-help mr-1"></em>Manage users</a>
+                              </div>
                             </div>
                             <div class="form-group">
                               <label class="form-label" for="plan">Plan <span style="color: red"> *</span></label>
@@ -55,6 +58,9 @@ $session = session();
                                     <option value="<?= $plan['plan_id'] ?>"><?=$plan['name']?></option>
                                   <?php endforeach;?>
                                 </select>
+                              </div>
+                              <div class="form-note">
+                                <a href="/plan"><em class="icon ni ni-help mr-1"></em>Manage plans</a>
                               </div>
                             </div>
                             <div class="form-group">
