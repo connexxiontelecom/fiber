@@ -52,28 +52,13 @@ $session = session();
                             <tr class="tb-member-item">
                               <td colspan="3" class="text-center font-weight-bold">No Payment Methods Exist</td>
                             </tr>
-                          <?php else: foreach ($users as $user):?>
+                          <?php else: foreach ($payment_methods as $payment_method):?>
                             <tr class="tb-member-item">
                               <td class="tb-member-info">
-                                <div class="user-card">
-                                  <div class="user-avatar bg-primary">
-                                    <!--                                  <span>AB</span>-->
-                                    <em class="icon ni ni-user-alt"></em>
-                                  </div>
-                                  <div class="user-info">
-                                    <span class="lead-text"><?=$user['name']?></span>
-                                    <span class="sub-text"><?=$user['login']?></span>
-                                  </div>
-                                </div>
-                              </td>
-                              <td class="tb-member-type tb-col-md">
-                                <span><?=$user['email']?></span>
-                              </td>
-                              <td class="tb-member-type tb-col-sm font-weight-bold">
-                                <span><?=$user['is_admin'] == 1 ? 'Admin' : 'Customer'?></span>
+                                <span class="lead-text"><?=$payment_method['name']?></span>
                               </td>
                               <td class="tb-member-type tb-col-sm text-center">
-                                <?php if ($user['status'] == 1): ?>
+                                <?php if ($payment_method['status'] == 1): ?>
                                   <div class="badge badge-dot badge-success">Active</div>
                                 <?php else:?>
                                   <div class="badge badge-dot badge-danger">Inactive</div>
@@ -81,15 +66,11 @@ $session = session();
                               </td>
                               <td class="tb-member-action">
                                 <div class="d-none d-md-inline">
-                                  <?php if ($user['is_admin'] == 1):?>
-                                    <a href="javascript:void(0)" class="link link-sm" data-toggle="modal" data-target="#edit-form-<?=$user['user_id']?>"><span>Edit</span></a>
-                                  <?php else:?>
-                                    <a href="/user/manage_customer/<?=$user['user_id']?>" class="link link-sm"><span>Manage</span></a>
-                                  <?php endif?>
-                                  <?php if ($user['status'] == 1): ?>
-                                    <a href="#" class="link link-sm link-danger" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Disable</span></a>
+                                  <a href="javascript:void(0)" class="link link-sm" data-toggle="modal" data-target="#edit-form-<?=$payment_method['payment_method_id']?>"><span>Edit</span></a>
+                                  <?php if ($payment_method['status'] == 1): ?>
+                                    <a href="#" class="link link-sm link-danger" onclick="toggleStatus(<?=$payment_method['payment_method_id']?>, <?=$payment_method['status']?>)"><span>Disable</span></a>
                                   <?php else: ?>
-                                    <a href="#" class="link link-sm link-success" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Enable</span></a>
+                                    <a href="#" class="link link-sm link-success" onclick="toggleStatus(<?=$payment_method['payment_method_id']?>, <?=$payment_method['status']?>)"><span>Enable</span></a>
                                   <?php endif?>
                                 </div>
                                 <div class="dropdown d-md-none">
@@ -97,16 +78,12 @@ $session = session();
                                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
                                     <ul class="link-list-plain no-bdr">
                                       <li class="active">
-                                        <?php if ($user['is_admin'] == 1):?>
-                                          <a href="javascript:void(0)" class="link link-sm" data-toggle="modal" data-target="#edit-form-<?=$user['user_id']?>"><span>Edit</span></a>
-                                        <?php else:?>
-                                          <a href="/user/manage_customer/<?=$user['user_id']?>" class="link link-sm"><span>Manage</span></a>
-                                        <?php endif?>
+                                        <a href="javascript:void(0)" class="link link-sm" data-toggle="modal" data-target="#edit-form-<?=$payment_method['payment_method_id']?>"><span>Edit</span></a>
                                       </li>
-                                      <?php if ($user['status'] == 1): ?>
-                                        <a href="#" class="link link-sm link-danger" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Disable</span></a>
+                                      <?php if ($payment_method['status'] == 1): ?>
+                                        <a href="#" class="link link-sm link-danger" onclick="toggleStatus(<?=$payment_method['payment_method_id']?>, <?=$payment_method['status']?>)"><span>Disable</span></a>
                                       <?php else: ?>
-                                        <a href="#" class="link link-sm link-success" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Enable</span></a>
+                                        <a href="#" class="link link-sm link-success" onclick="toggleStatus(<?=$payment_method['payment_method_id']?>, <?=$payment_method['status']?>)"><span>Enable</span></a>
                                       <?php endif?>
                                     </ul>
                                   </div>
