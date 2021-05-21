@@ -51,7 +51,7 @@ $session = session();
                       </tr>
                       </thead>
                       <tbody class="tb-member-body">
-                      <?php if (empty($service)):?>
+                      <?php if (empty($services)):?>
                         <tr class="tb-member-item">
                           <td colspan="4" class="text-center font-weight-bold">No Services Exist</td>
                         </tr>

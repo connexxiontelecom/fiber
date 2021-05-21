@@ -34,7 +34,7 @@ $session = session();
                           <div class="card-head">
                             <h5 class="card-title">Service Info</h5>
                           </div>
-                          <form action="" class="pt-3" id="add-plan-form">
+                          <form action="" class="pt-3" id="add-service-form">
                             <div class="form-group">
                               <label class="form-label" for="name">Name <span style="color: red"> *</span></label>
                               <div class="form-control-wrap">
@@ -66,5 +66,6 @@ $session = session();
   </div>
 </div>
 <?php include(APPPATH.'/Views/_scripts.php'); ?>
+<?php include('_service-scripts.php')?>
 </body>
 </html>
