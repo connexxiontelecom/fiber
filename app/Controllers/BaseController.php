@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\CustomerInfoModel;
 use App\Models\PaymentMethodModel;
 use App\Models\PlanModel;
 use App\Models\ServiceModel;
@@ -37,6 +38,7 @@ class BaseController extends Controller
 	protected $session;
 	protected $validation;
 
+	protected $customerInfoModel;
 	protected $paymentMethodModel;
 	protected $planModel;
 	protected $serviceModel;
@@ -61,6 +63,7 @@ class BaseController extends Controller
     $this->session = \CodeIgniter\Config\Services::session();
     $this->validation = \CodeIgniter\Config\Services::validation();
 
+    $this->customerInfoModel = new CustomerInfoModel();
     $this->paymentMethodModel = new PaymentMethodModel();
     $this->planModel = new PlanModel();
     $this->serviceModel = new ServiceModel();

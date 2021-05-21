@@ -26,6 +26,22 @@ class User extends BaseController {
     return redirect('auth');
   }
 
+  public function manage_customer($user_id) {
+    if ($this->session->active) {
+      $customer = $this->_get_customer($user_id);
+      if (!$customer) {
+        return $this->_not_found();
+      }
+      if ($this->session->is_admin) {
+        $page_data['title'] = 'Manage Customer';
+        $page_data['customer'] = $customer;
+        return view('user-management/manage-customer', $page_data);
+      }
+      return $this->_unauthorized();
+    }
+    return redirect('auth');
+  }
+
   public function create_user() {
     if ($this->session->active) {
       $this->validation->setRules([
@@ -128,5 +144,15 @@ class User extends BaseController {
       return $this->response->setJSON($response_data);
     }
     return redirect('auth');
+  }
+
+  private function _get_customer($user_id) {
+    $customer = $this->userModel->find($user_id);
+    if ($customer) {
+      $customer['customer_info'] = $this->customerInfoModel->where('user_id', $customer['user_id'])->first();
+      if ($customer['customer_info'])
+        $customer['payment_method'] = $this->paymentMethodModel->where('payment_method_id', $customer['customer_info']['payment_method_id'])->first();
+    }
+    return $customer;
   }
 }

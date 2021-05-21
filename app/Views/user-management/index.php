@@ -87,7 +87,11 @@
                             </td>
                             <td class="tb-member-action">
                               <div class="d-none d-md-inline">
-                                <a href="javascript:void(0)" class="link link-sm" data-toggle="modal" data-target="#edit-form-<?=$user['user_id']?>"><span>Edit</span></a>
+                                <?php if ($user['is_admin'] == 1):?>
+                                  <a href="javascript:void(0)" class="link link-sm" data-toggle="modal" data-target="#edit-form-<?=$user['user_id']?>"><span>Edit</span></a>
+                                <?php else:?>
+                                  <a href="/user/manage_customer/<?=$user['user_id']?>" class="link link-sm"><span>Manage</span></a>
+                                <?php endif?>
                                 <?php if ($user['status'] == 1): ?>
                                   <a href="#" class="link link-sm link-danger" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Disable</span></a>
                                 <?php else: ?>
@@ -98,7 +102,13 @@
                                 <a class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-v"></em></a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
                                   <ul class="link-list-plain no-bdr">
-                                    <li class="active"><a class="link link-sm" href="javascript:void(0)" data-toggle="modal" data-target="#edit-form-<?=$user['user_id']?>">Edit</a></li>
+                                    <li class="active">
+                                      <?php if ($user['is_admin'] == 1):?>
+                                        <a href="javascript:void(0)" class="link link-sm" data-toggle="modal" data-target="#edit-form-<?=$user['user_id']?>"><span>Edit</span></a>
+                                      <?php else:?>
+                                        <a href="/user/manage_customer/<?=$user['user_id']?>" class="link link-sm"><span>Manage</span></a>
+                                      <?php endif?>
+                                    </li>
                                     <?php if ($user['status'] == 1): ?>
                                       <a href="#" class="link link-sm link-danger" onclick="toggleStatus(<?=$user['user_id']?>, <?=$user['status']?>)"><span>Disable</span></a>
                                     <?php else: ?>
