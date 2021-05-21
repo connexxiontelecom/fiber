@@ -91,6 +91,7 @@
         })
       }
     })
+
   })
 
   function toggleStatus(userID, status) {
