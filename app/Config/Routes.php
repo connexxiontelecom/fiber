@@ -39,6 +39,8 @@ $routes->get('dashboard', 'Home::index');
 
 $routes->get('auth', 'Auth::index');
 
+$routes->get('payment_method', 'PaymentMethod::index');
+
 //$routes->post('create-admin', 'User::create_admin');
 /*
  * --------------------------------------------------------------------
