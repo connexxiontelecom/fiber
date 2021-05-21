@@ -79,7 +79,7 @@
             <li class="nk-menu-item"><a href="/user" class="nk-menu-link"><span class="nk-menu-text">User Management</span></a></li>
             <li class="nk-menu-item"><a href="/plan" class="nk-menu-link"><span class="nk-menu-text">Plan</span></a></li>
             <li class="nk-menu-item"><a href="/service" class="nk-menu-link"><span class="nk-menu-text">Service</span></a></li>
-            <li class="nk-menu-item"><a href="/#" class="nk-menu-link"><span class="nk-menu-text">Payment Method</span></a></li>
+            <li class="nk-menu-item"><a href="/payment_method" class="nk-menu-link"><span class="nk-menu-text">Payment Method</span></a></li>
             </ul>
         </li>
       <?php endif;?>
