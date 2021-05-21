@@ -136,7 +136,7 @@ $session = session();
         </a>
       </div>
       <div class="modal-body">
-        <form action="" id="edit-user-details-form">
+        <form action="" id="edit-user-form">
           <div class="row gy-4">
             <div class="col-12">
               <div class="form-group">
@@ -158,7 +158,7 @@ $session = session();
               <input type="hidden" value="<?=$customer['user_id']?>" class="user-id">
               <div class="form-group">
                 <a href="#" data-dismiss="modal" class="btn btn-light">Cancel</a>
-                <button type="submit" class="btn btn-primary ml-3">Save Information</button>
+                <button class="btn btn-primary ml-3">Save Information</button>
               </div>
             </div>
           </div>
@@ -222,5 +222,6 @@ $session = session();
   </div><!-- .modal-dialog -->
 </div><!-- .modal -->
 <?php include(APPPATH.'/Views/_scripts.php'); ?>
+<?php include('_user-management-scripts.php')?>
 </body>
 </html>
