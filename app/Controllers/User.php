@@ -128,13 +128,17 @@ class User extends BaseController {
       $response_data = array();
       if ($this->validation->withRequest($this->request)->run()) {
         $post_data = $this->request->getPost();
-        $customer_info = array(
+        $customer_info_data = array(
           'user_id' => $post_data['user_id'],
           'payment_method_id' => $post_data['payment_method'],
           'phone' => $post_data['phone'],
           'address' => $post_data['address']
         );
-        $customer_info_updated = $this->customerInfoModel->save($customer_info);
+        $customer_info = $this->customerInfoModel->where('user_id', $post_data['user_id'])->first();
+        if ($customer_info) {
+          $customer_info_data['customer_info_id'] = $customer_info['customer_info_id'];
+        }
+        $customer_info_updated = $this->customerInfoModel->save($customer_info_data);
         if ($customer_info_updated) {
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully updated customer info';

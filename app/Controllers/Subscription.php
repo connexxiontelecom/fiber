@@ -37,11 +37,12 @@ class Subscription extends BaseController {
       if (!$subscription) {
         return $this->_not_found();
       }
+      $page_data['title'] = 'Manage Subscription';
+      $page_data['subscription'] = $subscription;
       if ($this->session->is_admin) {
-        $page_data['title'] = 'Manage Subscription';
-        $page_data['subscription'] = $subscription;
         return view('subscription/manage-subscription', $page_data);
       }
+      return view('subscription/manage-subscription-alt', $page_data);
     }
     return redirect('auth');
   }
@@ -89,6 +90,8 @@ class Subscription extends BaseController {
     $subscription = $this->subscriptionModel->find($subscription_id);
     if ($subscription) {
       $subscription['customer'] = $this->userModel->where('user_id', $subscription['user_id'])->first();
+      $subscription['customer_info'] = $this->customerInfoModel->where('user_id', $subscription['user_id'])->first();
+      $subscription['payment_method'] = $subscription['customer_info'] ? $this->paymentMethodModel->where('payment_method_id', $subscription['customer_info']['payment_method_id'])->first() : '';
       $subscription['plan'] = $this->planModel->where('plan_id', $subscription['plan_id'])->first();
     }
     return $subscription;
