@@ -32,15 +32,6 @@ $session = session();
                       <li class="nav-item">
                         <a class="nav-link active" href="/user/manage_customer/<?=$customer['user_id']?>"><em class="icon ni ni-user-fill-c"></em><span>Personal</span></a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="html/user-profile-notification.html"><em class="icon ni ni-bell-fill"></em><span>Notifications</span></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="html/user-profile-activity.html"><em class="icon ni ni-activity-round-fill"></em><span>Account Activity</span></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="html/user-profile-setting.html"><em class="icon ni ni-lock-alt-fill"></em><span>Security Settings</span></a>
-                      </li>
                     </ul><!-- .nav-tabs -->
                     <div class="card-inner card-inner-lg">
                       <div class="nk-block-head">
@@ -181,7 +172,7 @@ $session = session();
           <div class="row gy-4">
             <div class="col-12">
               <div class="form-group">
-                <label class="form-label" for="payment-method">Payment Method</label>
+                <label class="form-label" for="payment-method">Payment Method <span style="color: red"> *</span></label>
                 <div class="form-control-wrap">
                   <select class="form-select form-control" data-search="on" id="payment-method" name="payment_method">
                     <option value="default">Default Option</option>
@@ -199,7 +190,7 @@ $session = session();
             </div>
             <div class="col-12">
               <div class="form-group">
-                <label class="form-label" for="phone">Phone Number</label>
+                <label class="form-label" for="phone">Phone Number <span style="color: red"> *</span></label>
                 <div class="form-control-wrap">
                   <input type="number" class="form-control" id="phone" name="phone" value="<?=$customer['customer_info'] ? $customer['customer_info']['phone'] : ''?>">
                 </div>
@@ -207,7 +198,7 @@ $session = session();
             </div>
             <div class="col-12">
               <div class="form-group">
-                <label class="form-label" for="address">Address </label>
+                <label class="form-label" for="address">Address <span style="color: red"> *</span></label>
                 <div class="form-control-wrap">
                   <textarea class="form-control" id="address" name="address" ><?=$customer['customer_info'] ? $customer['customer_info']['address'] : ''?></textarea>
                 </div>

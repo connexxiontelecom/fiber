@@ -93,7 +93,7 @@ $session = session();
                         <div class="col-md-4">
                           <div class="sp-plan-action card-inner">
                             <div class="sp-plan-btn">
-                              <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#subscription-change"><span>Manage Subscription</span></a>
+                              <a href="/subscription/manage_subscription/<?=$subscription['subscription_id']?>" class="btn btn-primary"><span>Manage Subscription</span></a>
                             </div>
                             <div class="sp-plan-note text-md-center">
                               <p>
