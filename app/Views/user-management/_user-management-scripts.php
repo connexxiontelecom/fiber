@@ -92,6 +92,50 @@
       }
     })
 
+    $('form#edit-customer-info-form').submit(function (e) {
+      e.preventDefault()
+      let paymentMethod = $('#payment-method').val()
+      let phone = $('#phone').val()
+      let address = $('#address').val()
+      let userID = $('.user-id').val()
+      if (!paymentMethod || paymentMethod === 'default') {
+        Swal.fire("Invalid Submission", "A payment method is required!", "error");
+      } else if (!phone) {
+        Swal.fire("Invalid Submission", "A phone is required!", "error");
+      } else if (!address) {
+        Swal.fire("Invalid Submission", "An address is required!", "error");
+      } else {
+        let formData = new FormData(this)
+        formData.set('user_id', userID)
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'This will update the customer information',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Confirm'
+        }).then(function (confirm) {
+          if (confirm.value) {
+            $.ajax({
+              url: '<?=site_url('user/manage_customer_info')?>',
+              type: 'post',
+              data: formData,
+              success: function (data) {
+                if (data.success) {
+                  Swal.fire('Confirmed!', data.msg, 'success').then(() => location.reload())
+                } else {
+                  Swal.fire('Sorry!', data.msg, 'error')
+                  console.log(data.meta)
+                }
+              },
+              cache: false,
+              contentType: false,
+              processData: false
+            })
+          }
+        })
+      }
+    })
+
   })
 
   function toggleStatus(userID, status) {

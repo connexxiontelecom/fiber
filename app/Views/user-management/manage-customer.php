@@ -185,6 +185,11 @@ $session = session();
                 <div class="form-control-wrap">
                   <select class="form-select form-control" data-search="on" id="payment-method" name="payment_method">
                     <option value="default">Default Option</option>
+                    <?php foreach ($payment_methods as $payment_method):?>
+                      <option value="<?= $payment_method['payment_method_id'] ?>" <?=$customer['customer_info'] && $customer['payment_method']['payment_method_id'] == $payment_method['payment_method_id'] ? 'selected': ''?>>
+                        <?=$payment_method['name']?>
+                      </option>
+                    <?php endforeach;?>
                   </select>
                 </div>
                 <div class="form-note">
@@ -204,7 +209,7 @@ $session = session();
               <div class="form-group">
                 <label class="form-label" for="address">Address </label>
                 <div class="form-control-wrap">
-                  <textarea class="form-control" id="address" name="address" ></textarea>
+                  <textarea class="form-control" id="address" name="address" ><?=$customer['customer_info'] ? $customer['customer_info']['address'] : ''?></textarea>
                 </div>
               </div>
             </div>
