@@ -8,6 +8,8 @@ class Invoice extends BaseController
     if ($this->session->active) {
       $page_data['title'] = 'Invoices';
       if ($this->session->is_admin) {
+        $invoices = $this->_get_invoices();
+        $page_data['invoices'] = $invoices;
         return view('invoice/index', $page_data);
       }
       return view('invoice/index-alt', $page_data);
@@ -60,7 +62,7 @@ class Invoice extends BaseController
         );
         $new_invoice = $this->invoiceModel->insert($invoice_data);
         if ($new_invoice) {
-          $this->save_payments($new_invoice, $post_data['num_payments'], $post_data['descriptions'], $post_data['quantities']);
+          $this->_save_payments($new_invoice, $post_data['num_payments'], $post_data['descriptions'], $post_data['quantities']);
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully created new user';
         } else {
@@ -77,7 +79,7 @@ class Invoice extends BaseController
     return redirect('auth');
   }
 
-  private function save_payments($invoice_id, $num_payments, $descriptions, $quantities) {
+  private function _save_payments($invoice_id, $num_payments, $descriptions, $quantities) {
     for ($i = 0; $i < $num_payments; $i++) {
       $payments_data = array(
         'invoice_id' => $invoice_id,
@@ -86,5 +88,29 @@ class Invoice extends BaseController
       );
       $this->invoicePaymentModel->save($payments_data);
     }
+  }
+
+  private function _get_invoices() {
+    $invoices = $this->invoiceModel->findAll();
+    foreach ($invoices as $key => $invoice) {
+      $customer = $this->userModel->where('user_id', $invoice['user_id'])->first();
+      $payments = $this->invoicePaymentModel->where('invoice_id', $invoice['invoice_id'])->findAll();
+      foreach ($payments as $key_1 => $payment) {
+        $plan = $this->planModel->where('name', $payment['description'])->first();
+        if (!$plan) {
+          $service = $this->serviceModel->where('name', $payment['description'])->first();
+          if ($service) {
+            $payments[$key_1]['category'] = 'service';
+            $payments[$key_1]['amount'] = $service['price'];
+          }
+        } else {
+          $payments[$key_1]['category'] = 'plan';
+          $payments[$key_1]['amount'] = $plan['price'];
+        }
+      }
+      $invoices[$key]['payments'] = $payments;
+      $invoices[$key]['customer'] = $customer;
+    }
+    return $invoices;
   }
 }

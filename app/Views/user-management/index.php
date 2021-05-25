@@ -56,7 +56,7 @@
                       <tbody class="tb-member-body">
                         <?php if (empty($users)):?>
                           <tr class="tb-member-item">
-                            <td colspan="4" class="text-center font-weight-bold">No Users Exist</td>
+                            <td colspan="5" class="text-center font-weight-bold">No Users Exist</td>
                           </tr>
                         <?php else: foreach ($users as $user):?>
                           <tr class="tb-member-item">
