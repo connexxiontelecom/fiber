@@ -3,7 +3,10 @@
 namespace App\Controllers;
 
 use App\Models\CustomerInfoModel;
+use App\Models\InvoiceModel;
+use App\Models\InvoicePaymentModel;
 use App\Models\PaymentMethodModel;
+use App\Models\PaymentModel;
 use App\Models\PlanModel;
 use App\Models\ServiceModel;
 use App\Models\SubscriptionModel;
@@ -12,6 +15,7 @@ use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+
 use Psr\Log\LoggerInterface;
 
 /**
@@ -39,7 +43,10 @@ class BaseController extends Controller
 	protected $validation;
 
 	protected $customerInfoModel;
+	protected $invoiceModel;
+	protected $invoicePaymentModel;
 	protected $paymentMethodModel;
+	protected $paymentModel;
 	protected $planModel;
 	protected $serviceModel;
 	protected $subscriptionModel;
@@ -64,7 +71,10 @@ class BaseController extends Controller
     $this->validation = \CodeIgniter\Config\Services::validation();
 
     $this->customerInfoModel = new CustomerInfoModel();
+    $this->invoiceModel = new InvoiceModel();
+    $this->invoicePaymentModel = new InvoicePaymentModel();
     $this->paymentMethodModel = new PaymentMethodModel();
+    $this->paymentModel = new PaymentModel();
     $this->planModel = new PlanModel();
     $this->serviceModel = new ServiceModel();
     $this->subscriptionModel = new SubscriptionModel();

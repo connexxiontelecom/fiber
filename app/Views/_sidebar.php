@@ -27,19 +27,19 @@
         </a>
       </li>
       <li class="nk-menu-item">
-        <a href="html/subscription/subscriptions.html" class="nk-menu-link">
+        <a href="javascript:void(0)" class="nk-menu-link">
           <span class="nk-menu-icon"><em class="icon ni ni-meter"></em></span>
           <span class="nk-menu-text">SpeedTest Gauges</span>
         </a>
       </li>
       <li class="nk-menu-item">
-        <a href="html/subscription/subscriptions.html" class="nk-menu-link">
+        <a href="/payment" class="nk-menu-link">
           <span class="nk-menu-icon"><em class="icon ni ni-tranx"></em></span>
           <span class="nk-menu-text">Payment History</span>
         </a>
       </li>
       <li class="nk-menu-item">
-        <a href="html/subscription/subscriptions.html" class="nk-menu-link">
+        <a href="/invoice" class="nk-menu-link">
           <span class="nk-menu-icon"><em class="icon ni ni-task"></em></span>
           <span class="nk-menu-text">Invoices</span>
         </a>
