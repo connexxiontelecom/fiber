@@ -93,14 +93,14 @@ $session = session();
                           <td class="tb-member-action">
                             <div class="d-none d-md-inline">
                               <a href="html/subscription/invoice-print.html" target="_blank" class="btn btn-icon btn-white btn-dim btn-sm btn-primary"><em class="icon ni ni-printer-fill"></em></a>
-                              <a href="html/subscription/invoice-details.html" class="btn btn-dim btn-sm btn-primary">View</a>
+                              <a href="/invoice/view_invoice/<?=$invoice['invoice_id']?>" class="btn btn-dim btn-sm btn-primary">View</a>
                             </div>
                             <div class="dropdown d-md-none">
                               <a class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-v"></em></a>
                               <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
                                 <div class="link-list-plain no-bdr">
                                   <a href="html/subscription/invoice-print.html" target="_blank" class="btn btn-icon btn-white btn-dim btn-sm btn-primary"><em class="icon ni ni-printer-fill"></em></a>
-                                  <a href="html/subscription/invoice-details.html" class="btn btn-dim btn-sm btn-primary">View</a>
+                                  <a href="/invoice/view_invoice/<?=$invoice['invoice_id']?>" class="btn btn-dim btn-sm btn-primary">View</a>
                                 </div>
                               </div>
                             </div>

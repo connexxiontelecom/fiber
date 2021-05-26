@@ -45,6 +45,21 @@ class Invoice extends BaseController
     return redirect('auth');
   }
 
+  public function view_invoice($invoice_id) {
+    if ($this->session->active) {
+      if ($this->session->is_admin) {
+        $invoice = $this->_get_invoice($invoice_id);
+        if ($invoice) {
+          $page_data['title'] = 'View Invoice';
+          $page_data['invoice'] = $invoice;
+          return view('invoice/view-invoice', $page_data);
+        }
+        return $this->_not_found();
+      }
+    }
+    return redirect('auth');
+  }
+
   public function create_invoice() {
     if ($this->session->active) {
       $this->validation->setRules([
@@ -112,5 +127,31 @@ class Invoice extends BaseController
       $invoices[$key]['customer'] = $customer;
     }
     return $invoices;
+  }
+
+  private function _get_invoice($invoice_id) {
+    $invoice = $this->invoiceModel->find($invoice_id);
+    if ($invoice) {
+      $customer = $this->userModel->where('user_id', $invoice['user_id'])->first();
+      $customer_info = $this->customerInfoModel->where('user_id', $invoice['user_id'])->first();
+      $payments = $this->invoicePaymentModel->where('invoice_id', $invoice['invoice_id'])->findAll();
+      foreach ($payments as $key_1 => $payment) {
+        $plan = $this->planModel->where('name', $payment['description'])->first();
+        if (!$plan) {
+          $service = $this->serviceModel->where('name', $payment['description'])->first();
+          if ($service) {
+            $payments[$key_1]['category'] = 'service';
+            $payments[$key_1]['amount'] = $service['price'];
+          }
+        } else {
+          $payments[$key_1]['category'] = 'plan';
+          $payments[$key_1]['amount'] = $plan['price'];
+        }
+      }
+      $invoice['payments'] = $payments;
+      $invoice['customer'] = $customer;
+      $invoice['customer_info'] = $customer_info;
+    }
+    return $invoice;
   }
 }
