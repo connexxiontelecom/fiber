@@ -125,25 +125,16 @@ class Invoice extends BaseController
   private function _get_invoice($invoice_id) {
     $invoice = $this->invoiceModel->find($invoice_id);
     if ($invoice) {
-      $customer = $this->userModel->where('user_id', $invoice['user_id'])->first();
-      $customer_info = $this->customerInfoModel->where('user_id', $invoice['user_id'])->first();
-      $payments = $this->invoicePaymentModel->where('invoice_id', $invoice['invoice_id'])->findAll();
-      foreach ($payments as $key_1 => $payment) {
-        $plan = $this->planModel->where('name', $payment['description'])->first();
-        if (!$plan) {
-          $service = $this->serviceModel->where('name', $payment['description'])->first();
-          if ($service) {
-            $payments[$key_1]['category'] = 'service';
-            $payments[$key_1]['amount'] = $service['price'];
-          }
-        } else {
-          $payments[$key_1]['category'] = 'plan';
-          $payments[$key_1]['amount'] = $plan['price'];
-        }
+      $subscription = $this->subscriptionModel->find($invoice['subscription_id']);
+      if ($subscription) {
+        $customer = $this->userModel->find($subscription['user_id']);
+        $customer_info = $this->customerInfoModel->where('user_id', $subscription['user_id'])->first();
+        $plan = $this->planModel->find($subscription['plan_id']);
+        $invoice['subscription'] = $subscription;
+        $invoice['customer'] = $customer;
+        $invoice['customer_info'] = $customer_info;
+        $invoice['plan'] = $plan;
       }
-      $invoice['payments'] = $payments;
-      $invoice['customer'] = $customer;
-      $invoice['customer_info'] = $customer_info;
     }
     return $invoice;
   }
