@@ -52,6 +52,7 @@ class Subscription extends BaseController {
       $this->validation->setRules([
         'user' => 'required',
         'plan' => 'required',
+        'duration' => 'required',
         'start_date' => 'required',
         'end_date' => 'required',
       ]);
@@ -61,6 +62,7 @@ class Subscription extends BaseController {
         $subscription_data = array(
           'user_id' => $post_data['user'],
           'plan_id' => $post_data['plan'],
+          'duration' => $post_data['duration'],
           'start_date' => $post_data['start_date'],
           'end_date' => $post_data['end_date'],
           'ipv4_address' => $post_data['ip_addr'],

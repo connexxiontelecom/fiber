@@ -46,6 +46,7 @@ $session = session();
                           <tr>
                             <th>Customer</th>
                             <th>Plan</th>
+                            <th>Duration</th>
                             <th>Price</th>
                             <th>Start Date</th>
                             <th>Status</th>
@@ -57,6 +58,7 @@ $session = session();
                             <tr>
                               <td><?=$subscription['customer']['name']?></td>
                               <td><?=$subscription['plan']['name']?></td>
+                              <td><?=$subscription['duration']?> months</td>
                               <td><?=number_format($subscription['plan']['price'])?></td>
                               <td>
                                 <?php

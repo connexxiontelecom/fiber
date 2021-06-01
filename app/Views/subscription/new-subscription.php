@@ -64,6 +64,12 @@ $session = session();
                               </div>
                             </div>
                             <div class="form-group">
+                              <label class="form-label" for="duration">Duration <span style="color: red"> *</span></label>
+                              <div class="form-control-wrap">
+                                <input autocomplete="off" type="number" class="form-control" id="duration" name="duration" min="1">
+                              </div>
+                            </div>
+                            <div class="form-group">
                               <label class="form-label" for="start-date">Start Date <span style="color: red"> *</span></label>
                               <div class="form-control-wrap">
                                 <input autocomplete="off" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" id="start-date" name="start_date">

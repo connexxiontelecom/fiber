@@ -8,12 +8,15 @@
       e.preventDefault()
       let user = $('#user').val()
       let plan = $('#plan').val()
+      let duration = $('#duration').val()
       let startDate = $('#start-date').val()
       let endDate = $('#end-date').val()
       if (!user || user === 'default') {
         Swal.fire("Invalid Submission", "A customer is required!", "error");
       } else if (!plan || plan === 'default') {
         Swal.fire("Invalid Submission", "A plan is required!", "error");
+      } else if (!duration) {
+        Swal.fire("Invalid Submission", "A duration is required!", "error");
       } else if (!startDate) {
         Swal.fire("Invalid Submission", "A start date is required!", "error");
       } else if (!endDate) {
