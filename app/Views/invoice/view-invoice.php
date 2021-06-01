@@ -19,7 +19,7 @@ $session = session();
                   <div class="nk-block-head-sub"><a class="back-to" href="/invoice"><em class="icon ni ni-arrow-left"></em><span>Invoices</span></a></div>
                   <div class="nk-block-between-md g-4">
                     <div class="nk-block-head-content">
-                      <h2 class="nk-block-title fw-normal">Invoice #<?=$invoice['invoice_id']?></h2>
+                      <h2 class="nk-block-title fw-normal">Invoice #<?=$invoice['id']?></h2>
                       <div class="nk-block-des">
                         <p>The invoice details are given bellow.</p>
                       </div>
@@ -49,11 +49,19 @@ $session = session();
                         <div class="invoice-desc">
                           <h3 class="title">Invoice</h3>
                           <ul class="list-plain">
-                            <li class="invoice-id"><span>Invoice ID</span>:<span>#<?=$invoice['invoice_id']?></span></li>
-                            <li class="invoice-date"><span>Date</span>:
+                            <li class="invoice-id"><span>Invoice ID</span>:<span>#<?=$invoice['id']?></span></li>
+                            <li class="invoice-date"><span>Issue Date</span>:
                               <span>
                                 <?php
-                                  $date = date_create($invoice['date']);
+                                  $date = date_create($invoice['issue_date']);
+                                  echo date_format($date, 'd M Y');
+                                ?>
+                              </span>
+                            </li>
+                            <li class="invoice-date"><span>Due Date</span>:
+                              <span>
+                                <?php
+                                  $date = date_create($invoice['due_date']);
                                   echo date_format($date, 'd M Y');
                                 ?>
                               </span>
@@ -66,31 +74,27 @@ $session = session();
                           <table class="table table-striped">
                             <thead>
                             <tr>
-                              <th>S/n</th>
-                              <th style="width: 60%">Description</th>
+                              <th style="width: 50%">Subscription</th>
+                              <th>Plan</th>
                               <th>Price</th>
-                              <th>Qty</th>
+                              <th>Period</th>
                               <th>Amount</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $i=1; $amount=0; foreach ($invoice['payments'] as $payment):
-                              $amount += ($payment['amount'] * $payment['quantity'])
-                            ?>
                             <tr>
-                              <td><?=$i?></td>
-                              <td class="font-weight-bold"><?=$payment['description']?></td>
-                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($payment['amount'])?></td>
-                              <td><?=$payment['quantity']?></td>
-                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($payment['quantity'] * $payment['amount'])?></td>
+                              <td class="font-weight-bold"><?=$invoice['subscription']['description']?></td>
+                              <td><?=$invoice['plan']['name']?></td>
+                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($invoice['plan']['price'])?></td>
+                              <td><?=$invoice['subscription']['duration']?> months</td>
+                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($invoice['plan']['price'] * $invoice['subscription']['duration'])?></td>
                             </tr>
-                            <?php $i++; endforeach;?>
                             </tbody>
                             <tfoot>
                             <tr>
                               <td colspan="2"></td>
                               <td colspan="2">Subtotal</td>
-                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($amount)?></td>
+                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($invoice['plan']['price'] * $invoice['subscription']['duration'])?></td>
                             </tr>
                             <tr>
                               <td colspan="2"></td>
@@ -105,7 +109,7 @@ $session = session();
                             <tr>
                               <td colspan="2"></td>
                               <td colspan="2">Grand Total</td>
-                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($amount)?></td>
+                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($invoice['plan']['price'] * $invoice['subscription']['duration'])?></td>
                             </tr>
                             </tfoot>
                           </table>

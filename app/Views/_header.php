@@ -8,7 +8,7 @@
         <a href="/dashboard" class="logo-link">
           <img class="logo-light logo-img" src="/assets/images/logo-01-2.png" srcset="/assets/images/logo2x.png 2x" alt="logo">
           <img class="logo-dark logo-img" src="/assets/images/logo-01-2.png" srcset="/assets/images/logo-dark2x.png 2x" alt="logo-dark">
-          <span class="nio-version text-dark">Self-Service</span>
+          <span class="nio-version text-dark">Fiber</span>
         </a>
       </div><!-- .nk-header-brand -->
       <div class="nk-header-tools">
