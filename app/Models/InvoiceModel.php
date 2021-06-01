@@ -7,6 +7,6 @@ class InvoiceModel extends Model {
   protected $table = 'invoices';
   protected $primaryKey = 'invoice_id';
   protected $allowedFields = [
-    'user_id', 'is_paid', 'date',
+    'subscription_id', 'id', 'is_paid', 'issue_date', 'due_date'
   ];
 }

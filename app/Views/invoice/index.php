@@ -57,12 +57,7 @@ $session = session();
                         <tr class="tb-member-item">
                           <td colspan="5" class="text-center font-weight-bold">No Invoices Exist</td>
                         </tr>
-                      <?php else: foreach ($invoices as $invoice):
-                        $amount = 0;
-                        foreach($invoice['payments'] as $payment){
-                          $amount += $payment['amount'];
-                        }
-                      ?>
+                      <?php else: foreach ($invoices as $invoice): ?>
                         <tr class="tb-member-item">
                           <td class="tb-member-info">
                             <div class="user-card">
@@ -76,18 +71,16 @@ $session = session();
                             </div>
                           </td>
                           <td class="tb-member-type tb-col-md">
-                            <span><?=$invoice['invoice_id']?></span>
+                            <span>#<?=$invoice['id']?></span>
                           </td>
                           <td class="tb-member-type tb-col-sm font-weight-bold">
-                            <span><?=number_format($amount)?></span>
+                            <span><?=number_format($invoice['plan']['price'])?></span>
                           </td>
                           <td class="tb-member-type tb-col-sm text-center">
                             <?php if ($invoice['is_paid'] == 0): ?>
                               <div class="badge badge-dot badge-danger">Unpaid</div>
                             <?php elseif($invoice['is_paid'] == 1):?>
-                              <div class="badge badge-dot badge-warning">Partially Paid</div>
-                            <?php else :?>
-                              <div class="badge badge-dot badge-success">Paid</div>
+                              <div class="badge badge-dot badge-warning">Paid</div>
                             <?php endif;?>
                           </td>
                           <td class="tb-member-action">

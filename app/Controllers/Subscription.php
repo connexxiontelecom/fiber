@@ -58,7 +58,7 @@ class Subscription extends BaseController {
       $response_data = array();
       if ($this->validation->withRequest($this->request)->run()) {
         $post_data = $this->request->getPost();
-        $plan_data = array(
+        $subscription_data = array(
           'user_id' => $post_data['user'],
           'plan_id' => $post_data['plan'],
           'start_date' => $post_data['start_date'],
@@ -68,7 +68,7 @@ class Subscription extends BaseController {
           'description' => $post_data['description'],
           'status' => 1,
         );
-        $new_subscription = $this->subscriptionModel->save($plan_data);
+        $new_subscription = $this->subscriptionModel->insert($subscription_data);
         if ($new_subscription) {
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully created new subscription';
