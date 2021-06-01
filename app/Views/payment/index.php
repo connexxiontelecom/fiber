@@ -25,7 +25,7 @@ $session = session();
                     </div>
                     <div class="nk-block-head-content">
                       <ul class="nk-block-tools gx-3">
-                        <li><a href="#" class="btn btn-primary">Add New Payment</a></li>
+                        <li><a href="/payment/new_payment" class="btn btn-primary">Add New Payment</a></li>
                       </ul>
                     </div>
                   </div>

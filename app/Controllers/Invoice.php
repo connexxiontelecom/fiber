@@ -18,10 +18,10 @@ class Invoice extends BaseController
   }
 
   public function new_invoice() {
-    if ($this->session->active) {
+    if ($this->session->active) { 
       if ($this->session->is_admin) {
         $page_data['title'] = 'New Invoice';
-        $page_data['customers'] = $this->userModel->where(['is_admin' => 0, 'status' => 1])->findAll();
+        $page_data['subscriptions'] = $this->_get_subscriptions();
         return view('invoice/new-invoice', $page_data);
       }
       return $this->_unauthorized();
@@ -63,30 +63,32 @@ class Invoice extends BaseController
   public function create_invoice() {
     if ($this->session->active) {
       $this->validation->setRules([
-        'user' => 'required',
-        'date' => 'required',
+        'subscription' => 'required',
+        'issue_date' => 'required',
+        'due_date' => 'required',
         'is_paid' => 'required',
       ]);
       $response_data = array();
       if ($this->validation->withRequest($this->request)->run()) {
         $post_data = $this->request->getPost();
         $invoice_data = array(
-          'user_id' => $post_data['user'],
-          'date' => $post_data['date'],
+          'subscription_id' => $post_data['subscription'],
+          'id' => substr(md5(time()), 0, 7),
+          'issue_date' => $post_data['issue_date'],
+          'due_date' => $post_data['due_date'],
           'is_paid' => $post_data['is_paid'],
         );
         $new_invoice = $this->invoiceModel->insert($invoice_data);
         if ($new_invoice) {
-          $this->_save_payments($new_invoice, $post_data['num_payments'], $post_data['descriptions'], $post_data['quantities']);
           $response_data['success'] = true;
-          $response_data['msg'] = 'Successfully created new user';
+          $response_data['msg'] = 'Successfully created new invoice';
         } else {
           $response_data['success'] = false;
-          $response_data['msg'] = 'There was a problem creating new user';
+          $response_data['msg'] = 'There was a problem creating new invoice';
         }
       } else {
         $response_data['success'] = false;
-        $response_data['msg'] = 'There was a problem creating new user';
+        $response_data['msg'] = 'There was a problem creating new invoice';
         $response_data['meta'] = $this->validation->getErrors();
       }
       return $this->response->setJSON($response_data);
@@ -108,23 +110,14 @@ class Invoice extends BaseController
   private function _get_invoices() {
     $invoices = $this->invoiceModel->findAll();
     foreach ($invoices as $key => $invoice) {
-      $customer = $this->userModel->where('user_id', $invoice['user_id'])->first();
-      $payments = $this->invoicePaymentModel->where('invoice_id', $invoice['invoice_id'])->findAll();
-      foreach ($payments as $key_1 => $payment) {
-        $plan = $this->planModel->where('name', $payment['description'])->first();
-        if (!$plan) {
-          $service = $this->serviceModel->where('name', $payment['description'])->first();
-          if ($service) {
-            $payments[$key_1]['category'] = 'service';
-            $payments[$key_1]['amount'] = $service['price'];
-          }
-        } else {
-          $payments[$key_1]['category'] = 'plan';
-          $payments[$key_1]['amount'] = $plan['price'];
-        }
+      $subscription = $this->subscriptionModel->find($invoice['subscription_id']);
+      if ($subscription) {
+        $customer = $this->userModel->find($subscription['user_id']);
+        $plan = $this->planModel->find($subscription['plan_id']);
+        $invoices[$key]['subscription'] = $subscription;
+        $invoices[$key]['customer'] = $customer;
+        $invoices[$key]['plan'] = $plan;
       }
-      $invoices[$key]['payments'] = $payments;
-      $invoices[$key]['customer'] = $customer;
     }
     return $invoices;
   }
@@ -153,5 +146,19 @@ class Invoice extends BaseController
       $invoice['customer_info'] = $customer_info;
     }
     return $invoice;
+  }
+
+  private function _get_customer_invoice() {
+
+  }
+
+  private function _get_subscriptions() {
+    $subscriptions = $this->subscriptionModel->findAll();
+    foreach ($subscriptions as $key => $subscription) {
+      $date = date_create($subscription['start_date']);
+      $customer = $this->userModel->where('user_id', $subscription['user_id'])->first();
+      $subscriptions[$key]['tag'] = $subscription['description'].' for '. $customer['name'].' starting '. date_format($date, 'd M Y');
+    }
+    return $subscriptions;
   }
 }

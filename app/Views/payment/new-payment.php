@@ -16,12 +16,12 @@ $session = session();
             <div class="nk-content-body">
               <div class="nk-content-wrap">
                 <div class="nk-block-head nk-block-head-lg">
-                  <div class="nk-block-head-sub"><a class="back-to" href="/invoice"><em class="icon ni ni-arrow-left"></em><span>Invoices</span></a></div>
+                  <div class="nk-block-head-sub"><a class="back-to" href="/payment"><em class="icon ni ni-arrow-left"></em><span>Payment History</span></a></div>
                   <div class="nk-block-between-md g-4">
                     <div class="nk-block-head-content">
-                      <h2 class="nk-block-title fw-normal">Add New Invoices</h2>
+                      <h2 class="nk-block-title fw-normal">Add New Payment</h2>
                       <div class="nk-block-des">
-                        <p>Add an invoice here.</p>
+                        <p>Add a payment here.</p>
                       </div>
                     </div>
                   </div>
@@ -32,13 +32,13 @@ $session = session();
                       <div class="card card-bordered">
                         <div class="card-inner">
                           <div class="card-head">
-                            <h5 class="card-title">Invoice Info</h5>
+                            <h5 class="card-title">Payment Info</h5>
                           </div>
-                          <form action="" class="pt-3" id="add-invoice-form">
+                          <form action="" class="pt-3" id="add-subscription-form">
                             <div class="form-group">
-                              <label class="form-label" for="subscription">Subscription <span style="color: red"> *</span></label>
+                              <label class="form-label" for="user">Subscription <span style="color: red"> *</span></label>
                               <div class="form-control-wrap">
-                                <select class="form-select form-control form-control-lg" data-search="on" id="subscription" name="subscription">
+                                <select class="form-select form-control form-control-lg" data-search="on" id="user" name="user">
                                   <option value="default">Default Option</option>
                                   <?php foreach ($subscriptions as $subscription):?>
                                     <option value="<?= $subscription['subscription_id'] ?>"><?=$subscription['tag']?></option>
@@ -50,30 +50,31 @@ $session = session();
                               </div>
                             </div>
                             <div class="form-group">
-                              <label class="form-label" for="issue-date">Issue Date <span style="color: red"> *</span></label>
+                              <label class="form-label" for="start-date">Issue Date <span style="color: red"> *</span></label>
                               <div class="form-control-wrap">
-                                <input autocomplete="off" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" id="issue-date" name="issue_date">
+                                <input autocomplete="off" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" id="start-date" name="issue_date">
                               </div>
                             </div>
                             <div class="form-group">
-                              <label class="form-label" for="due-date">Due Date <span style="color: red"> *</span></label>
+                              <label class="form-label" for="end-date">Due Date <span style="color: red"> *</span></label>
                               <div class="form-control-wrap">
-                                <input autocomplete="off" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" id="due-date" name="due_date">
+                                <input autocomplete="off" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" id="end-date" name="due_date">
                               </div>
                             </div>
                             <div class="form-group">
-                              <label class="form-label" for="">Invoice Status</label><br>
-                              <div class="custom-control custom-radio">
-                                <input type="radio" id="unpaid" name="is_paid" class="custom-control-input is_paid" value="0" checked>
-                                <label class="custom-control-label" for="unpaid">Unpaid</label>
-                              </div>
-                              <div class="custom-control custom-radio ml-3">
-                                <input type="radio" id="paid" name="is_paid" class="custom-control-input is_paid" value="1">
-                                <label class="custom-control-label" for="paid">Paid</label>
+                              <label class="form-label" for="price">Amount <span style="color: red"> *</span></label>
+                              <div class="form-control-wrap">
+                                <input autocomplete="off" type="text" class="form-control number" id="price" name="amount">
                               </div>
                             </div>
                             <div class="form-group">
-                              <button type="submit" class="btn btn-primary">Create New Invoice</button>
+                              <label class="form-label" for="price-1">Amount Paid <span style="color: red"> *</span></label>
+                              <div class="form-control-wrap">
+                                <input autocomplete="off" type="text" class="form-control number" id="price-1" name="amount_paid">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <button type="submit" class="btn btn-primary">Create New Payment</button>
                             </div>
                           </form>
                         </div>
@@ -91,6 +92,5 @@ $session = session();
   </div>
 </div>
 <?php include(APPPATH.'/Views/_scripts.php'); ?>
-<?php include('_invoice-scripts.php'); ?>
 </body>
 </html>

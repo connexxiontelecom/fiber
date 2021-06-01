@@ -6,17 +6,17 @@
   $(document).ready(function () {
     $('form#add-invoice-form').submit(function (e) {
       e.preventDefault()
-      let user = $('#user').val()
-      let date = $('#date').val()
-      if (!user || user === 'default') {
-        Swal.fire("Invalid Submission", "A customer is required!", "error");
-      } else if (!date) {
-        Swal.fire("Invalid Submission", "A date is required!", "error");
+      let subscription = $('#subscription').val()
+      let issue_date = $('#issue-date').val()
+      let due_date = $('#due-date').val()
+      if (!subscription || subscription === 'default') {
+        Swal.fire("Invalid Submission", "A subscription is required!", "error");
+      } else if (!issue_date) {
+        Swal.fire("Invalid Submission", "An issue date is required!", "error");
+      } else if (!due_date) {
+        Swal.fire("Invalid Submission", "A due date is required!", "error");
       } else {
         let formData = new FormData(this)
-        for (var pair of formData.entries()) {
-          console.log(pair[0]+ ', ' + pair[1]);
-        }
         Swal.fire({
           title: 'Are you sure?',
           text: 'This will add a new invoice to the fiber self-service',
@@ -47,7 +47,6 @@
         })
       }
     })
-
 
   })
   function showPayments(num_payments) {

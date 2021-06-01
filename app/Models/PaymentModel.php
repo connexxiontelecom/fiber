@@ -7,6 +7,6 @@ class PaymentModel extends Model {
   protected $table = 'payments';
   protected $primaryKey = 'payment_id';
   protected $allowedFields = [
-    'payment_method_id', 'invoice_id', 'receipt_id', 'detail_id', 'is_plan', 'date'
+    'subscription_id', 'invoice_id', 'receipt_id', 'user_id', 'issue_date', 'due_date', 'amount', 'amount_paid', 'status'
   ];
 }
