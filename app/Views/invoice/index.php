@@ -80,7 +80,7 @@ $session = session();
                             <?php if ($invoice['is_paid'] == 0): ?>
                               <div class="badge badge-dot badge-danger">Unpaid</div>
                             <?php elseif($invoice['is_paid'] == 1):?>
-                              <div class="badge badge-dot badge-warning">Paid</div>
+                              <div class="badge badge-dot badge-success">Paid</div>
                             <?php endif;?>
                           </td>
                           <td class="tb-member-action">
@@ -92,8 +92,8 @@ $session = session();
                               <a class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-v"></em></a>
                               <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
                                 <div class="link-list-plain no-bdr">
-                                  <a href="html/subscription/invoice-print.html" target="_blank" class="btn btn-icon btn-white btn-dim btn-sm btn-primary"><em class="icon ni ni-printer-fill"></em></a>
-                                  <a href="/invoice/view_invoice/<?=$invoice['invoice_id']?>" class="btn btn-dim btn-sm btn-primary">View</a>
+                                  <a href="html/subscription/invoice-print.html" target="_blank" class="">Print</a>
+                                  <a href="/invoice/view_invoice/<?=$invoice['invoice_id']?>" class="">View</a>
                                 </div>
                               </div>
                             </div>

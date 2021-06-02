@@ -34,43 +34,31 @@ $session = session();
                           <div class="card-head">
                             <h5 class="card-title">Payment Info</h5>
                           </div>
-                          <form action="" class="pt-3" id="add-subscription-form">
+                          <form action="" class="pt-3" id="add-payment-form">
                             <div class="form-group">
-                              <label class="form-label" for="user">Subscription <span style="color: red"> *</span></label>
+                              <label class="form-label" for="invoice">Invoice <span style="color: red"> *</span></label>
                               <div class="form-control-wrap">
-                                <select class="form-select form-control form-control-lg" data-search="on" id="user" name="user">
+                                <select class="form-select form-control form-control-lg" data-search="on" id="invoice" name="invoice">
                                   <option value="default">Default Option</option>
-                                  <?php foreach ($subscriptions as $subscription):?>
-                                    <option value="<?= $subscription['subscription_id'] ?>"><?=$subscription['tag']?></option>
+                                  <?php foreach ($invoices as $invoice):?>
+                                    <option value="<?= $invoice['invoice_id'] ?>">Invoice #<?=$invoice['id']?></option>
                                   <?php endforeach;?>
                                 </select>
                               </div>
                               <div class="form-note">
-                                <a href="/subscription"><em class="icon ni ni-help mr-1"></em>Manage subscriptions</a>
+                                <a href="/invoice"><em class="icon ni ni-help mr-1"></em>Manage invoices</a>
                               </div>
                             </div>
                             <div class="form-group">
-                              <label class="form-label" for="start-date">Issue Date <span style="color: red"> *</span></label>
+                              <label class="form-label" for="date">Date <span style="color: red"> *</span></label>
                               <div class="form-control-wrap">
-                                <input autocomplete="off" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" id="start-date" name="issue_date">
+                                <input autocomplete="off" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" id="date" name="date">
                               </div>
                             </div>
                             <div class="form-group">
-                              <label class="form-label" for="end-date">Due Date <span style="color: red"> *</span></label>
+                              <label class="form-label" for="amount">Amount <span style="color: red"> *</span></label>
                               <div class="form-control-wrap">
-                                <input autocomplete="off" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" id="end-date" name="due_date">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="form-label" for="price">Amount <span style="color: red"> *</span></label>
-                              <div class="form-control-wrap">
-                                <input autocomplete="off" type="text" class="form-control number" id="price" name="amount">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="form-label" for="price-1">Amount Paid <span style="color: red"> *</span></label>
-                              <div class="form-control-wrap">
-                                <input autocomplete="off" type="text" class="form-control number" id="price-1" name="amount_paid">
+                                <input autocomplete="off" type="text" class="form-control number" id="amount" name="amount">
                               </div>
                             </div>
                             <div class="form-group">
@@ -92,5 +80,6 @@ $session = session();
   </div>
 </div>
 <?php include(APPPATH.'/Views/_scripts.php'); ?>
+<?php include('_payment-scripts.php'); ?>
 </body>
 </html>

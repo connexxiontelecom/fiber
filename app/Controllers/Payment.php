@@ -19,10 +19,55 @@ class Payment extends BaseController
     if ($this->session->active) {
       if ($this->session->is_admin) {
         $page_data['title'] = 'New Payment';
-        $page_data['subscriptions'] = $this->_get_subscriptions();
+        $page_data['invoices'] = $this->invoiceModel->where('is_paid', 0)->findAll();
         return view('payment/new-payment', $page_data);
       }
       return $this->_unauthorized();
+    }
+    return redirect('auth');
+  }
+
+  public function create_payment() {
+    if ($this->session->active) {
+      $this->validation->setRules([
+        'invoice' => 'required',
+        'date' => 'required',
+        'amount' => 'required',
+      ]);
+      $response_data = array();
+      if ($this->validation->withRequest($this->request)->run()) {
+        $post_data = $this->request->getPost();
+        $invoice = $this->invoiceModel->find($post_data['invoice']);
+        if ($invoice) {
+          $payment_data = array(
+            'id' => substr(md5(time()), 0, 7),
+            'invoice_id' => $post_data['invoice'],
+            'date' => $post_data['date'],
+            'amount' => $post_data['amount'],
+          );
+          $new_payment = $this->paymentModel->insert($payment_data);
+          if ($new_payment) {
+            $invoice_data = [
+              'invoice_id' => $invoice['invoice_id'],
+              'is_paid' => 1
+            ];
+            $this->invoiceModel->save($invoice_data);
+            $response_data['success'] = true;
+            $response_data['msg'] = 'Successfully created new payment';
+          } else {
+            $response_data['success'] = false;
+            $response_data['msg'] = 'There was a problem creating new payment';
+          }
+        } else {
+          $response_data['success'] = false;
+          $response_data['msg'] = 'The invoice for this payment does not exist';
+        }
+      } else {
+        $response_data['success'] = false;
+        $response_data['msg'] = 'There was a problem creating new payment';
+        $response_data['meta'] = $this->validation->getErrors();
+      }
+      return $this->response->setJSON($response_data);
     }
     return redirect('auth');
   }
