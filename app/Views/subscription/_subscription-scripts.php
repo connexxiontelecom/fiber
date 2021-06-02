@@ -6,14 +6,20 @@
   $(document).ready(function () {
     $('form#add-subscription-form').submit(function (e) {
       e.preventDefault()
+      let description = $('#description').val()
       let user = $('#user').val()
       let plan = $('#plan').val()
+      let duration = $('#duration').val()
       let startDate = $('#start-date').val()
       let endDate = $('#end-date').val()
-      if (!user || user === 'default') {
+      if (!description) {
+        Swal.fire("Invalid Submission", "A description is required!", "error");
+      } else if (!user || user === 'default') {
         Swal.fire("Invalid Submission", "A customer is required!", "error");
       } else if (!plan || plan === 'default') {
         Swal.fire("Invalid Submission", "A plan is required!", "error");
+      } else if (!duration) {
+        Swal.fire("Invalid Submission", "A duration is required!", "error");
       } else if (!startDate) {
         Swal.fire("Invalid Submission", "A start date is required!", "error");
       } else if (!endDate) {
@@ -47,6 +53,29 @@
               processData: false
             })
           }
+        })
+      }
+    })
+
+    $('form#extend-subscription-form').submit(function (e) {
+      e.preventDefault()
+      let duration = $('#duration').val()
+      let startDate = $('#start-date').val()
+      let endDate = $('#end-date').val()
+      if (!duration) {
+        Swal.fire("Invalid Submission", "A duration is required!", "error");
+      } else if (!startDate) {
+        Swal.fire("Invalid Submission", "A start date is required!", "error");
+      } else if (!endDate) {
+        Swal.fire("Invalid Submission", "An end date is required!", "error");
+      } else {
+        let formData = new FormData(this)
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'This will add a new subscription to the fiber self-service',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Confirm'
         })
       }
     })

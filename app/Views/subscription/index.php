@@ -45,7 +45,8 @@ $session = session();
                         <thead>
                           <tr>
                             <th>Customer</th>
-                            <th>Plan</th>
+                            <th>Description</th>
+                            <th>Duration</th>
                             <th>Price</th>
                             <th>Start Date</th>
                             <th>Status</th>
@@ -56,8 +57,9 @@ $session = session();
                           <?php foreach ($subscriptions as $subscription):?>
                             <tr>
                               <td><?=$subscription['customer']['name']?></td>
-                              <td><?=$subscription['plan']['name']?></td>
-                              <td><?=number_format($subscription['plan']['price'])?></td>
+                              <td><?=$subscription['description']?></td>
+                              <td><?=$subscription['duration']?> months</td>
+                              <td><?=number_format($subscription['plan']['price'] * $subscription['duration'])?></td>
                               <td>
                                 <?php
                                   $date = date_create($subscription['start_date']);
@@ -68,7 +70,7 @@ $session = session();
                                 <?php if ($subscription['status'] == 1): ?>
                                   <div class="badge badge-dot badge-success">Active</div>
                                 <?php else:?>
-                                  <div class="badge badge-dot badge-danger">Inactive</div>
+                                  <div class="badge badge-dot badge-warning">Inactive</div>
                                 <?php endif;?>
                               </td>
                               <td class="text-center">

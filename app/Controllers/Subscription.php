@@ -50,8 +50,10 @@ class Subscription extends BaseController {
   public function create_subscription() {
     if ($this->session->active) {
       $this->validation->setRules([
+        'description' => 'required',
         'user' => 'required',
         'plan' => 'required',
+        'duration' => 'required',
         'start_date' => 'required',
         'end_date' => 'required',
       ]);
@@ -61,6 +63,7 @@ class Subscription extends BaseController {
         $subscription_data = array(
           'user_id' => $post_data['user'],
           'plan_id' => $post_data['plan'],
+          'duration' => $post_data['duration'],
           'start_date' => $post_data['start_date'],
           'end_date' => $post_data['end_date'],
           'ipv4_address' => $post_data['ip_addr'],
@@ -84,6 +87,21 @@ class Subscription extends BaseController {
       return $this->response->setJSON($response_data);
     }
     return redirect('auth');
+  }
+
+  public function check_subscription_is_valid() {
+    $subscriptions = $this->subscriptionModel->findAll();
+    foreach ($subscriptions as $subscription) {
+      if (strtotime($subscription['end_date']) <= strtotime('today')) {
+        $subscription_data = [
+          'subscription_id' => $subscription['subscription_id'],
+          'status' => 0
+        ];
+        if ($subscription['status'] == 1) {
+          $this->subscriptionModel->save($subscription_data);
+        }
+      }
+    }
   }
 
   private function _get_subscription($subscription_id) {

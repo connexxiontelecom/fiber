@@ -148,7 +148,7 @@ class Invoice extends BaseController
     foreach ($subscriptions as $key => $subscription) {
       $date = date_create($subscription['start_date']);
       $customer = $this->userModel->where('user_id', $subscription['user_id'])->first();
-      $subscriptions[$key]['tag'] = $subscription['description'].' for '. $customer['name'].' starting '. date_format($date, 'd M Y');
+      $subscriptions[$key]['tag'] = $subscription['description'].' for '. $customer['name'].' starting '. date_format($date, 'd M Y').' ('.$subscription['duration'].' months)';
     }
     return $subscriptions;
   }

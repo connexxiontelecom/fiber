@@ -20,21 +20,15 @@ $session = session();
                   <div class="nk-block-between-md g-4">
                     <div class="nk-block-head-content">
                       <h2 class="nk-block-title fw-normal">
-                        <?=$subscription['plan']['name']?>
+                        <?=$subscription['description']?>
                       </h2>
                       <div class="nk-block-des">
-                        <p>This subscription expires on
-                          <?php
-                            $date = date_create($subscription['end_date']);
-                            echo date_format($date, 'd M Y');
-                          ?>
-                          <span class="text-soft">
-                            (
-                              <?php
-                                $interval = date_diff(date_create($subscription['start_date']), date_create($subscription['end_date']), true);
-                                echo $interval->format('%a days remaining')
-                              ?>
-                            )
+                        <p>This is a <?=$subscription['duration']?> month subscription and it <?=$subscription['status'] == 1 ?> expires on
+                          <span class="font-weight-bolder">
+                            <?php
+                              $date = date_create($subscription['end_date']);
+                              echo date_format($date, 'd M Y');
+                            ?>
                           </span>
                       </div>
                     </div>
@@ -42,6 +36,13 @@ $session = session();
                       <ul class="nk-block-tools justify-content-md-end g-4 flex-wrap">
                         <li class="order-md-last">
                           <a href="#" class="btn btn-auto btn-dim btn-danger" data-toggle="modal" data-target="#subscription-cancel"><em class="icon ni ni-cross"></em><span>Cancel Subscription</span></a>
+                        </li>
+                        <li>
+                          <?php if ($subscription['status'] == 1): ?>
+                            <div class="badge badge-dim badge-success">Active</div>
+                          <?php else:?>
+                            <div class="badge badge-dim badge-warning">Inactive</div>
+                          <?php endif;?>
                         </li>
                       </ul>
                     </div>
@@ -85,70 +86,38 @@ $session = session();
                                 <h6 class="title">Next Payment</h6>
                               </div>
                               <div class="sp-plan-amount">
-                                <span class="sp-plan-status text-warning">Due</span> <span class="amount"><em class="icon ni ni-sign-kobo"></em> <?=number_format($subscription['plan']['price'])?></span>
+                                <?php if ($subscription['status'] == 1): ?>
+                                  <span class="sp-plan-status text-success">Paid</span>
+                                  <span class="amount"><em class="icon ni ni-sign-kobo"></em> <?=number_format($subscription['plan']['price'] * $subscription['duration'])?></span>
+                                <?php else:?>
+                                  <span class="sp-plan-status text-warning">Due</span>
+                                  <span class="amount"><em class="icon ni ni-sign-kobo"></em> <?=number_format($subscription['plan']['price'])?></span>
+                                <?php endif;?>
                               </div>
                             </div>
                             <div class="sp-plan-payopt">
                               <div class="cc-pay">
-                                <h6 class="title">Pay With</h6>
+                                <h6 class="title">Due By</h6>
                                 <ul class="cc-pay-method">
                                   <li class="cc-pay-dd dropdown">
-                                    <a href="#" class="btn btn-white btn-outline-light dropdown-toggle dropdown-indicator" data-toggle="dropdown">
-                                      <em class="icon ni ni-visa"></em>
-                                      <span><span class="cc-pay-star">**** **** ****</span> 9484</span>
+                                    <a href="javascript:void(0)" class="btn btn-white btn-outline-light">
+                                      <em class="icon ni ni-calender-date"></em>
+                                      <span>
+                                        <?php
+                                        $date = date_create($subscription['end_date']);
+                                        echo date_format($date, 'd M Y');
+                                        ?>
+                                      </span>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-auto">
-                                      <ul class="link-list-plain">
-                                        <li>
-                                          <a href="#" class="cc-pay-item">
-                                            <em class="cc-pay-item-icon icon ni ni-cc-visa"></em>
-                                            <span class="cc-pay-item-name">
-                                              <span class="cc-pay-item-method"><span class="cc-pay-star">**** **** ****</span> 9484</span>
-                                              <span class="cc-pay-item-meta">Last paid Oct 12, 2018</span>
-                                            </span>
-                                          </a>
-                                        </li>
-                                        <li>
-                                          <a href="#" class="cc-pay-item">
-                                            <em class="cc-pay-item-icon icon ni ni-cc-paypal"></em>
-                                            <span class="cc-pay-item-name">
-                                              <span class="cc-pay-item-method">PayPal (info@***io.com)</span>
-                                              <span class="cc-pay-item-meta">Last paid Oct 12, 2017</span>
-                                            </span>
-                                          </a>
-                                        </li>
-                                        <li>
-                                          <a href="#" class="cc-pay-item">
-                                            <span class="cc-pay-item-name">
-                                              <span class="cc-pay-item-method-new">Add New Credit Card</span>
-                                            </span>
-                                          </a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </li>
-                                  <li class="cc-pay-btn">
-                                    <a href="#" class="btn btn-secondary"><span>Pay Now</span> <em class="icon ni ni-arrow-long-right"></em></a>
                                   </li>
                                 </ul>
                               </div>
                             </div>
                           </div><!-- .card-inner -->
                           <div class="card-inner">
-                            <div class="sp-plan-head-group">
-                              <div class="sp-plan-head">
-                                <h6 class="title">Last Payment</h6>
-                                <span class="ff-italic text-soft">Paid at Jun 24, 2019</span>
-                              </div>
-                              <div class="sp-plan-amount">
-                                <span class="sp-plan-status text-success">Paid</span> <span class="amount">$599.00</span>
-                              </div>
-                            </div>
-                          </div><!-- .card-inner -->
-                          <div class="card-inner">
                             <div class="sp-plan-link">
-                              <a href="#" class="link">
-                                <span><em class="icon ni ni-edit-alt"></em> Modify Subscription</span>
+                              <a href="javascript:void(0)" data-toggle="modal" data-target="#extend-subscription" class="link">
+                                <span><em class="icon ni ni-edit-alt"></em> Extend Subscription</span>
                                 <em class="icon ni ni-arrow-right"></em>
                               </a>
                             </div>
@@ -164,7 +133,7 @@ $session = session();
                       <div class="card-title-group">
                         <h6 class="card-title">Payment History</h6>
                         <div class="card-action">
-                          <a href="html/subscription/payments.html" class="link link-sm">View All</a>
+                          <a href="/payment" class="link link-sm">View All</a>
                         </div>
                       </div>
                     </div>
@@ -266,6 +235,42 @@ $session = session();
     </div>
   </div>
 </div>
+<div class="modal fade" tabindex="-1" id="extend-subscription">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <a href="#" class="close" data-dismiss="modal" aria-label="Close"><em class="icon ni ni-cross"></em></a>
+      <div class="modal-body modal-body-md">
+        <h4 class="nk-modal-title title">Extend Subscription</h4>
+        <form action="" id="extend-subscription-form">
+          <div class="form-group">
+            <label class="form-label" for="duration">Enter the new duration <span style="color: red"> *</span></label>
+            <div class="form-control-wrap">
+              <input autocomplete="off" type="number" class="form-control" id="duration" name="duration" min="1">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="start-date">Select the new start date <span style="color: red"> *</span></label>
+            <div class="form-control-wrap">
+              <input autocomplete="off" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" id="start-date" name="start_date">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="end-date">Select the new end date <span style="color: red"> *</span></label>
+            <div class="form-control-wrap">
+              <input autocomplete="off" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" id="end-date" name="end_date">
+            </div>
+          </div>
+          <input type="hidden" value="<?=$subscription['subscription_id']?>" class="subscription-id">
+          <div class="form-group">
+            <a href="#" data-dismiss="modal" class="btn btn-light">Cancel</a>
+            <button type="submit" class="btn btn-primary ml-3">Save Information</button>
+          </div>
+        </form>
+      </div>
+    </div><!-- .modal-content -->
+  </div><!-- .modla-dialog -->
+</div><!-- .modal -->
 <?php include(APPPATH.'/Views/_scripts.php'); ?>
+<?php include('_subscription-scripts.php'); ?>
 </body>
 </html>
