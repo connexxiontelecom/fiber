@@ -36,6 +36,12 @@ $session = session();
                           </div>
                           <form action="" class="pt-3" id="add-subscription-form">
                             <div class="form-group">
+                              <label class="form-label" for="description">Description <span style="color: red"> *</span></label>
+                              <div class="form-control-wrap">
+                                <input autocomplete="off" type="text" class="form-control" id="description" name="description">
+                              </div>
+                            </div>
+                            <div class="form-group">
                               <label class="form-label" for="user">Customer <span style="color: red"> *</span></label>
                               <div class="form-control-wrap">
                                 <select class="form-select form-control form-control-lg" data-search="on" id="user" name="user">
@@ -91,12 +97,6 @@ $session = session();
                               <label class="form-label" for="mac-addr">MAC Address </label>
                               <div class="form-control-wrap">
                                 <input autocomplete="off" type="text" class="form-control" id="mac-addr" name="mac_addr">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="form-label" for="description">Description </label>
-                              <div class="form-control-wrap">
-                                <textarea class="form-control" id="description" name="description" ></textarea>
                               </div>
                             </div>
                             <div class="form-group">

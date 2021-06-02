@@ -74,7 +74,7 @@ $session = session();
                             <span>#<?=$invoice['id']?></span>
                           </td>
                           <td class="tb-member-type tb-col-sm font-weight-bold">
-                            <span><?=number_format($invoice['plan']['price'])?></span>
+                            <span><?=number_format($invoice['plan']['price'] * $invoice['subscription']['duration'])?></span>
                           </td>
                           <td class="tb-member-type tb-col-sm text-center">
                             <?php if ($invoice['is_paid'] == 0): ?>

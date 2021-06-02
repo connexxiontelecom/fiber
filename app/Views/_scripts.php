@@ -23,5 +23,15 @@
       if (testDecimal.length > 1) currentVal = currentVal.slice(0, -1)
       $(this).val(replaceCommas(currentVal))
     })
+
+    function checkSubscriptionIsValid() {
+      $.ajax({
+        type: 'get',
+        url: '<?=site_url('subscription/check_subscription_is_valid')?>',
+        dataType: 'json',
+      })
+    }
+    checkSubscriptionIsValid()
+    setInterval(function () { checkSubscriptionIsValid() }, 5000)
   })
 </script>
