@@ -8,6 +8,7 @@ class Payment extends BaseController
     if ($this->session->active) {
       $page_data['title'] = 'Payment History';
       if ($this->session->is_admin) {
+        $page_data['payments'] = $this->_get_payments();
         return view('payment/index', $page_data);
       }
       return view('payment/index-alt', $page_data);
@@ -72,13 +73,20 @@ class Payment extends BaseController
     return redirect('auth');
   }
 
-  private function _get_subscriptions() {
-    $subscriptions = $this->subscriptionModel->findAll();
-    foreach ($subscriptions as $key => $subscription) {
-      $date = date_create($subscription['start_date']);
-      $customer = $this->userModel->where('user_id', $subscription['user_id'])->first();
-      $subscriptions[$key]['tag'] = $subscription['description'].' for '. $customer['name'].' starting '. date_format($date, 'd M Y');
+  private function _get_payments() {
+    $payments = $this->paymentModel->findAll();
+    foreach ($payments as $key => $payment) {
+      $invoice = $this->invoiceModel->find($payment['invoice_id']);
+      if ($invoice) {
+        $subscription = $this->subscriptionModel->find($invoice['subscription_id']);
+        if ($subscription) {
+          $customer = $this->userModel->find($subscription['user_id']);
+          $payments[$key]['invoice'] = $invoice;
+          $payments[$key]['subscription'] = $subscription;
+          $payments[$key]['customer'] = $customer;
+        }
+      }
     }
-    return $subscriptions;
+    return $payments;
   }
 }

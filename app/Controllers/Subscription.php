@@ -39,6 +39,7 @@ class Subscription extends BaseController {
       }
       $page_data['title'] = 'Manage Subscription';
       $page_data['subscription'] = $subscription;
+      $page_data['invoices'] = $this->_get_subscription_invoices($subscription_id);
       if ($this->session->is_admin) {
         return view('subscription/manage-subscription', $page_data);
       }
@@ -133,5 +134,22 @@ class Subscription extends BaseController {
       $subscriptions[$key]['plan'] = $plan;
     }
     return $subscriptions;
+  }
+
+  private function _get_subscription_invoices($subscription_id) {
+    $invoices = $this->invoiceModel->where('subscription_id', $subscription_id)->findAll();
+    foreach($invoices as $key => $invoice) {
+      $payments = $this->paymentModel->where('invoice_id', $invoice['invoice_id'])->findAll();
+      if ($payments) {
+        $subscription = $this->subscriptionModel->find($invoice['subscription_id']);
+        $customer = $this->userModel->find($subscription['user_id']);
+        $invoices[$key]['subscription'] = $subscription;
+        $invoices[$key]['customer'] = $customer;
+        $invoices[$key]['payments'] = $payments;
+      } else {
+        return [];
+      }
+    }
+    return $invoices;
   }
 }
