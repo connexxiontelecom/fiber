@@ -23,7 +23,7 @@ $session = session();
                         <?=$subscription['description']?>
                       </h2>
                       <div class="nk-block-des">
-                        <p>This is a <?=$subscription['duration']?> month subscription and it <?=$subscription['status'] == 1 ?> expires on
+                        <p>This is a <?=$subscription['duration']?> month subscription and it <?=$subscription['status'] == 1 ? 'expires' : 'expired' ?> on
                           <span class="font-weight-bolder">
                             <?php
                               $date = date_create($subscription['end_date']);
@@ -55,7 +55,7 @@ $session = session();
                         <div class="card-inner-group">
                           <div class="card-inner">
                             <div class="sp-plan-head">
-                              <h6 class="title">Plan Details</h6>
+                              <h6 class="title">Subscriptions Details</h6>
                             </div>
                             <div class="sp-plan-desc sp-plan-desc-mb">
                               <ul class="row gx-1">
@@ -70,11 +70,17 @@ $session = session();
                                 </li>
                                 <li class="col-sm-3">
                                   <p>
-                                    <span class="text-soft">Price</span>
-                                    <em class="icon ni ni-sign-kobo"></em> <?=number_format($subscription['plan']['price'])?>
+                                    <span class="text-soft">Plan</span><?=$subscription['plan']['name']?>
                                   </p>
                                 </li>
-                                <li class="col-sm-6">
+                                <li class="col-sm-3">
+                                  <p>
+                                    <span class="text-soft">Amount</span>
+                                    <em class="icon ni ni-sign-kobo"></em> <?=number_format($subscription['plan']['price'] * $subscription['duration'])?>
+                                  </p>
+                                </li>
+
+                                <li class="col-sm-3">
                                   <p><span class="text-soft">Customer</span> <?=$subscription['customer']['name']?></p>
                                 </li>
                               </ul>
@@ -91,6 +97,36 @@ $session = session();
                         </div>
                       </div>
                     </div>
+                    <div class="col-xl-4">
+                      <div class="card card-bordered card-full d-none d-xl-block">
+                        <div class="nk-help-plain card-inner text-center">
+                          <div class="nk-help-text pt-4">
+                            <h5>Subscription Requests</h5>
+                            <p class="text-soft">
+                              View requests from the customer for this subscription.
+                            </p>
+                          </div>
+                          <div class="nk-help-action">
+                            <a href="#" class="btn btn-primary">View Requests</a>
+                          </div>
+                        </div>
+                      </div><!-- .card -->
+                      <div class="card card-bordered d-xl-none">
+                        <div class="card-inner">
+                          <div class="nk-help">
+                            <div class="nk-help-text">
+                              <h5>Subscription Requests</h5>
+                              <p class="text-soft">
+                                View requests from the customer for this subscription.
+                              </p></div>
+                            <div class="nk-help-action">
+                              <a href="#" class="btn btn-primary">View Requests</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div><!-- .card -->
+                    </div><!-- .col -->
+
                   </div>
                 </div>
                 <div class="nk-block">
@@ -140,18 +176,18 @@ $session = session();
                               <span class="title"><?=$invoice['customer']['name']?></span>
                             </div>
                             <div class="tb-tnx-date">
-                                <span class="date">
-                                   <?php
-                                   $date = date_create($invoice['due_date']);
-                                   echo date_format($date, 'd M Y');
-                                   ?>
-                                </span>
                               <span class="date">
-                                   <?php
-                                   $date = date_create($payment['date']);
-                                   echo date_format($date, 'd M Y');
-                                   ?>
-                                </span>
+                               <?php
+                                 $date = date_create($invoice['due_date']);
+                                 echo date_format($date, 'd M Y');
+                               ?>
+                              </span>
+                              <span class="date">
+                               <?php
+                                 $date = date_create($payment['date']);
+                                 echo date_format($date, 'd M Y');
+                               ?>
+                              </span>
                             </div>
                           </td>
                           <td class="tb-tnx-amount">

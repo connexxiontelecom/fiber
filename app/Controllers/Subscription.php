@@ -105,6 +105,42 @@ class Subscription extends BaseController {
     }
   }
 
+  public function extend_subscription() {
+    if ($this->session->active) {
+      $this->validation->setRules([
+        'subscription_id' => 'required',
+        'duration' => 'required',
+        'start_date' => 'required',
+        'end_date' => 'required',
+      ]);
+      $response_data = array();
+      if ($this->validation->withRequest($this->request)->run()) {
+        $post_data = $this->request->getPost();
+        $subscription_data = array(
+          'subscription_id' => $post_data['subscription_id'],
+          'duration' => $post_data['duration'],
+          'start_date' => $post_data['start_date'],
+          'end_date' => $post_data['end_date'],
+          'status' => 1,
+        );
+        $extend_subscription = $this->subscriptionModel->save($subscription_data);
+        if ($extend_subscription) {
+          $response_data['success'] = true;
+          $response_data['msg'] = 'Successfully extended the subscription';
+        } else {
+          $response_data['success'] = false;
+          $response_data['msg'] = 'There was a problem extending the subscription';
+        }
+      } else {
+        $response_data['success'] = false;
+        $response_data['msg'] = 'There was a problem extending the subscription';
+        $response_data['meta'] = $this->validation->getErrors();
+      }
+      return $this->response->setJSON($response_data);
+    }
+    return redirect('auth');
+  }
+
   private function _get_subscription($subscription_id) {
     $subscription = $this->subscriptionModel->find($subscription_id);
     if ($subscription) {
