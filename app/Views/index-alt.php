@@ -116,7 +116,7 @@
                                 </div>
                               </div>
                               <div class="nk-wg1-action">
-                                <a href="#" class="link"><span>Manage Your Profile</span> <em class="icon ni ni-chevron-right"></em></a>
+                                <a href="/profile" class="link"><span>Manage Your Profile</span> <em class="icon ni ni-chevron-right"></em></a>
                               </div>
                             </div>
                           </div>

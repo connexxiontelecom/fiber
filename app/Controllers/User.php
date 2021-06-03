@@ -44,6 +44,21 @@ class User extends BaseController {
     return redirect('auth');
   }
 
+  public function profile() {
+    if ($this->session->active) {
+      $customer = $this->_get_customer($this->session->user_id);
+      $payment_methods = $this->paymentMethodModel->findAll();
+      if (!$customer) {
+        return $this->_not_found();
+      }
+      $page_data['title'] = 'Profile';
+      $page_data['customer'] = $customer;
+      $page_data['payment_methods'] = $payment_methods;
+      return view('user-management/profile', $page_data);
+    }
+    return redirect('auth');
+  }
+
   public function create_user() {
     if ($this->session->active) {
       $this->validation->setRules([

@@ -57,7 +57,7 @@
         </a>
       </li>
       <li class="nk-menu-item">
-        <a href="html/subscription/downloads.html" class="nk-menu-link">
+        <a href="/profile" class="nk-menu-link">
           <span class="nk-menu-icon"><em class="icon ni ni-account-setting"></em></span>
           <span class="nk-menu-text">Profile</span>
         </a>
