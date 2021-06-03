@@ -130,7 +130,7 @@ $session = session();
                       <div class="card-title-group">
                         <h6 class="card-title">Payment History</h6>
                         <div class="card-action">
-                          <a href="html/subscription/payments.html" class="link link-sm">View All</a>
+                          <a href="/payment" class="link link-sm">View All</a>
                         </div>
                       </div>
                     </div>

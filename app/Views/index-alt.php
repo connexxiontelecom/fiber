@@ -145,7 +145,7 @@
                                 </div>
                               </div>
                               <div class="nk-wg1-action">
-                                <a href="html/subscription/payments.html" class="link"><span>Payment History</span> <em class="icon ni ni-chevron-right"></em></a>
+                                <a href="/payment" class="link"><span>Payment History</span> <em class="icon ni ni-chevron-right"></em></a>
                               </div>
                             </div>
                           </div>

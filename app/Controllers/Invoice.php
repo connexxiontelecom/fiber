@@ -60,6 +60,19 @@ class Invoice extends BaseController
     return redirect('auth');
   }
 
+  public function print_invoice($invoice_id) {
+    if ($this->session->active) {
+      $invoice = $this->_get_invoice($invoice_id);
+      if ($invoice) {
+        $page_data['title'] = 'Invoice #'.$invoice['id'];
+        $page_data['invoice'] = $invoice;
+        return view('invoice/print-invoice', $page_data);
+      }
+      return $this->_not_found();
+    }
+    return redirect('auth');
+  }
+
   public function create_invoice() {
     if ($this->session->active) {
       $this->validation->setRules([

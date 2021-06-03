@@ -29,7 +29,7 @@ $session = session();
                 <div class="nk-block">
                   <div class="invoice">
                     <div class="invoice-action">
-                      <a class="btn btn-icon btn-lg btn-white btn-dim btn-outline-primary" href="/payment/print_receipt/<?=$payment['payment_id']?>" target="_blank"><em class="icon ni ni-printer-fill"></em></a>
+                      <a class="btn btn-icon btn-lg btn-white btn-dim btn-outline-primary" href="/payment/print_payment_receipt/<?=$payment['payment_id']?>" target="_blank"><em class="icon ni ni-printer-fill"></em></a>
                     </div><!-- .invoice-actions -->
                     <div class="invoice-wrap">
                       <div class="invoice-brand ml-n2">

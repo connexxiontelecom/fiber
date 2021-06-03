@@ -90,7 +90,6 @@ $session = session();
                               <div class="tb-tnx-status">
                                 <a href="/invoice/view_invoice/<?=$payment['invoice']['invoice_id']?>" class="link link-sm"><span>Invoice</span></a>
                                 <a href="/payment/view_payment_receipt/<?=$payment['payment_id']?>" class="link link-sm"><span>Receipt</span></a>
-
                               </div>
                             </td>
                           </tr><!-- .tb-tnx-item -->
@@ -99,7 +98,6 @@ $session = session();
                     </table>
                   </div>
                 </div><!-- .nk-block -->
-
               </div>
               <?php include(APPPATH.'/Views/_footer.php'); ?>
             </div>

@@ -11,6 +11,7 @@ class Payment extends BaseController
         $page_data['payments'] = $this->_get_payments();
         return view('payment/index', $page_data);
       }
+      $page_data['payments'] = $this->_get_customer_payments();
       return view('payment/index-alt', $page_data);
     }
     return redirect('auth');
@@ -30,16 +31,29 @@ class Payment extends BaseController
 
   public function view_payment_receipt($payment_id) {
     if ($this->session->active) {
-      if ($this->session->is_admin) {
-        $receipt = $this->_get_receipt($payment_id);
-        if ($receipt) {
-          $page_data['title'] = 'View Receipt';
-          $page_data['receipt'] = $receipt;
-          $page_data['payment'] = $this->paymentModel->find($payment_id);
-          return view('payment/view-receipt', $page_data);
-        }
-        return $this->_not_found();
+      $receipt = $this->_get_receipt($payment_id);
+      if ($receipt) {
+        $page_data['title'] = 'View Receipt';
+        $page_data['receipt'] = $receipt;
+        $page_data['payment'] = $this->paymentModel->find($payment_id);
+        return view('payment/view-receipt', $page_data);
       }
+      return $this->_not_found();
+    }
+    return redirect('auth');
+  }
+
+  public function print_payment_receipt($payment_id) {
+    if ($this->session->active) {
+      $receipt = $this->_get_receipt($payment_id);
+      $payment = $this->paymentModel->find($payment_id);
+      if ($receipt) {
+        $page_data['title'] = 'Receipt #'.$payment['id'];
+        $page_data['receipt'] = $receipt;
+        $page_data['payment'] = $payment;
+        return view('payment/print-receipt', $page_data);
+      }
+      return $this->_not_found();
     }
     return redirect('auth');
   }
@@ -108,14 +122,22 @@ class Payment extends BaseController
 
   private function _get_customer_payments() {
     $invoices = array();
-    $user_id = $this->session->user_id;
-    $subscriptions = $this->subscriptionModel->where('user_id', $user_id)->findAll();
+    $payments = array();
+    $subscriptions = $this->subscriptionModel->where('user_id', $this->session->user_id)->findAll();
     foreach ($subscriptions as $subscription) {
       $user_invoices = $this->invoiceModel->where(['subscription_id' => $subscription['subscription_id']])->findAll();
       foreach ($user_invoices as $user_invoice) {
         array_push($invoices, $user_invoice);
       }
     }
+    foreach ($invoices as $invoice) {
+      $user_payments = $this->paymentModel->where('invoice_id', $invoice['invoice_id'])->findAll();
+      foreach ($user_payments as $user_payment) {
+        $user_payment['invoice'] = $invoice;
+        array_push($payments, $user_payment);
+      }
+    }
+    return $payments;
   }
 
   private function _get_receipt($payment_id) {
