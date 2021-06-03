@@ -12,6 +12,8 @@ class Invoice extends BaseController
         $page_data['invoices'] = $invoices;
         return view('invoice/index', $page_data);
       }
+      $invoices = $this->_get_customer_invoices();
+      $page_data['invoices'] = $invoices;
       return view('invoice/index-alt', $page_data);
     }
     return redirect('auth');
@@ -47,15 +49,13 @@ class Invoice extends BaseController
 
   public function view_invoice($invoice_id) {
     if ($this->session->active) {
-      if ($this->session->is_admin) {
-        $invoice = $this->_get_invoice($invoice_id);
-        if ($invoice) {
-          $page_data['title'] = 'View Invoice';
-          $page_data['invoice'] = $invoice;
-          return view('invoice/view-invoice', $page_data);
-        }
-        return $this->_not_found();
+      $invoice = $this->_get_invoice($invoice_id);
+      if ($invoice) {
+        $page_data['title'] = 'View Invoice';
+        $page_data['invoice'] = $invoice;
+        return view('invoice/view-invoice', $page_data);
       }
+      return $this->_not_found();
     }
     return redirect('auth');
   }
@@ -123,6 +123,19 @@ class Invoice extends BaseController
         $invoices[$key]['subscription'] = $subscription;
         $invoices[$key]['customer'] = $customer;
         $invoices[$key]['plan'] = $plan;
+      }
+    }
+    return $invoices;
+  }
+
+  private function _get_customer_invoices(): array {
+    $invoices = array();
+    $user_id = $this->session->user_id;
+    $subscriptions = $this->subscriptionModel->where('user_id', $user_id)->findAll();
+    foreach ($subscriptions as $subscription) {
+      $user_invoices = $this->invoiceModel->where(['subscription_id' => $subscription['subscription_id']])->findAll();
+      foreach ($user_invoices as $user_invoice) {
+        array_push($invoices, $user_invoice);
       }
     }
     return $invoices;

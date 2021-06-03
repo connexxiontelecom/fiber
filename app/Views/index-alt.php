@@ -55,7 +55,7 @@
                                   <h6 class="title">Invoices</h6>
                                 </div>
                                 <div class="card-tools">
-                                  <a href="/subscription" class="link link-sm">View More</a>
+                                  <a href="/invoice" class="link link-sm">View More</a>
                                 </div>
                               </div>
                               <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">

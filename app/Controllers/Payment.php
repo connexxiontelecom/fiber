@@ -106,6 +106,18 @@ class Payment extends BaseController
     return $payments;
   }
 
+  private function _get_customer_payments() {
+    $invoices = array();
+    $user_id = $this->session->user_id;
+    $subscriptions = $this->subscriptionModel->where('user_id', $user_id)->findAll();
+    foreach ($subscriptions as $subscription) {
+      $user_invoices = $this->invoiceModel->where(['subscription_id' => $subscription['subscription_id']])->findAll();
+      foreach ($user_invoices as $user_invoice) {
+        array_push($invoices, $user_invoice);
+      }
+    }
+  }
+
   private function _get_receipt($payment_id) {
     $payment = $this->paymentModel->find($payment_id);
     $receipt = $this->invoiceModel->find($payment['invoice_id']);
