@@ -85,11 +85,11 @@ $session = session();
                             </td>
                             <td class="tb-tnx-amount">
                               <div class="tb-tnx-total">
-                                <span class="amount"><?=number_format($payment['amount'])?></span>
+                                <span class="amount"><em class="icon ni ni-sign-kobo"></em> <?=number_format($payment['amount'])?></span>
                               </div>
                               <div class="tb-tnx-status">
                                 <a href="/invoice/view_invoice/<?=$payment['invoice']['invoice_id']?>" class="link link-sm"><span>Invoice</span></a>
-                                <a href="/invoice/view_invoice/<?=$payment['invoice']['invoice_id']?>" class="link link-sm"><span>Receipt</span></a>
+                                <a href="/payment/view_payment_receipt/<?=$payment['payment_id']?>" class="link link-sm"><span>Receipt</span></a>
 
                               </div>
                             </td>

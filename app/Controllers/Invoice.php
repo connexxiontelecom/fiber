@@ -71,12 +71,18 @@ class Invoice extends BaseController
       $response_data = array();
       if ($this->validation->withRequest($this->request)->run()) {
         $post_data = $this->request->getPost();
+        $subscription = $this->subscriptionModel->find($post_data['subscription']);
+        $plan = $this->planModel->find($subscription['plan_id']);
         $invoice_data = array(
           'subscription_id' => $post_data['subscription'],
           'id' => substr(md5(time()), 0, 7),
           'issue_date' => $post_data['issue_date'],
           'due_date' => $post_data['due_date'],
           'is_paid' => $post_data['is_paid'],
+          'subscription' => $subscription['description'],
+          'period' => $subscription['duration'],
+          'plan' => $plan['name'],
+          'price' => $plan['price']
         );
         $new_invoice = $this->invoiceModel->insert($invoice_data);
         if ($new_invoice) {
@@ -129,11 +135,8 @@ class Invoice extends BaseController
       if ($subscription) {
         $customer = $this->userModel->find($subscription['user_id']);
         $customer_info = $this->customerInfoModel->where('user_id', $subscription['user_id'])->first();
-        $plan = $this->planModel->find($subscription['plan_id']);
-        $invoice['subscription'] = $subscription;
         $invoice['customer'] = $customer;
         $invoice['customer_info'] = $customer_info;
-        $invoice['plan'] = $plan;
       }
     }
     return $invoice;

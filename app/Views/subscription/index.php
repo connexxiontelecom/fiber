@@ -67,7 +67,9 @@ $session = session();
                                 ?>
                               </td>
                               <td>
-                                <?php if ($subscription['status'] == 1): ?>
+                                <?php if ($subscription['is_cancelled'] == 1):?>
+                                  <div class="badge badge-dot badge-danger">Cancelled</div>
+                                <?php elseif ($subscription['status'] == 1): ?>
                                   <div class="badge badge-dot badge-success">Active</div>
                                 <?php else:?>
                                   <div class="badge badge-dot badge-warning">Inactive</div>

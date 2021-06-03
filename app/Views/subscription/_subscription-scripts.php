@@ -101,4 +101,34 @@
       }
     })
   })
+
+  function cancelSubscription(subscriptionID) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This will cancel the subscription',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm'
+    }).then(function (confirm) {
+      if (confirm.value) {
+        $.ajax({
+          url: '<?=site_url('subscription/cancel_subscription')?>/'+subscriptionID,
+          type: 'get',
+          success: function (data) {
+            if (data.success) {
+              Swal.fire('Confirmed!', data.msg, 'success').then(() => {
+                location.href = '<?=site_url('/subscription')?>'
+              })
+            } else {
+              Swal.fire('Sorry!', data.msg, 'error')
+              console.log(data.meta)
+            }
+          },
+          cache: false,
+          contentType: false,
+          processData: false
+        })
+      }
+    })
+  }
 </script>

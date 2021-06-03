@@ -28,6 +28,22 @@ class Payment extends BaseController
     return redirect('auth');
   }
 
+  public function view_payment_receipt($payment_id) {
+    if ($this->session->active) {
+      if ($this->session->is_admin) {
+        $receipt = $this->_get_receipt($payment_id);
+        if ($receipt) {
+          $page_data['title'] = 'View Receipt';
+          $page_data['receipt'] = $receipt;
+          $page_data['payment'] = $this->paymentModel->find($payment_id);
+          return view('payment/view-receipt', $page_data);
+        }
+        return $this->_not_found();
+      }
+    }
+    return redirect('auth');
+  }
+
   public function create_payment() {
     if ($this->session->active) {
       $this->validation->setRules([
@@ -88,5 +104,20 @@ class Payment extends BaseController
       }
     }
     return $payments;
+  }
+
+  private function _get_receipt($payment_id) {
+    $payment = $this->paymentModel->find($payment_id);
+    $receipt = $this->invoiceModel->find($payment['invoice_id']);
+    if ($receipt) {
+      $subscription = $this->subscriptionModel->find($receipt['subscription_id']);
+      if ($subscription) {
+        $customer = $this->userModel->find($subscription['user_id']);
+        $customer_info = $this->customerInfoModel->where('user_id', $subscription['user_id'])->first();
+        $receipt['customer'] = $customer;
+        $receipt['customer_info'] = $customer_info;
+      }
+    }
+    return $receipt;
   }
 }

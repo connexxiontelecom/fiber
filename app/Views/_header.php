@@ -42,7 +42,7 @@
               </div>
               <div class="dropdown-inner">
                 <ul class="link-list">
-                  <li><a href="auth/logout"><em class="icon ni ni-signout"></em><span>Logout</span></a></li>
+                  <li><a href="/auth/logout"><em class="icon ni ni-signout"></em><span>Logout</span></a></li>
                 </ul>
               </div>
             </div>
