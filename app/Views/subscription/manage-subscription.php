@@ -30,6 +30,7 @@ $session = session();
                               echo date_format($date, 'd M Y');
                             ?>
                           </span>
+                        </p>
                       </div>
                     </div>
                     <div class="nk-block-head-content">

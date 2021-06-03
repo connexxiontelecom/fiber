@@ -40,26 +40,22 @@ $session = session();
                               <div class="col-xl-9 col-sm-8">
                                 <div class="sp-plan-name">
                                   <h6 class="title">
-                                    <a href="#">
-                                      <?=$subscription['plan']['name']?>
-                                      <span class="badge badge-<?=$subscription['status'] == 1 ? 'success':'light'?> badge-dot ml-3">
-                                        <?=$subscription['status'] == 1 ? 'Active' : 'Expired'?>
-                                      </span>
+                                    <a href="/subscription/manage_subscription/<?=$subscription['subscription_id']?>">
+                                      <?=$subscription['description']?>
                                     </a>
                                   </h6>
-                                  <p>Description:
+                                  <p>Plan:
                                     <span class="text-base">
-                                      <?=$subscription['description']?>
+                                      <?=$subscription['plan']['name']?>
                                     </span>
                                   </p>
                                 </div>
                               </div>
                               <div class="col-xl-3 col-sm-4">
                                 <div class="sp-plan-opt">
-                                  <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="auto-plan-p1" disabled>
-                                    <label class="custom-control-label text-soft" for="auto-plan-p1">Auto Renew</label>
-                                  </div>
+                                  <span class="badge badge-<?=$subscription['status'] == 1 ? 'success':'light'?> badge-dot ml-3">
+                                    <?=$subscription['status'] == 1 ? 'Active' : 'Expired'?>
+                                  </span>
                                 </div>
                               </div>
                             </div>
@@ -84,7 +80,7 @@ $session = session();
                               <li class="col-6 col-lg-4">
                                 <p>
                                   <span class="text-soft">Price</span>
-                                  <em class="icon ni ni-sign-kobo"></em> <?=number_format($subscription['plan']['price'])?>
+                                  <em class="icon ni ni-sign-kobo"></em> <?=number_format($subscription['plan']['price'] * $subscription['duration'])?>
                                 </p>
                               </li>
                             </ul>
