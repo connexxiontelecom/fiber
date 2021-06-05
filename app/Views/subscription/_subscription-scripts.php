@@ -100,6 +100,45 @@
         })
       }
     })
+    
+    $('form#request-subscription-form').submit(function (e) {
+      e.preventDefault();
+      let duration = $('#duration').val()
+      let plan = $('#plan').val()
+      if (!plan) {
+        Swal.fire("Invalid Submission", "A plan is required!", "error");
+      } else if (!duration) {
+        Swal.fire("Invalid Submission", "A duration is required!", "error");
+      } else {
+        let formData = new FormData(this)
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'This will submit a request for a new subscription.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Confirm'
+        }).then(function (confirm) {
+          if (confirm.value) {
+            $.ajax({
+              url: '<?=site_url('subscription/request_new_subscription')?>',
+              type: 'post',
+              data: formData,
+              success: function (data) {
+                if (data.success) {
+                  Swal.fire('Confirmed!', data.msg, 'success').then(() => location.reload())
+                } else {
+                  Swal.fire('Sorry!', data.msg, 'error')
+                  console.log(data.meta)
+                }
+              },
+              cache: false,
+              contentType: false,
+              processData: false
+            })
+          }
+        })
+      }
+    })
   })
 
   function cancelSubscription(subscriptionID) {

@@ -10,6 +10,7 @@ use App\Models\PaymentModel;
 use App\Models\PlanModel;
 use App\Models\ServiceModel;
 use App\Models\SubscriptionModel;
+use App\Models\SubscriptionRequestModel;
 use App\Models\UserModel;
 
 use CodeIgniter\Controller;
@@ -50,6 +51,7 @@ class BaseController extends Controller
 	protected $planModel;
 	protected $serviceModel;
 	protected $subscriptionModel;
+	protected $subscriptionRequestModel;
 	protected $userModel;
 
 	/**
@@ -78,6 +80,7 @@ class BaseController extends Controller
     $this->planModel = new PlanModel();
     $this->serviceModel = new ServiceModel();
     $this->subscriptionModel = new SubscriptionModel();
+    $this->subscriptionRequestModel = new SubscriptionRequestModel();
     $this->userModel = new UserModel();
 	}
 

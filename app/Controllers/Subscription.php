@@ -12,6 +12,7 @@ class Subscription extends BaseController {
         $user_id = $this->session->user_id;
         $page_data['title'] = 'My Subscriptions';
         $page_data['subscriptions'] = $this->_get_customer_subscriptions($user_id);
+        $page_data['plans'] = $this->planModel->where('status', 1)->findAll();
         return view('subscription/index-alt', $page_data);
       }
     }
@@ -161,7 +162,38 @@ class Subscription extends BaseController {
     return redirect('auth');
   }
 
-
+  public function request_new_subscription() {
+    if ($this->session->active) {
+      $this->validation->setRules([
+        'plan' => 'required',
+        'duration' => 'required',
+      ]);
+      $response_data = array();
+      if ($this->validation->withRequest($this->request)->run()) {
+        $post_data = $this->request->getPost();
+        $subscription_request_data = array(
+          'user_id' => $this->session->user_id,
+          'plan_id' => $post_data['plan'],
+          'duration' => $post_data['duration'],
+          'type' => 'new_sub'
+        );
+        $request_new_subscription = $this->subscriptionRequestModel->save($subscription_request_data);
+        if ($request_new_subscription) {
+          $response_data['success'] = true;
+          $response_data['msg'] = 'Successfully requested new subscription';
+        } else {
+          $response_data['success'] = false;
+          $response_data['msg'] = 'There was a problem requesting new subscription';
+        }
+      } else {
+        $response_data['success'] = false;
+        $response_data['msg'] = 'There was a problem requesting new subscription';
+        $response_data['meta'] = $this->validation->getErrors();
+      }
+      return $this->response->setJSON($response_data);
+    }
+    return redirect('auth');
+  }
 
   private function _get_subscription($subscription_id) {
     $subscription = $this->subscriptionModel->find($subscription_id);

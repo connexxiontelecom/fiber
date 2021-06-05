@@ -25,7 +25,7 @@ $session = session();
                     </div>
                     <div class="nk-block-head-content">
                       <ul class="nk-block-tools gx-3">
-                        <li class="order-md-last"><a href="" class="btn btn-white btn-dim btn-outline-primary"><span>Request New Subscription</span></a></li>
+                        <li class="order-md-last"><a href="javascript:void(0)" class="btn btn-white btn-dim btn-outline-primary" data-toggle="modal" data-target="#request-subscription"><span>Request New Subscription</span></a></li>
                       </ul>
                     </div>
                   </div>
@@ -154,7 +154,54 @@ $session = session();
     </div>
   </div>
 </div>
-
+<div class="modal fade zoom" tabindex="-1" id="request-subscription">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Request New Subscription</h5>
+        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+          <em class="icon ni ni-cross"></em>
+        </a>
+      </div>
+      <div class="modal-body">
+        <form action="" id="request-subscription-form">
+          <div class="row gy-4">
+            <div class="col-12">
+              <div class="form-group">
+                <label class="form-label" for="plan">Plan <span style="color: red"> *</span></label>
+                <div class="form-control-wrap">
+                  <select class="form-select form-control" data-search="on" id="plan" name="plan">
+                    <option value="">Default Option</option>
+                    <?php foreach ($plans as $plan):?>
+                      <option value="<?= $plan['plan_id'] ?>">
+                        <?=$plan['name']?>
+                      </option>
+                    <?php endforeach;?>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label class="form-label" for="duration">Duration (Months) <span style="color: red"> *</span></label>
+                <div class="form-control-wrap">
+                  <input autocomplete="off" type="number" class="form-control" id="duration" name="duration" min="1">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <a href="#" data-dismiss="modal" class="btn btn-light">Cancel</a>
+                <button class="btn btn-primary ml-3">Save Information</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div><!-- .modal-body -->
+    </div><!-- .modal-content -->
+  </div><!-- .modal-dialog -->
+</div><!-- .modal -->
 <?php include(APPPATH.'/Views/_scripts.php'); ?>
+<?php include('_subscription-scripts.php')?>
 </body>
 </html>
