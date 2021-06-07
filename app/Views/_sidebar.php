@@ -14,12 +14,12 @@
           <span class="nk-menu-text">Dashboard</span>
         </a>
       </li>
-      <li class="nk-menu-item">
-        <a href="html/subscription/subscriptions.html" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-bar-chart"></em></span>
-          <span class="nk-menu-text">Internet Statistics</span>
-        </a>
-      </li>
+<!--      <li class="nk-menu-item">-->
+<!--        <a href="html/subscription/subscriptions.html" class="nk-menu-link">-->
+<!--          <span class="nk-menu-icon"><em class="icon ni ni-bar-chart"></em></span>-->
+<!--          <span class="nk-menu-text">Internet Statistics</span>-->
+<!--        </a>-->
+<!--      </li>-->
       <li class="nk-menu-item">
         <a href="/subscription" class="nk-menu-link">
           <span class="nk-menu-icon"><em class="icon ni ni-file-text"></em></span>
@@ -57,7 +57,7 @@
         </a>
       </li>
       <li class="nk-menu-item">
-        <a href="html/subscription/downloads.html" class="nk-menu-link">
+        <a href="/profile" class="nk-menu-link">
           <span class="nk-menu-icon"><em class="icon ni ni-account-setting"></em></span>
           <span class="nk-menu-text">Profile</span>
         </a>

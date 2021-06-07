@@ -5,11 +5,13 @@ namespace App\Controllers;
 use App\Models\CustomerInfoModel;
 use App\Models\InvoiceModel;
 use App\Models\InvoicePaymentModel;
+use App\Models\NotificationModel;
 use App\Models\PaymentMethodModel;
 use App\Models\PaymentModel;
 use App\Models\PlanModel;
 use App\Models\ServiceModel;
 use App\Models\SubscriptionModel;
+use App\Models\SubscriptionRequestModel;
 use App\Models\UserModel;
 
 use CodeIgniter\Controller;
@@ -45,11 +47,13 @@ class BaseController extends Controller
 	protected $customerInfoModel;
 	protected $invoiceModel;
 	protected $invoicePaymentModel;
+	protected $notificationModel;
 	protected $paymentMethodModel;
 	protected $paymentModel;
 	protected $planModel;
 	protected $serviceModel;
 	protected $subscriptionModel;
+	protected $subscriptionRequestModel;
 	protected $userModel;
 
 	/**
@@ -73,11 +77,13 @@ class BaseController extends Controller
     $this->customerInfoModel = new CustomerInfoModel();
     $this->invoiceModel = new InvoiceModel();
     $this->invoicePaymentModel = new InvoicePaymentModel();
+		$this->notificationModel = new NotificationModel();
     $this->paymentMethodModel = new PaymentMethodModel();
     $this->paymentModel = new PaymentModel();
     $this->planModel = new PlanModel();
     $this->serviceModel = new ServiceModel();
     $this->subscriptionModel = new SubscriptionModel();
+    $this->subscriptionRequestModel = new SubscriptionRequestModel();
     $this->userModel = new UserModel();
 	}
 
@@ -90,4 +96,16 @@ class BaseController extends Controller
     $page_data['title'] = 'Not Found';
     return view('_404', $page_data);
   }
+
+	protected function _create_new_notification($sender_id, $receiver_id, $subject_id, $type, $topic) {
+		$notification_data = array(
+			'sender_id' => $sender_id,
+			'receiver_id' => $receiver_id,
+			'subject_id' => $subject_id,
+			'type' => $type,
+			'topic' => $topic,
+			'seen' => 0
+		);
+		$this->notificationModel->save($notification_data);
+	}
 }

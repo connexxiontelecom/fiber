@@ -23,19 +23,20 @@ $session = session();
                         <?=$subscription['description']?>
                       </h2>
                       <div class="nk-block-des">
-                        <p>This is a <?=$subscription['duration']?> month subscription and it <?=$subscription['status'] == 1 ?> expires on
+                        <p>This is a <?=$subscription['duration']?> month subscription and it <?=$subscription['status'] == 1 ? 'expires' : 'expired' ?> on
                           <span class="font-weight-bolder">
                             <?php
                               $date = date_create($subscription['end_date']);
                               echo date_format($date, 'd M Y');
                             ?>
                           </span>
+                        </p>
                       </div>
                     </div>
                     <div class="nk-block-head-content">
                       <ul class="nk-block-tools justify-content-md-end g-4 flex-wrap">
                         <li class="order-md-last">
-                          <a href="#" class="btn btn-auto btn-dim btn-danger" data-toggle="modal" data-target="#subscription-cancel"><em class="icon ni ni-cross"></em><span>Cancel Subscription</span></a>
+                          <button onclick="cancelSubscription(<?=$subscription['subscription_id']?>)" class="btn btn-auto btn-dim btn-danger" id="cancel-subscription"><em class="icon ni ni-cross"></em><span>Cancel Subscription</span></button>
                         </li>
                         <li>
                           <?php if ($subscription['status'] == 1): ?>
@@ -55,7 +56,7 @@ $session = session();
                         <div class="card-inner-group">
                           <div class="card-inner">
                             <div class="sp-plan-head">
-                              <h6 class="title">Plan Details</h6>
+                              <h6 class="title">Subscriptions Details</h6>
                             </div>
                             <div class="sp-plan-desc sp-plan-desc-mb">
                               <ul class="row gx-1">
@@ -70,48 +71,20 @@ $session = session();
                                 </li>
                                 <li class="col-sm-3">
                                   <p>
-                                    <span class="text-soft">Price</span>
-                                    <em class="icon ni ni-sign-kobo"></em> <?=number_format($subscription['plan']['price'])?>
+                                    <span class="text-soft">Plan</span><?=$subscription['plan']['name']?>
                                   </p>
                                 </li>
-                                <li class="col-sm-6">
+                                <li class="col-sm-3">
+                                  <p>
+                                    <span class="text-soft">Amount</span>
+                                    <em class="icon ni ni-sign-kobo"></em> <?=number_format($subscription['plan']['price'] * $subscription['duration'])?>
+                                  </p>
+                                </li>
+
+                                <li class="col-sm-3">
                                   <p><span class="text-soft">Customer</span> <?=$subscription['customer']['name']?></p>
                                 </li>
                               </ul>
-                            </div>
-                          </div><!-- .card-inner -->
-                          <div class="card-inner">
-                            <div class="sp-plan-head-group">
-                              <div class="sp-plan-head">
-                                <h6 class="title">Next Payment</h6>
-                              </div>
-                              <div class="sp-plan-amount">
-                                <?php if ($subscription['status'] == 1): ?>
-                                  <span class="sp-plan-status text-success">Paid</span>
-                                  <span class="amount"><em class="icon ni ni-sign-kobo"></em> <?=number_format($subscription['plan']['price'] * $subscription['duration'])?></span>
-                                <?php else:?>
-                                  <span class="sp-plan-status text-warning">Due</span>
-                                  <span class="amount"><em class="icon ni ni-sign-kobo"></em> <?=number_format($subscription['plan']['price'])?></span>
-                                <?php endif;?>
-                              </div>
-                            </div>
-                            <div class="sp-plan-payopt">
-                              <div class="cc-pay">
-                                <h6 class="title">Due By</h6>
-                                <ul class="cc-pay-method">
-                                  <li class="cc-pay-dd dropdown">
-                                    <a href="javascript:void(0)" class="btn btn-white btn-outline-light">
-                                      <em class="icon ni ni-calender-date"></em>
-                                      <span>
-                                        <?php
-                                        $date = date_create($subscription['end_date']);
-                                        echo date_format($date, 'd M Y');
-                                        ?>
-                                      </span>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
                             </div>
                           </div><!-- .card-inner -->
                           <div class="card-inner">
@@ -125,6 +98,36 @@ $session = session();
                         </div>
                       </div>
                     </div>
+                    <div class="col-xl-4">
+                      <div class="card card-bordered card-full d-none d-xl-block">
+                        <div class="nk-help-plain card-inner text-center">
+                          <div class="nk-help-text pt-4">
+                            <h5>Subscription Requests</h5>
+                            <p class="text-soft">
+                              View requests from the customer for this subscription.
+                            </p>
+                          </div>
+                          <div class="nk-help-action">
+                            <a href="#" class="btn btn-primary">View Requests</a>
+                          </div>
+                        </div>
+                      </div><!-- .card -->
+                      <div class="card card-bordered d-xl-none">
+                        <div class="card-inner">
+                          <div class="nk-help">
+                            <div class="nk-help-text">
+                              <h5>Subscription Requests</h5>
+                              <p class="text-soft">
+                                View requests from the customer for this subscription.
+                              </p></div>
+                            <div class="nk-help-action">
+                              <a href="#" class="btn btn-primary">View Requests</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div><!-- .card -->
+                    </div><!-- .col -->
+
                   </div>
                 </div>
                 <div class="nk-block">
@@ -142,86 +145,63 @@ $session = session();
                       <tr class="tb-tnx-head">
                         <th class="tb-tnx-id"><span class="">#</span></th>
                         <th class="tb-tnx-info">
-                                                            <span class="tb-tnx-desc d-none d-sm-inline-block">
-                                                                <span>Bill For</span>
-                                                            </span>
+                          <span class="tb-tnx-desc d-none d-sm-inline-block">
+                            <span>Customer</span>
+                          </span>
                           <span class="tb-tnx-date d-md-inline-block d-none">
-                                                                <span class="d-md-none">Date</span>
-                                                                <span class="d-none d-md-block">
-                                                                    <span>Issue Date</span>
-                                                                    <span>Due Date</span>
-                                                                </span>
-                                                            </span>
+                            <span class="d-md-none">Date</span>
+                            <span class="d-none d-md-block">
+                              <span>Due Date</span>
+                              <span>Paid Date</span>
+                            </span>
+                          </span>
                         </th>
                         <th class="tb-tnx-amount">
-                          <span class="tb-tnx-total">Total</span>
-                          <span class="tb-tnx-status d-none d-md-inline-block">Status</span>
+                          <span class="tb-tnx-total">Amount</span>
+                          <span class="tb-tnx-status d-none d-md-inline-block">Actions</span>
                         </th>
-                      </tr><!-- .tb-tnx-item -->
+                      </tr><!-- .tb-tnx-head -->
                       </thead>
                       <tbody>
-                      <tr class="tb-tnx-item">
-                        <td class="tb-tnx-id">
-                          <a href="#"><span>4947</span></a>
-                        </td>
-                        <td class="tb-tnx-info">
-                          <div class="tb-tnx-desc">
-                            <span class="title">Enterprize Year Subscrition</span>
-                          </div>
-                          <div class="tb-tnx-date">
-                            <span class="date">10-05-2019</span>
-                            <span class="date">10-13-2019</span>
-                          </div>
-                        </td>
-                        <td class="tb-tnx-amount">
-                          <div class="tb-tnx-total">
-                            <span class="amount">$599.00</span>
-                          </div>
-                          <div class="tb-tnx-status">
-                            <span class="badge badge-dot badge-warning">Due</span>
-                          </div>
-                        </td>
-                      </tr><!-- .tb-tnx-item -->
-                      <tr class="tb-tnx-item">
-                        <td class="tb-tnx-id">
-                          <a href="#"><span>4904</span></a>
-                        </td>
-                        <td class="tb-tnx-info">
-                          <div class="tb-tnx-desc">
-                            <span class="title">Maintenance Year Subscription</span>
-                          </div>
-                          <div class="tb-tnx-date">
-                            <span class="date">06-19-2019</span>
-                            <span class="date">06-26-2019</span>
-                          </div>
-                        </td>
-                        <td class="tb-tnx-amount">
-                          <div class="tb-tnx-total">
-                            <span class="amount">$99.00</span>
-                          </div>
-                          <div class="tb-tnx-status"><span class="badge badge-dot badge-success">Paid</span></div>
-                        </td>
-                      </tr><!-- .tb-tnx-item -->
-                      <tr class="tb-tnx-item">
-                        <td class="tb-tnx-id">
-                          <a href="#"><span>4829</span></a>
-                        </td>
-                        <td class="tb-tnx-info">
-                          <div class="tb-tnx-desc">
-                            <span class="title">Enterprize Year Subscrition</span>
-                          </div>
-                          <div class="tb-tnx-date">
-                            <span class="date">10-04-2018</span>
-                            <span class="date">10-12-2018</span>
-                          </div>
-                        </td>
-                        <td class="tb-tnx-amount">
-                          <div class="tb-tnx-total">
-                            <span class="amount">$599.00</span>
-                          </div>
-                          <div class="tb-tnx-status"><span class="badge badge-dot badge-success">Paid</span></div>
-                        </td>
-                      </tr><!-- .tb-tnx-item -->
+                      <?php if (empty($invoices)):?>
+                        <tr class="tb-member-item">
+                          <td colspan="5" class="text-center font-weight-bold">No Payments Exist</td>
+                        </tr>
+                      <?php else: foreach ($invoices as $invoice): foreach ($invoice['payments'] as $payment):?>
+                        <tr class="tb-tnx-item">
+                          <td class="tb-tnx-id">
+                            <a href="javascript:void(0)"><span><?=$payment['id']?></span></a>
+                          </td>
+                          <td class="tb-tnx-info">
+                            <div class="tb-tnx-desc">
+                              <span class="title"><?=$invoice['customer']['name']?></span>
+                            </div>
+                            <div class="tb-tnx-date">
+                              <span class="date">
+                               <?php
+                                 $date = date_create($invoice['due_date']);
+                                 echo date_format($date, 'd M Y');
+                               ?>
+                              </span>
+                              <span class="date">
+                               <?php
+                                 $date = date_create($payment['date']);
+                                 echo date_format($date, 'd M Y');
+                               ?>
+                              </span>
+                            </div>
+                          </td>
+                          <td class="tb-tnx-amount">
+                            <div class="tb-tnx-total">
+                              <span class="amount"><em class="icon ni ni-sign-kobo"></em> <?=number_format($payment['amount'])?></span>
+                            </div>
+                            <div class="tb-tnx-status">
+                              <a href="/invoice/view_invoice/<?=$invoice['invoice_id']?>" class="link link-sm"><span>Invoice</span></a>
+                              <a href="/invoice/view_invoice/<?=$invoice['invoice_id']?>" class="link link-sm"><span>Receipt</span></a>
+                            </div>
+                          </td>
+                        </tr><!-- .tb-tnx-item -->
+                      <?php endforeach; endforeach; endif;?>
                       </tbody>
                     </table>
                   </div><!-- .card -->

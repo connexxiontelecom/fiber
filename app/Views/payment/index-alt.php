@@ -18,77 +18,81 @@ $session = session();
                 <div class="nk-block-head nk-block-head-lg">
                   <div class="nk-block-between-md g-4">
                     <div class="nk-block-head-content">
-                      <h2 class="nk-block-title fw-normal">Invoices</h2>
+                      <h2 class="nk-block-title fw-normal">Payment History</h2>
                       <div class="nk-block-des">
-                        <p>You can view your invoices here.</p>
+                        <p>You can view your payment history here.</p>
                       </div>
                     </div>
                   </div>
                 </div><!-- .nk-block-head -->
                 <div class="nk-block">
                   <div class="card card-bordered">
-                    <table class="table table-member">
-                      <thead class="tb-member-head thead-light">
-                      <tr class="tb-member-item">
-                        <th class="tb-member-info">
-                          <span class="overline-title">Invoice</span>
+                    <table class="table table-tranx table-billing">
+                      <thead>
+                      <tr class="tb-tnx-head">
+                        <th class="tb-tnx-id"><span class="">#</span></th>
+                        <th class="tb-tnx-info">
+                          <span class="tb-tnx-desc d-none d-sm-inline-block">
+                            <span>Customer</span>
+                          </span>
+                          <span class="tb-tnx-date d-md-inline-block d-none">
+                            <span class="d-md-none">Date</span>
+                            <span class="d-none d-md-block">
+                              <span>Due Date</span>
+                              <span>Paid Date</span>
+                            </span>
+                          </span>
                         </th>
-                        <th class="tb-member-type tb-col-sm">
-                          <span class="overline-title">Amount</span>
+                        <th class="tb-tnx-amount">
+                          <span class="tb-tnx-total">Amount</span>
+                          <span class="tb-tnx-status d-none d-md-inline-block">Actions</span>
                         </th>
-                        <th class="tb-member-role tb-col-sm text-center">
-                          <span class="overline-title">Status</span>
-                        </th>
-                        <th class="tb-member-action">
-                          <span class="overline-title">Action</span>
-                        </th>
-                      </tr>
+                      </tr><!-- .tb-tnx-head -->
                       </thead>
-                      <tbody class="tb-member-body">
-                      <?php if (empty($invoices)):?>
+                      <tbody>
+                      <?php if (empty($payments)):?>
                         <tr class="tb-member-item">
-                          <td colspan="5" class="text-center font-weight-bold">No Invoices Exist</td>
+                          <td colspan="5" class="text-center font-weight-bold">No Payments Exist</td>
                         </tr>
-                      <?php else: foreach ($invoices as $invoice): ?>
-                        <tr class="tb-member-item">
-                          <td class="tb-member-info">
-                            <div class="user-card">
-                              <div class="user-info">
-                                <span>#<?=$invoice['id']?></span>
-                              </div>
+                      <?php else: foreach ($payments as $payment):?>
+                        <tr class="tb-tnx-item">
+                          <td class="tb-tnx-id">
+                            <a href="javascript:void(0)"><span><?=$payment['id']?></span></a>
+                          </td>
+                          <td class="tb-tnx-info">
+                            <div class="tb-tnx-desc">
+                              <span class="title"><?=$session->name?></span>
+                            </div>
+                            <div class="tb-tnx-date">
+                              <span class="date">
+                               <?php
+                                 $date = date_create($payment['invoice']['due_date']);
+                                 echo date_format($date, 'd M Y');
+                               ?>
+                              </span>
+                              <span class="date">
+                               <?php
+                                 $date = date_create($payment['date']);
+                                 echo date_format($date, 'd M Y');
+                               ?>
+                              </span>
                             </div>
                           </td>
-                          <td class="tb-member-type tb-col-sm font-weight-bold">
-                            <span><?=number_format($invoice['period'] * $invoice['price'])?></span>
-                          </td>
-                          <td class="tb-member-type tb-col-sm text-center">
-                            <?php if ($invoice['is_paid'] == 0): ?>
-                              <div class="badge badge-dot badge-danger">Unpaid</div>
-                            <?php elseif($invoice['is_paid'] == 1):?>
-                              <div class="badge badge-dot badge-success">Paid</div>
-                            <?php endif;?>
-                          </td>
-                          <td class="tb-member-action">
-                            <div class="d-none d-md-inline">
-                              <a href="/invoice/print_invoice/<?=$invoice['invoice_id']?>" target="_blank" class="btn btn-icon btn-white btn-dim btn-sm btn-primary"><em class="icon ni ni-printer-fill"></em></a>
-                              <a href="/invoice/view_invoice/<?=$invoice['invoice_id']?>" class="btn btn-dim btn-sm btn-primary">View</a>
+                          <td class="tb-tnx-amount">
+                            <div class="tb-tnx-total">
+                              <span class="amount"><em class="icon ni ni-sign-kobo"></em> <?=number_format($payment['amount'])?></span>
                             </div>
-                            <div class="dropdown d-md-none">
-                              <a class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-v"></em></a>
-                              <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
-                                <div class="link-list-plain no-bdr">
-                                  <a href="/invoice/print_invoice/<?=$invoice['invoice_id']?>" target="_blank" class="">Print</a>
-                                  <a href="/invoice/view_invoice/<?=$invoice['invoice_id']?>" class="">View</a>
-                                </div>
-                              </div>
+                            <div class="tb-tnx-status">
+                              <a href="/invoice/view_invoice/<?=$payment['invoice']['invoice_id']?>" class="link link-sm"><span>Invoice</span></a>
+                              <a href="/payment/view_payment_receipt/<?=$payment['payment_id']?>" class="link link-sm"><span>Receipt</span></a>
                             </div>
                           </td>
-                        </tr>
+                        </tr><!-- .tb-tnx-item -->
                       <?php endforeach; endif;?>
                       </tbody>
                     </table>
                   </div>
-                </div>
+                </div><!-- .nk-block -->
                 <div class="nk-block">
                   <div class="card card-bordered">
                     <div class="card-inner card-inner-lg">

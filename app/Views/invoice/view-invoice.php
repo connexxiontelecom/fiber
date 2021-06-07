@@ -83,18 +83,18 @@ $session = session();
                             </thead>
                             <tbody>
                             <tr>
-                              <td class="font-weight-bold"><?=$invoice['subscription']['description']?></td>
-                              <td><?=$invoice['plan']['name']?></td>
-                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($invoice['plan']['price'])?></td>
-                              <td><?=$invoice['subscription']['duration']?> months</td>
-                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($invoice['plan']['price'] * $invoice['subscription']['duration'])?></td>
+                              <td class="font-weight-bold"><?=$invoice['subscription']?></td>
+                              <td><?=$invoice['plan']?></td>
+                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($invoice['price'])?></td>
+                              <td><?=$invoice['period']?> months</td>
+                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($invoice['price'] * $invoice['period'])?></td>
                             </tr>
                             </tbody>
                             <tfoot>
                             <tr>
                               <td colspan="2"></td>
                               <td colspan="2">Subtotal</td>
-                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($invoice['plan']['price'] * $invoice['subscription']['duration'])?></td>
+                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($invoice['price'] * $invoice['period'])?></td>
                             </tr>
                             <tr>
                               <td colspan="2"></td>
@@ -109,7 +109,7 @@ $session = session();
                             <tr>
                               <td colspan="2"></td>
                               <td colspan="2">Grand Total</td>
-                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($invoice['plan']['price'] * $invoice['subscription']['duration'])?></td>
+                              <td><em class="icon ni ni-sign-kobo"></em> <?=number_format($invoice['price'] * $invoice['period'])?></td>
                             </tr>
                             </tfoot>
                           </table>

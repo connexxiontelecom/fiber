@@ -25,7 +25,7 @@ $session = session();
                     </div>
                     <div class="nk-block-head-content">
                       <ul class="nk-block-tools gx-3">
-                        <li class="order-md-last"><a href="" class="btn btn-white btn-dim btn-outline-primary"><span>Request New Subscription</span></a></li>
+                        <li class="order-md-last"><a href="javascript:void(0)" class="btn btn-white btn-dim btn-outline-primary" data-toggle="modal" data-target="#request-subscription"><span>Request New Subscription</span></a></li>
                       </ul>
                     </div>
                   </div>
@@ -40,26 +40,22 @@ $session = session();
                               <div class="col-xl-9 col-sm-8">
                                 <div class="sp-plan-name">
                                   <h6 class="title">
-                                    <a href="#">
-                                      <?=$subscription['plan']['name']?>
-                                      <span class="badge badge-<?=$subscription['status'] == 1 ? 'success':'light'?> badge-dot ml-3">
-                                        <?=$subscription['status'] == 1 ? 'Active' : 'Expired'?>
-                                      </span>
+                                    <a href="/subscription/manage_subscription/<?=$subscription['subscription_id']?>">
+                                      <?=$subscription['description']?>
                                     </a>
                                   </h6>
-                                  <p>Description:
+                                  <p>Plan:
                                     <span class="text-base">
-                                      <?=$subscription['description']?>
+                                      <?=$subscription['plan']['name']?>
                                     </span>
                                   </p>
                                 </div>
                               </div>
                               <div class="col-xl-3 col-sm-4">
                                 <div class="sp-plan-opt">
-                                  <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="auto-plan-p1" disabled>
-                                    <label class="custom-control-label text-soft" for="auto-plan-p1">Auto Renew</label>
-                                  </div>
+                                  <span class="badge badge-<?=$subscription['status'] == 1 ? 'success':'light'?> badge-dot ml-3">
+                                    <?=$subscription['status'] == 1 ? 'Active' : 'Expired'?>
+                                  </span>
                                 </div>
                               </div>
                             </div>
@@ -84,7 +80,7 @@ $session = session();
                               <li class="col-6 col-lg-4">
                                 <p>
                                   <span class="text-soft">Price</span>
-                                  <em class="icon ni ni-sign-kobo"></em> <?=number_format($subscription['plan']['price'])?>
+                                  <em class="icon ni ni-sign-kobo"></em> <?=number_format($subscription['plan']['price'] * $subscription['duration'])?>
                                 </p>
                               </li>
                             </ul>
@@ -158,7 +154,54 @@ $session = session();
     </div>
   </div>
 </div>
-
+<div class="modal fade zoom" tabindex="-1" id="request-subscription">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Request New Subscription</h5>
+        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+          <em class="icon ni ni-cross"></em>
+        </a>
+      </div>
+      <div class="modal-body">
+        <form action="" id="request-subscription-form">
+          <div class="row gy-4">
+            <div class="col-12">
+              <div class="form-group">
+                <label class="form-label" for="plan">Plan <span style="color: red"> *</span></label>
+                <div class="form-control-wrap">
+                  <select class="form-select form-control" data-search="on" id="plan" name="plan">
+                    <option value="">Default Option</option>
+                    <?php foreach ($plans as $plan):?>
+                      <option value="<?= $plan['plan_id'] ?>">
+                        <?=$plan['name']?>
+                      </option>
+                    <?php endforeach;?>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label class="form-label" for="duration">Duration (Months) <span style="color: red"> *</span></label>
+                <div class="form-control-wrap">
+                  <input autocomplete="off" type="number" class="form-control" id="duration" name="duration" min="1">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <a href="#" data-dismiss="modal" class="btn btn-light">Cancel</a>
+                <button class="btn btn-primary ml-3">Save Information</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div><!-- .modal-body -->
+    </div><!-- .modal-content -->
+  </div><!-- .modal-dialog -->
+</div><!-- .modal -->
 <?php include(APPPATH.'/Views/_scripts.php'); ?>
+<?php include('_subscription-scripts.php')?>
 </body>
 </html>

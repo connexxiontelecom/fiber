@@ -12,6 +12,8 @@ class Invoice extends BaseController
         $page_data['invoices'] = $invoices;
         return view('invoice/index', $page_data);
       }
+      $invoices = $this->_get_customer_invoices();
+      $page_data['invoices'] = $invoices;
       return view('invoice/index-alt', $page_data);
     }
     return redirect('auth');
@@ -47,15 +49,26 @@ class Invoice extends BaseController
 
   public function view_invoice($invoice_id) {
     if ($this->session->active) {
-      if ($this->session->is_admin) {
-        $invoice = $this->_get_invoice($invoice_id);
-        if ($invoice) {
-          $page_data['title'] = 'View Invoice';
-          $page_data['invoice'] = $invoice;
-          return view('invoice/view-invoice', $page_data);
-        }
-        return $this->_not_found();
+      $invoice = $this->_get_invoice($invoice_id);
+      if ($invoice) {
+        $page_data['title'] = 'View Invoice';
+        $page_data['invoice'] = $invoice;
+        return view('invoice/view-invoice', $page_data);
       }
+      return $this->_not_found();
+    }
+    return redirect('auth');
+  }
+
+  public function print_invoice($invoice_id) {
+    if ($this->session->active) {
+      $invoice = $this->_get_invoice($invoice_id);
+      if ($invoice) {
+        $page_data['title'] = 'Invoice #'.$invoice['id'];
+        $page_data['invoice'] = $invoice;
+        return view('invoice/print-invoice', $page_data);
+      }
+      return $this->_not_found();
     }
     return redirect('auth');
   }
@@ -71,12 +84,18 @@ class Invoice extends BaseController
       $response_data = array();
       if ($this->validation->withRequest($this->request)->run()) {
         $post_data = $this->request->getPost();
+        $subscription = $this->subscriptionModel->find($post_data['subscription']);
+        $plan = $this->planModel->find($subscription['plan_id']);
         $invoice_data = array(
           'subscription_id' => $post_data['subscription'],
           'id' => substr(md5(time()), 0, 7),
           'issue_date' => $post_data['issue_date'],
           'due_date' => $post_data['due_date'],
           'is_paid' => $post_data['is_paid'],
+          'subscription' => $subscription['description'],
+          'period' => $subscription['duration'],
+          'plan' => $plan['name'],
+          'price' => $plan['price']
         );
         $new_invoice = $this->invoiceModel->insert($invoice_data);
         if ($new_invoice) {
@@ -122,6 +141,19 @@ class Invoice extends BaseController
     return $invoices;
   }
 
+  private function _get_customer_invoices(): array {
+    $invoices = array();
+    $user_id = $this->session->user_id;
+    $subscriptions = $this->subscriptionModel->where('user_id', $user_id)->findAll();
+    foreach ($subscriptions as $subscription) {
+      $user_invoices = $this->invoiceModel->where(['subscription_id' => $subscription['subscription_id']])->findAll();
+      foreach ($user_invoices as $user_invoice) {
+        array_push($invoices, $user_invoice);
+      }
+    }
+    return $invoices;
+  }
+
   private function _get_invoice($invoice_id) {
     $invoice = $this->invoiceModel->find($invoice_id);
     if ($invoice) {
@@ -129,11 +161,8 @@ class Invoice extends BaseController
       if ($subscription) {
         $customer = $this->userModel->find($subscription['user_id']);
         $customer_info = $this->customerInfoModel->where('user_id', $subscription['user_id'])->first();
-        $plan = $this->planModel->find($subscription['plan_id']);
-        $invoice['subscription'] = $subscription;
         $invoice['customer'] = $customer;
         $invoice['customer_info'] = $customer_info;
-        $invoice['plan'] = $plan;
       }
     }
     return $invoice;
