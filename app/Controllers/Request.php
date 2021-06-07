@@ -15,6 +15,26 @@ class Request extends BaseController {
     return redirect('auth');
   }
 
+  public function cancel_request($subscription_request_id) {
+    if ($this->session->active) {
+      $response_data = array();
+      $request_data = array(
+        'subscription_request_id' => $subscription_request_id,
+        'status' => 1,
+      );
+      $cancel_request = $this->subscriptionRequestModel->save($request_data);
+      if ($cancel_request) {
+        $response_data['success'] = true;
+        $response_data['msg'] = 'Successfully cancelled the request';
+      } else {
+        $response_data['success'] = false;
+        $response_data['msg'] = 'There was a problem cancelling the request';
+      }
+      return $this->response->setJSON($response_data);
+    }
+    return redirect('auth');
+  }
+
   private function _get_customer_requests() {
     $requests = $this->subscriptionRequestModel->where(['user_id' => $this->session->user_id, 'status' => 0])->findAll();
     foreach ($requests as $key => $request) {
