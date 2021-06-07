@@ -125,7 +125,9 @@
               data: formData,
               success: function (data) {
                 if (data.success) {
-                  Swal.fire('Confirmed!', data.msg, 'success').then(() => location.reload())
+                  Swal.fire('Confirmed!', data.msg, 'success').then(() => {
+                    location.href = '<?=site_url('/request')?>'
+                  })
                 } else {
                   Swal.fire('Sorry!', data.msg, 'error')
                   console.log(data.meta)
@@ -163,7 +165,9 @@
               data: formData,
               success: function (data) {
                 if (data.success) {
-                  Swal.fire('Confirmed!', data.msg, 'success').then(() => location.reload())
+                  Swal.fire('Confirmed!', data.msg, 'success').then(() => {
+                    location.href = '<?=site_url('/request')?>'
+                  })
                 } else {
                   Swal.fire('Sorry!', data.msg, 'error')
                   console.log(data.meta)
@@ -224,7 +228,7 @@
           success: function (data) {
             if (data.success) {
               Swal.fire('Confirmed!', data.msg, 'success').then(() => {
-                location.href = '<?=site_url('/subscription')?>'
+                location.href = '<?=site_url('/request')?>'
               })
             } else {
               Swal.fire('Sorry!', data.msg, 'error')

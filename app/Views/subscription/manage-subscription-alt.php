@@ -36,7 +36,7 @@ $session = session();
                     <div class="nk-block-head-content">
                       <ul class="nk-block-tools justify-content-md-end g-4 flex-wrap">
                         <li class="order-md-last">
-                          <button onclick="requestCancellation(<?=$subscription['subscription_id']?>)" class="btn btn-auto btn-dim btn-danger"><em class="icon ni ni-cross"></em><span>Cancel Subscription</span></button>
+                          <button onclick="requestCancellation(<?=$subscription['subscription_id']?>)" class="btn btn-auto btn-dim btn-danger"><em class="icon ni ni-cross"></em><span>Request Cancellation</span></button>
                         </li>
                         <li>
                           <?php if ($subscription['status'] == 1): ?>
