@@ -242,6 +242,40 @@ class Subscription extends BaseController {
     return redirect('auth');
   }
 
+  public function request_cancel_subscription($subscription_id) {
+    if ($this->session->active) {
+      $response_data = array();
+      $subscription = $this->subscriptionModel->find($subscription_id);
+      if ($subscription) {
+        $subscription_request_data = array(
+          'user_id' => $this->session->user_id,
+          'subscription_id' => $subscription_id,
+          'type' => 'cancel_sub'
+        );
+        $request_cancel_subscription = $this->subscriptionRequestModel->insert($subscription_request_data);
+        if ($request_cancel_subscription) {
+          $this->_create_new_notification(
+            $this->session->user_id,
+            1,
+            $request_cancel_subscription,
+            'extend_sub_request',
+            'There is a request for a subscription cancellation'
+          );
+          $response_data['success'] = true;
+          $response_data['msg'] = 'Successfully requested subscription cancellation';
+        } else {
+          $response_data['success'] = false;
+          $response_data['msg'] = 'There was a problem requesting subscription cancellation';
+        }
+      } else {
+        $response_data['success'] = false;
+        $response_data['msg'] = 'Subscription was not found';
+      }
+      return $this->response->setJSON($response_data);
+    }
+    return redirect('auth');
+  }
+
   private function _get_subscription($subscription_id) {
     $subscription = $this->subscriptionModel->find($subscription_id);
     if ($subscription) {
