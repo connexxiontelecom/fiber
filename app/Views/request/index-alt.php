@@ -60,7 +60,7 @@ $session = session();
                               <div class="nk-block-actions">
                                 <ul class="align-center gx-3">
                                   <li class="order-md-last">
-                                    <a href="javascript:void(0)" onclick="cancelRequest(<?=$request['subscription_request_id']?>)" class="link link-primary">Cancel Request</a>
+                                    <a href="javascript:void(0)" onclick="cancelRequest(<?=$request['subscription_request_id']?>)" class="link link-danger">Cancel </a>
                                   </li>
                                 </ul>
                               </div>
@@ -100,7 +100,7 @@ $session = session();
                               <div class="nk-block-actions">
                                 <ul class="align-center gx-3">
                                   <li class="order-md-last">
-                                    <a href="javascript:void(0)" onclick="cancelRequest(<?=$request['subscription_request_id']?>)" class="link link-primary">Cancel Request</a>
+                                    <a href="javascript:void(0)" onclick="cancelRequest(<?=$request['subscription_request_id']?>)" class="link link-danger">Cancel </a>
                                   </li>
                                 </ul>
                               </div>
@@ -139,7 +139,7 @@ $session = session();
                               <div class="nk-block-actions">
                                 <ul class="align-center gx-3">
                                   <li class="order-md-last">
-                                    <a href="javascript:void(0)" onclick="cancelRequest(<?=$request['subscription_request_id']?>)" class="link link-primary">Cancel Request</a>
+                                    <a href="javascript:void(0)" onclick="cancelRequest(<?=$request['subscription_request_id']?>)" class="link link-danger">Cancel </a>
                                   </li>
                                 </ul>
                               </div>
