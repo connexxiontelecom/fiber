@@ -108,7 +108,7 @@ $session = session();
                             </p>
                           </div>
                           <div class="nk-help-action">
-                            <a href="#" class="btn btn-primary">View Requests</a>
+                            <a href="/request" class="btn btn-primary">View Requests</a>
                           </div>
                         </div>
                       </div><!-- .card -->
@@ -121,13 +121,12 @@ $session = session();
                                 View requests from the customer for this subscription.
                               </p></div>
                             <div class="nk-help-action">
-                              <a href="#" class="btn btn-primary">View Requests</a>
+                              <a href="/request" class="btn btn-primary">View Requests</a>
                             </div>
                           </div>
                         </div>
                       </div><!-- .card -->
                     </div><!-- .col -->
-
                   </div>
                 </div>
                 <div class="nk-block">

@@ -32,6 +32,26 @@
                             <div class="card-inner">
                               <div class="card-title-group align-start mb-2">
                                 <div class="card-title">
+                                  <h6 class="title">Requests</h6>
+                                </div>
+                                <div class="card-tools">
+                                  <a href="/request" class="link link-sm">View More</a>
+                                </div>
+                              </div>
+                              <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
+                                <div class="nk-sale-data">
+                                  <span class="amount">0</span>
+                                  <span class="sub-title">pending requests</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div><!-- .card -->
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="card card-bordered">
+                            <div class="card-inner">
+                              <div class="card-title-group align-start mb-2">
+                                <div class="card-title">
                                   <h6 class="title">Subscriptions</h6>
                                 </div>
                                 <div class="card-tools">

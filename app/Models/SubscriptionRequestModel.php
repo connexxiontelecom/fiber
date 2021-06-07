@@ -7,6 +7,6 @@ class SubscriptionRequestModel extends Model {
   protected $table = 'subscription_requests';
   protected $primaryKey = 'subscription_request_id';
   protected $allowedFields = [
-    'user_id', 'subscription_id', 'plan_id', 'duration', 'type'
+    'user_id', 'subscription_id', 'plan_id', 'duration', 'type', 'status'
   ];
 }
