@@ -177,8 +177,15 @@ class Subscription extends BaseController {
           'duration' => $post_data['duration'],
           'type' => 'new_sub'
         );
-        $request_new_subscription = $this->subscriptionRequestModel->save($subscription_request_data);
+        $request_new_subscription = $this->subscriptionRequestModel->insert($subscription_request_data);
         if ($request_new_subscription) {
+          $this->_create_new_notification(
+            $this->session->user_id,
+            1,
+            $request_new_subscription,
+            'new_sub_request',
+            'There is a request for a new subscription'
+          );
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully requested new subscription';
         } else {
@@ -188,6 +195,46 @@ class Subscription extends BaseController {
       } else {
         $response_data['success'] = false;
         $response_data['msg'] = 'There was a problem requesting new subscription';
+        $response_data['meta'] = $this->validation->getErrors();
+      }
+      return $this->response->setJSON($response_data);
+    }
+    return redirect('auth');
+  }
+
+  public function request_extend_subscription() {
+    if ($this->session->active) {
+      $this->validation->setRules([
+        'subscription_id' => 'required',
+        'duration' => 'required',
+      ]);
+      $response_data = array();
+      if ($this->validation->withRequest($this->request)->run()) {
+        $post_data = $this->request->getPost();
+        $subscription_request_data = array(
+          'user_id' => $this->session->user_id,
+          'subscription_id' => $post_data['subscription_id'],
+          'duration' => $post_data['duration'],
+          'type' => 'extend_sub'
+        );
+        $request_extend_subscription = $this->subscriptionRequestModel->insert($subscription_request_data);
+        if ($request_extend_subscription) {
+          $this->_create_new_notification(
+            $this->session->user_id,
+            1,
+            $request_extend_subscription,
+            'extend_sub_request',
+            'There is a request for a subscription extension'
+          );
+          $response_data['success'] = true;
+          $response_data['msg'] = 'Successfully requested subscription extension';
+        } else {
+          $response_data['success'] = false;
+          $response_data['msg'] = 'There was a problem requesting subscription extension';
+        }
+      } else {
+        $response_data['success'] = false;
+        $response_data['msg'] = 'There was a problem requesting subscription extension';
         $response_data['meta'] = $this->validation->getErrors();
       }
       return $this->response->setJSON($response_data);

@@ -85,8 +85,8 @@ $session = session();
                           </div><!-- .card-inner -->
                           <div class="card-inner">
                             <div class="sp-plan-link">
-                              <a href="#" class="link">
-                                <span><em class="icon ni ni-edit-alt"></em> Extend Subscription</span>
+                              <a href="javascript:void(0)" data-toggle="modal" data-target="#request-extension" class="link">
+                                <span><em class="icon ni ni-edit-alt"></em> Request Subscription Extension</span>
                                 <em class="icon ni ni-arrow-right"></em>
                               </a>
                             </div>
@@ -209,6 +209,40 @@ $session = session();
     </div>
   </div>
 </div>
+<div class="modal fade zoom" tabindex="-1" id="request-extension">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Request Subscription Extension</h5>
+        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+          <em class="icon ni ni-cross"></em>
+        </a>
+      </div>
+      <div class="modal-body">
+        <form action="" id="request-extension-form">
+          <div class="row gy-4">
+            <div class="col-12">
+              <div class="form-group">
+                <label class="form-label" for="duration">Duration (Months) <span style="color: red"> *</span></label>
+                <div class="form-control-wrap">
+                  <input autocomplete="off" type="number" class="form-control" id="duration" name="duration" min="1">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <input type="hidden" value="<?=$subscription['subscription_id']?>" class="subscription-id">
+              <div class="form-group">
+                <a href="#" data-dismiss="modal" class="btn btn-light">Cancel</a>
+                <button class="btn btn-primary ml-3">Save Information</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div><!-- .modal-body -->
+    </div><!-- .modal-content -->
+  </div><!-- .modal-dialog -->
+</div><!-- .modal -->
 <?php include(APPPATH.'/Views/_scripts.php'); ?>
+<?php include('_subscription-scripts.php'); ?>
 </body>
 </html>
