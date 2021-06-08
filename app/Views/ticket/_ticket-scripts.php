@@ -85,4 +85,34 @@
       }
     })
   })
+
+  function closeTicket(ticketID) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This will close the ticket',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm'
+    }).then(function (confirm) {
+      if (confirm.value) {
+        $.ajax({
+          url: '<?=site_url('ticket/close_ticket')?>/'+ticketID,
+          type: 'get',
+          success: function (data) {
+            if (data.success) {
+              Swal.fire('Confirmed!', data.msg, 'success').then(() => {
+                location.href = '<?=site_url('/ticket')?>'
+              })
+            } else {
+              Swal.fire('Sorry!', data.msg, 'error')
+              console.log(data.meta)
+            }
+          },
+          cache: false,
+          contentType: false,
+          processData: false
+        })
+      }
+    })
+  }
 </script>

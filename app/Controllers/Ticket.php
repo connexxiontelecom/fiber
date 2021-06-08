@@ -124,6 +124,26 @@ class Ticket extends BaseController {
     return redirect('auth');
   }
 
+  public function close_ticket($ticket_id) {
+    if ($this->session->active) {
+      $response_data = array();
+      $ticket_data = array(
+        'ticket_id' => $ticket_id,
+        'status' => 0,
+      );
+      $close_ticket = $this->ticketModel->save($ticket_data);
+      if ($close_ticket) {
+        $response_data['success'] = true;
+        $response_data['msg'] = 'Successfully closed the ticket';
+      } else {
+        $response_data['success'] = false;
+        $response_data['msg'] = 'There was a problem closing the ticket';
+      }
+      return $this->response->setJSON($response_data);
+    }
+    return redirect('auth');
+  }
+
   private function _get_ticket($ticket_id) {
     $ticket = $this->ticketModel->find($ticket_id);
     if ($ticket) {

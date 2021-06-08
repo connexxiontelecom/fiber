@@ -39,6 +39,41 @@ $session = session();
                           ?>
                         </strong>
                       </li>
+                      <br>
+                      <li>
+                        <span>Category:</span>
+                        <?php
+                        switch ($ticket['category']) {
+                          case 1:
+                            $category = 'Subscriptions';
+                            break;
+                          case 2:
+                            $category = 'Payments';
+                            break;
+                          case 3:
+                            $category = 'Invoices';
+                            break;
+                          case 4:
+                            $category = 'Account';
+                            break;
+                          default:
+                            $category = 'General';
+                            break;
+                        }
+                        echo $category;
+                        ?>
+                      </li>
+                      <br>
+                      <li>
+                        <span>Priority:</span>
+                        <?php if ($ticket['priority'] == 0):?>
+                          <span class="badge badge-dot badge-success">Normal</span>
+                        <?php elseif ($ticket['priority'] == 1):?>
+                          <span class="badge badge-dot badge-primary">Important</span>
+                        <?php elseif ($ticket['priority'] == 2):?>
+                          <span class="badge badge-dot badge-warning">High</span>
+                        <?php endif;?>
+                      </li>
                     </ul>
                     <div class="ticket-status">
                       <?php if ($ticket['status'] == 0):?>
@@ -115,21 +150,27 @@ $session = session();
                             </div>
                           </div><!-- .ticket-msg-item -->
                         <?php endforeach; endif?>
-                        <div class="ticket-msg-reply">
-                          <h5 class="title">Reply</h5>
-                          <form action="#" id="customer-ticket-reply-form">
-                            <div class="form-group">
-                              <textarea class="form-control" placeholder="Write a message..." name="body" id="body"></textarea>
-                            </div>
-                            <input type="hidden" value="<?=$ticket['ticket_id']?>" id="ticket-id">
-                            <div class="form-action">
-                              <ul class="form-btn-group">
-                                <li class="form-btn-primary"><button class="btn btn-primary">Send</button></li>
-                                <li class="form-btn-secondary"><button type="button" class="btn btn-dim btn-outline-light">Mark as close</button></li>
-                              </ul>
-                            </div>
-                          </form>
-                        </div><!-- .ticket-msg-reply -->
+                        <?php if ($ticket['status'] == 0):?>
+                          <div class="ticket-msg-reply">
+                            <strong class="font-weight-bolder">This ticket is closed and is no longer accepting responses</strong>
+                          </div><!-- .ticket-msg-reply -->
+                        <?php elseif ($ticket['status'] == 1):?>
+                          <div class="ticket-msg-reply">
+                            <h5 class="title">Reply</h5>
+                            <form action="#" id="customer-ticket-reply-form">
+                              <div class="form-group">
+                                <textarea class="form-control" placeholder="Write a message..." name="body" id="body"></textarea>
+                              </div>
+                              <input type="hidden" value="<?=$ticket['ticket_id']?>" id="ticket-id">
+                              <div class="form-action">
+                                <ul class="form-btn-group">
+                                  <li class="form-btn-primary"><button class="btn btn-primary">Send</button></li>
+                                  <li class="form-btn-secondary"><button type="button" onclick="closeTicket(<?=$ticket['ticket_id']?>)" class="btn btn-dim btn-outline-light">Mark as close</button></li>
+                                </ul>
+                              </div>
+                            </form>
+                          </div><!-- .ticket-msg-reply -->
+                        <?php endif;?>
                       </div><!-- .ticket-msgs -->
                     </div>
                   </div>
