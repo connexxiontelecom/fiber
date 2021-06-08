@@ -38,183 +38,90 @@ $session = session();
                         <span>Subject</span>
                       </th>
                       <th class="tb-ticket-date tb-col-md">
-                        <span>Submited</span>
+                        <span>Submitted</span>
                       </th>
-                      <th class="tb-ticket-seen tb-col-md">
-                        <span>Last Seen</span>
+                      <th class="tb-ticket-seen">
+                        <span>Category</span>
+                      </th>
+                      <th class="tb-ticket-seen">
+                        <span>Priority</span>
                       </th>
                       <th class="tb-ticket-status">
                         <span>Status</span>
                       </th>
-                      <th class="tb-ticket-action"> &nbsp; </th>
+                      <th class="tb-ticket-action" style="width: 5%"> &nbsp; </th>
                     </tr><!-- .tb-ticket-title -->
                     </thead>
                     <tbody class="tb-ticket-body">
-                    <tr class="tb-ticket-item is-unread">
-                      <td class="tb-ticket-id"><a href="html/subscription/ticket-details.html">C506223</a></td>
-                      <td class="tb-ticket-desc">
-                        <a href="html/subscription/ticket-details.html"><span class="title">Request for approve payment</span></a>
-                      </td>
-                      <td class="tb-ticket-date tb-col-md">
-                        <span class="date">26 Jan 2020</span>
-                      </td>
-                      <td class="tb-ticket-seen tb-col-md">
-                        <span class="date-last"><em class="icon-avatar bg-danger-dim icon ni ni-user-fill nk-tooltip" title="Support Team"></em> 27 Jan 2020 <span class="d-none d-xl-inline">10:20am</span></span>
-                      </td>
-                      <td class="tb-ticket-status">
-                        <span class="badge badge-success">Open</span>
-                      </td>
-                      <td class="tb-ticket-action">
-                        <a href="html/subscription/ticket-details.html" class="btn btn-icon btn-trigger">
-                          <em class="icon ni ni-chevron-right"></em>
-                        </a>
-                      </td>
-                    </tr><!-- .tb-ticket-item -->
-                    <tr class="tb-ticket-item">
-                      <td class="tb-ticket-id"><a href="html/subscription/ticket-details.html">C503095</a></td>
-                      <td class="tb-ticket-desc">
-                        <a href="html/subscription/ticket-details.html"><span class="title">Payment was rejected</span></a>
-                      </td>
-                      <td class="tb-ticket-date tb-col-md">
-                        <span class="date">02 Dec 2019</span>
-                      </td>
-                      <td class="tb-ticket-seen tb-col-md">
-                        <span class="date"><em class="icon-avatar icon ni ni-user-alt-fill nk-tooltip" title="You"></em>04 Dec 2019 <span class="d-none d-xl-inline">04:45pm</span></span>
-                      </td>
-                      <td class="tb-ticket-status">
-                        <span class="badge badge-light">Close</span>
-                      </td>
-                      <td class="tb-ticket-action">
-                        <a href="html/subscription/ticket-details.html" class="btn btn-icon btn-trigger">
-                          <em class="icon ni ni-chevron-right"></em>
-                        </a>
-                      </td>
-                    </tr><!-- .tb-ticket-item -->
-                    <tr class="tb-ticket-item">
-                      <td class="tb-ticket-id"><a href="html/subscription/ticket-details.html">C502049</a></td>
-                      <td class="tb-ticket-desc">
-                        <a href="html/subscription/ticket-details.html"><span class="title">We cannot install on our server</span></a>
-                      </td>
-                      <td class="tb-ticket-date tb-col-md">
-                        <span class="date">02 Nov 2019</span>
-                      </td>
-                      <td class="tb-ticket-seen tb-col-md">
-                        <span class="date"><em class="icon-avatar icon ni ni-user-alt-fill nk-tooltip" title="You"></em>04 Nov 2019 <span class="d-none d-xl-inline">04:45pm</span></span>
-                      </td>
-                      <td class="tb-ticket-status">
-                        <span class="badge badge-success">Open</span>
-                      </td>
-                      <td class="tb-ticket-action">
-                        <a href="html/subscription/ticket-details.html" class="btn btn-icon btn-trigger">
-                          <em class="icon ni ni-chevron-right"></em>
-                        </a>
-                      </td>
-                    </tr><!-- .tb-ticket-item -->
-                    <tr class="tb-ticket-item">
-                      <td class="tb-ticket-id"><a href="html/subscription/ticket-details.html">C502035</a></td>
-                      <td class="tb-ticket-desc">
-                        <a href="html/subscription/ticket-details.html"><span class="title">Support for website</span></a>
-                      </td>
-                      <td class="tb-ticket-date tb-col-md">
-                        <span class="date">17 Oct 2019</span>
-                      </td>
-                      <td class="tb-ticket-seen tb-col-md">
-                        <span class="date"><em class="icon-avatar bg-danger-dim icon ni ni-user-fill nk-tooltip" title="Support Team"></em>21 Oct 2019 <span class="d-none d-xl-inline">04:45pm</span></span>
-                      </td>
-                      <td class="tb-ticket-status">
-                        <span class="badge badge-light">Close</span>
-                      </td>
-                      <td class="tb-ticket-action">
-                        <a href="html/subscription/ticket-details.html" class="btn btn-icon btn-trigger">
-                          <em class="icon ni ni-chevron-right"></em>
-                        </a>
-                      </td>
-                    </tr><!-- .tb-ticket-item -->
-                    <tr class="tb-ticket-item is-unread">
-                      <td class="tb-ticket-id"><a href="html/subscription/ticket-details.html">C501783</a></td>
-                      <td class="tb-ticket-desc">
-                        <a href="html/subscription/ticket-details.html"><span class="title">We cannot install on our server</span></a>
-                      </td>
-                      <td class="tb-ticket-date tb-col-md">
-                        <span class="date">02 Oct 2019</span>
-                      </td>
-                      <td class="tb-ticket-seen tb-col-md">
-                        <span class="date"><em class="icon-avatar icon ni ni-user-alt-fill nk-tooltip" title="You"></em>07 Feb 2020 <span class="d-none d-xl-inline">02:28pm</span></span>
-                      </td>
-                      <td class="tb-ticket-status">
-                        <span class="badge badge-success">Open</span>
-                      </td>
-                      <td class="tb-ticket-action">
-                        <a href="html/subscription/ticket-details.html" class="btn btn-icon btn-trigger">
-                          <em class="icon ni ni-chevron-right"></em>
-                        </a>
-                      </td>
-                    </tr><!-- .tb-ticket-item -->
-                    <tr class="tb-ticket-item">
-                      <td class="tb-ticket-id"><a href="html/subscription/ticket-details.html">C501624</a></td>
-                      <td class="tb-ticket-desc">
-                        <a href="html/subscription/ticket-details.html"><span class="title">Setup Local Payment Gateway</span></a>
-                      </td>
-                      <td class="tb-ticket-date tb-col-md">
-                        <span class="date">01 Oct 2019</span>
-                      </td>
-                      <td class="tb-ticket-seen tb-col-md">
-                        <span class="date"><em class="icon-avatar bg-warning-dim icon ni ni-user-fill nk-tooltip" title="Technical Team"></em>04 Oct 2019 <span class="d-none d-xl-inline">04:15pm</span></span>
-                      </td>
-                      <td class="tb-ticket-status">
-                        <span class="badge badge-success">Open</span>
-                      </td>
-                      <td class="tb-ticket-action">
-                        <a href="html/subscription/ticket-details.html" class="btn btn-icon btn-trigger">
-                          <em class="icon ni ni-chevron-right"></em>
-                        </a>
-                      </td>
-                    </tr><!-- .tb-ticket-item -->
-                    <tr class="tb-ticket-item">
-                      <td class="tb-ticket-id"><a href="html/subscription/ticket-details.html">C501605</a></td>
-                      <td class="tb-ticket-desc">
-                        <a href="html/subscription/ticket-details.html"><span class="title">Unable to set automated email response</span></a>
-                      </td>
-                      <td class="tb-ticket-date tb-col-md">
-                        <span class="date">24 Sep 2019</span>
-                      </td>
-                      <td class="tb-ticket-seen tb-col-md">
-                        <span class="date"><em class="icon-avatar icon ni ni-user-alt-fill nk-tooltip" title="You"></em>01 Oct 2019 <span class="d-none d-xl-inline">02:29am</span></span>
-                      </td>
-                      <td class="tb-ticket-status">
-                        <span class="badge badge-light">Close</span>
-                      </td>
-                      <td class="tb-ticket-action">
-                        <a href="html/subscription/ticket-details.html" class="btn btn-icon btn-trigger">
-                          <em class="icon ni ni-chevron-right"></em>
-                        </a>
-                      </td>
-                    </tr><!-- .tb-ticket-item -->
-                    <tr class="tb-ticket-item">
-                      <td class="tb-ticket-id"><a href="html/subscription/ticket-details.html">C501579</a></td>
-                      <td class="tb-ticket-desc">
-                        <a href="html/subscription/ticket-details.html"><span class="title">Setup Local Payment Gateway</span></a>
-                      </td>
-                      <td class="tb-ticket-date tb-col-md">
-                        <span class="date">17 Sep 2019</span>
-                      </td>
-                      <td class="tb-ticket-seen tb-col-md">
-                        <span class="date"><em class="icon-avatar bg-warning-dim icon ni ni-user-fill nk-tooltip" title="Technical Team"></em>29 Sep 2019 <span class="d-none d-xl-inline">06:17am</span></span>
-                      </td>
-                      <td class="tb-ticket-status">
-                        <span class="badge badge-light">Close</span>
-                      </td>
-                      <td class="tb-ticket-action">
-                        <a href="html/subscription/ticket-details.html" class="btn btn-icon btn-trigger">
-                          <em class="icon ni ni-chevron-right"></em>
-                        </a>
-                      </td>
-                    </tr><!-- .tb-ticket-item -->
+                    <?php if(empty($tickets)):?>
+                      <tr class="tb-ticket-item">
+                        <td colspan="7" class="font-weight-bolder text-center">No Tickets Exist</td>
+                      </tr>
+                    <?php else: foreach ($tickets as $ticket):?>
+                      <tr class="tb-ticket-item">
+                        <td class="tb-ticket-id"><a href="/ticket/view_ticket/<?=$ticket['ticket_id']?>"><?=$ticket['id']?></a></td>
+                        <td class="tb-ticket-desc">
+                          <a href="/ticket/view_ticket/<?=$ticket['ticket_id']?>"><span class="title"><?=$ticket['subject']?></span></a>
+                        </td>
+                        <td class="tb-ticket-date tb-col-md">
+                              <span class="date">
+                                <?php
+                                $date = date_create($ticket['created_at']);
+                                echo date_format($date, 'd M Y H:i a');
+                                ?>
+                              </span>
+                        </td>
+                        <td class="tb-ticket-seen">
+                              <span class="font-weight-bold">
+                                <?php
+                                switch ($ticket['category']) {
+                                  case 1:
+                                    $category = 'Subscriptions';
+                                    break;
+                                  case 2:
+                                    $category = 'Payments';
+                                    break;
+                                  case 3:
+                                    $category = 'Invoices';
+                                    break;
+                                  case 4:
+                                    $category = 'Account';
+                                    break;
+                                  default:
+                                    $category = 'General';
+                                    break;
+                                }
+                                echo $category;
+                                ?>
+                              </span>
+                        </td>
+                        <td class="tb-ticket-seen">
+                          <?php if ($ticket['priority'] == 0):?>
+                            <span class="badge badge-dot badge-success">Normal</span>
+                          <?php elseif ($ticket['priority'] == 1):?>
+                            <span class="badge badge-dot badge-primary">Important</span>
+                          <?php elseif ($ticket['priority'] == 2):?>
+                            <span class="badge badge-dot badge-warning">High</span>
+                          <?php endif;?>
+                        </td>
+                        <td class="tb-ticket-status">
+                          <?php if ($ticket['status'] == 0):?>
+                            <span class="badge badge-light">Closed</span>
+                          <?php elseif ($ticket['status'] == 1):?>
+                            <span class="badge badge-success">Open</span>
+                          <?php endif;?>
+                        </td>
+                        <td class="tb-ticket-action">
+                          <a href="/ticket/view_ticket/<?=$ticket['ticket_id']?>" class="btn btn-icon btn-trigger">
+                            <em class="icon ni ni-chevron-right"></em>
+                          </a>
+                        </td>
+                      </tr><!-- .tb-ticket-item -->
+                    <?php endforeach; endif;?>
                     </tbody>
                   </table>
                 </div>
               </div><!-- .nk-block -->
-
               <?php include(APPPATH.'/Views/_footer.php'); ?>
             </div>
           </div>
