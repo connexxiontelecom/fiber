@@ -61,9 +61,9 @@ $session = session();
                           </tr>
                         <?php else: foreach ($tickets as $ticket):?>
                           <tr class="tb-ticket-item">
-                            <td class="tb-ticket-id"><a href="html/subscription/ticket-details.html"><?=$ticket['id']?></a></td>
+                            <td class="tb-ticket-id"><a href="/ticket/view_ticket/<?=$ticket['ticket_id']?>"><?=$ticket['id']?></a></td>
                             <td class="tb-ticket-desc">
-                              <a href="html/subscription/ticket-details.html"><span class="title"><?=$ticket['subject']?></span></a>
+                              <a href="/ticket/view_ticket/<?=$ticket['ticket_id']?>"><span class="title"><?=$ticket['subject']?></span></a>
                             </td>
                             <td class="tb-ticket-date tb-col-md">
                               <span class="date">
@@ -114,7 +114,7 @@ $session = session();
                               <?php endif;?>
                             </td>
                             <td class="tb-ticket-action">
-                              <a href="html/subscription/ticket-details.html" class="btn btn-icon btn-trigger">
+                              <a href="/ticket/view_ticket/<?=$ticket['ticket_id']?>" class="btn btn-icon btn-trigger">
                                 <em class="icon ni ni-chevron-right"></em>
                               </a>
                             </td>
