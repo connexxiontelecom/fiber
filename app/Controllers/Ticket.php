@@ -6,6 +6,7 @@ class Ticket extends BaseController {
     if ($this->session->active) {
       $page_data['title'] = 'Tickets';
       if ($this->session->is_admin) {
+        $page_data['tickets'] = $this->ticketModel->findAll();
         return view('ticket/index', $page_data);
       }
       $page_data['tickets'] = $this->ticketModel->where('sender_id', $this->session->user_id)->findAll();
@@ -104,6 +105,47 @@ class Ticket extends BaseController {
           $this->_create_new_notification(
             $this->session->user_id,
             1,
+            $ticket_response,
+            'submit_ticket_response',
+            'A new ticket response has been submitted'
+          );
+          $response_data['success'] = true;
+          $response_data['msg'] = 'Successfully submitted a new ticket response';
+        } else {
+          $response_data['success'] = false;
+          $response_data['msg'] = 'There was a problem submitting a new ticket response';
+        }
+      } else {
+        $response_data['success'] = false;
+        $response_data['msg'] = 'There was a problem submitting a new ticket response';
+        $response_data['meta'] = $this->validation->getErrors();
+      }
+      return $this->response->setJSON($response_data);
+    }
+    return redirect('auth');
+  }
+
+  public function create_admin_ticket_response() {
+    if ($this->session->active) {
+      $this->validation->setRules([
+        'ticket_id' => 'required',
+        'user_id' => 'required',
+        'body' => 'required',
+      ]);
+      $response_data = array();
+      if ($this->validation->withRequest($this->request)->run()) {
+        $post_data = $this->request->getPost();
+        $ticket_data = array(
+          'sender_id' => $this->session->user_id,
+          'receiver_id' => $post_data['user_id'],
+          'ticket_id' => $post_data['ticket_id'],
+          'body' => $post_data['body'],
+        );
+        $ticket_response = $this->ticketResponseModel->insert($ticket_data);
+        if ($ticket_response) {
+          $this->_create_new_notification(
+            $this->session->user_id,
+            $post_data['user_id'],
             $ticket_response,
             'submit_ticket_response',
             'A new ticket response has been submitted'

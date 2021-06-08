@@ -91,19 +91,19 @@ $session = session();
                         <div class="ticket-msg-item">
                           <div class="ticket-msg-from">
                             <div class="ticket-msg-user user-card">
-                              <div class="user-avatar bg-primary">
+                              <div class="user-avatar bg-warning">
                                 <span><em class="icon ni ni-user-alt"></em></span>
                               </div>
                               <div class="user-info">
                                 <span class="lead-text"><?=$ticket['customer']['name']?></span>
-                                <span class="text-soft">You</span>
+                                <span class="text-soft"><?=$ticket['customer']['login']?></span>
                               </div>
                             </div>
                             <div class="ticket-msg-date">
                               <span class="sub-text">
                                 <?php
-                                  $date = date_create($ticket['created_at']);
-                                  echo date_format($date, 'd M Y H:i a');
+                                $date = date_create($ticket['created_at']);
+                                echo date_format($date, 'd M Y H:i a');
                                 ?>
                               </span>
                             </div>
@@ -132,15 +132,15 @@ $session = session();
                                   </div>
                                   <div class="user-info">
                                     <span class="lead-text"><?=$res['sender']['name']?></span>
-                                    <span class="text-soft">Support Team</span>
+                                    <span class="text-soft"><?=$res['sender']['login']?></span>
                                   </div>
                                 </div>
                               <?php endif;?>
                               <div class="ticket-msg-date">
                                 <span class="sub-text">
                                   <?php
-                                    $date = date_create($res['created_at']);
-                                    echo date_format($date, 'd M Y H:i a');
+                                  $date = date_create($res['created_at']);
+                                  echo date_format($date, 'd M Y H:i a');
                                   ?>
                                 </span>
                               </div>
@@ -157,11 +157,12 @@ $session = session();
                         <?php elseif ($ticket['status'] == 1):?>
                           <div class="ticket-msg-reply">
                             <h5 class="title">Reply</h5>
-                            <form action="#" id="customer-ticket-reply-form">
+                            <form action="#" id="admin-ticket-reply-form">
                               <div class="form-group">
                                 <textarea class="form-control" placeholder="Write a message..." name="body" id="body"></textarea>
                               </div>
                               <input type="hidden" value="<?=$ticket['ticket_id']?>" id="ticket-id">
+                              <input type="hidden" value="<?=$ticket['customer']['user_id']?>" id="user-id">
                               <div class="form-action">
                                 <ul class="form-btn-group">
                                   <li class="form-btn-primary"><button class="btn btn-primary">Send</button></li>
