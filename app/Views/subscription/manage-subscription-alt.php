@@ -99,10 +99,10 @@ $session = session();
                         <div class="nk-help-plain card-inner text-center">
                           <div class="nk-help-text pt-4">
                             <h5>Subscription Support</h5>
-                            <p class="text-soft">You can request support regarding this subscription.</p>
+                            <p class="text-soft">You can request support regarding you subscription.</p>
                           </div>
                           <div class="nk-help-action">
-                            <a href="#" class="btn btn-primary">Get Support Now</a>
+                            <a href="/ticket/new_ticket" class="btn btn-primary">Get Support Now</a>
                           </div>
                         </div>
                       </div><!-- .card -->
@@ -112,11 +112,11 @@ $session = session();
                             <div class="nk-help-text">
                               <h5>Subscription Support</h5>
                               <p class="text-soft">
-                                You can request support regarding this subscription.
+                                You can request support regarding your subscription.
                               </p>
                             </div>
                             <div class="nk-help-action">
-                              <a href="#" class="btn btn-primary">Get Support Now</a>
+                              <a href="/ticket/new_ticket" class="btn btn-primary">Get Support Now</a>
                             </div>
                           </div>
                         </div>

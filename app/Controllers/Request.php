@@ -5,7 +5,7 @@ namespace App\Controllers;
 class Request extends BaseController {
   public function index() {
     if ($this->session->active) {
-      $page_data['title'] = 'Request';
+      $page_data['title'] = 'Requests';
       if ($this->session->is_admin) {
         $page_data['requests'] = $this->_get_requests();
         return view('request/index', $page_data);
@@ -43,7 +43,6 @@ class Request extends BaseController {
             'The request has been cancelled by the customer'
           );
         }
-
         $response_data['success'] = true;
         $response_data['msg'] = 'Successfully cancelled the request';
       } else {

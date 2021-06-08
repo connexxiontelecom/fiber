@@ -54,17 +54,19 @@
         </a>
       </li>
       <li class="nk-menu-item">
-        <a href="html/subscription/team-access.html" class="nk-menu-link">
+        <a href="/ticket" class="nk-menu-link">
           <span class="nk-menu-icon"><em class="icon ni ni-ticket"></em></span>
           <span class="nk-menu-text">Tickets</span>
         </a>
       </li>
-      <li class="nk-menu-item">
-        <a href="/profile" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-account-setting"></em></span>
-          <span class="nk-menu-text">Profile</span>
-        </a>
-      </li>
+      <?php if (!$session->is_admin):?>
+        <li class="nk-menu-item">
+          <a href="/profile" class="nk-menu-link">
+            <span class="nk-menu-icon"><em class="icon ni ni-account-setting"></em></span>
+            <span class="nk-menu-text">Profile</span>
+          </a>
+        </li>
+      <?php endif;?>
       <!-- // admin-->
       <?php if ($session->is_admin): ?>
         <li class="nk-menu-item">
