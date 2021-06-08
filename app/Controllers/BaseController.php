@@ -12,6 +12,8 @@ use App\Models\PlanModel;
 use App\Models\ServiceModel;
 use App\Models\SubscriptionModel;
 use App\Models\SubscriptionRequestModel;
+use App\Models\TicketModel;
+use App\Models\TicketResponseModel;
 use App\Models\UserModel;
 
 use CodeIgniter\Controller;
@@ -54,6 +56,8 @@ class BaseController extends Controller
 	protected $serviceModel;
 	protected $subscriptionModel;
 	protected $subscriptionRequestModel;
+	protected $ticketModel;
+	protected $ticketResponseModel;
 	protected $userModel;
 
 	/**
@@ -84,6 +88,8 @@ class BaseController extends Controller
     $this->serviceModel = new ServiceModel();
     $this->subscriptionModel = new SubscriptionModel();
     $this->subscriptionRequestModel = new SubscriptionRequestModel();
+    $this->ticketModel = new TicketModel();
+    $this->ticketResponseModel = new TicketResponseModel();
     $this->userModel = new UserModel();
 	}
 

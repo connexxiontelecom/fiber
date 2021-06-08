@@ -71,7 +71,7 @@ class Payment extends BaseController
         $invoice = $this->invoiceModel->find($post_data['invoice']);
         if ($invoice) {
           $payment_data = array(
-            'id' => substr(md5(time()), 0, 7),
+            'id' => 'PR'.substr(md5(time()), 0, 7),
             'invoice_id' => $post_data['invoice'],
             'date' => $post_data['date'],
             'amount' => $post_data['amount'],

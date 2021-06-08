@@ -88,7 +88,7 @@ class Invoice extends BaseController
         $plan = $this->planModel->find($subscription['plan_id']);
         $invoice_data = array(
           'subscription_id' => $post_data['subscription'],
-          'id' => substr(md5(time()), 0, 7),
+          'id' => 'IN'.substr(md5(time()), 0, 7),
           'issue_date' => $post_data['issue_date'],
           'due_date' => $post_data['due_date'],
           'is_paid' => $post_data['is_paid'],

@@ -180,10 +180,10 @@
                             </div>
                             <div class="nk-help-text">
                               <h5>We’re here to help you!</h5>
-                              <p class="text-soft">File a support ticket to report any issues. Our support team will get back to you by email.</p>
+                              <p class="text-soft">File a support ticket to report any issues. Our support team will get back to you as soon as possible.</p>
                             </div>
                             <div class="nk-help-action">
-                              <a href="html/subscription/contact.html" class="btn btn-lg btn-outline-primary">Get Support Now</a>
+                              <a href="/ticket/new_ticket" class="btn btn-lg btn-outline-primary">Get Support Now</a>
                             </div>
                           </div>
                         </div>
