@@ -75,8 +75,23 @@ class Subscription extends BaseController {
         );
         $new_subscription = $this->subscriptionModel->insert($subscription_data);
         if ($new_subscription) {
+          $customer = $this->userModel->find($post_data['user']);
+          $plan = $this->planModel->find($post_data['plan']);
+          $email_data['data']['name'] = $customer['name'];
+          $email_data['data']['plan'] = $plan['name'];
+          $email_data['data']['price'] = $plan['price'];
+          $email_data['data']['duration'] = $post_data['duration'];
+          $email_data['data']['description'] = $post_data['description'];
+          $email_data['data']['end_date'] = date_format(date_create($post_data['end_date']), 'd M Y');
+          $email_data['subject'] = 'New Fiber Portal Subscription';
+          $email_data['email_body'] = 'new-subscription';
+          $email_data['email'] = $customer['email'];
+          $email_data['from_name'] = 'Connexxion Telecom Support';
+          $email_data['from_email'] = 'support@connexxiontelecom.com';
+          $this->send_mail($email_data);
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully created new subscription';
+          return $this->response->setJSON($response_data);
         } else {
           $response_data['success'] = false;
           $response_data['msg'] = 'There was a problem creating new subscription';
