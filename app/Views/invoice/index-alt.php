@@ -20,7 +20,7 @@ $session = session();
                     <div class="nk-block-head-content">
                       <h2 class="nk-block-title fw-normal">Invoices</h2>
                       <div class="nk-block-des">
-                        <p>You can view your invoices here.</p>
+                        <p>You can view and pay for your invoices here.</p>
                       </div>
                     </div>
                   </div>
@@ -71,12 +71,18 @@ $session = session();
                           <td class="tb-member-action">
                             <div class="d-none d-md-inline">
                               <a href="/invoice/print_invoice/<?=$invoice['invoice_id']?>" target="_blank" class="btn btn-icon btn-white btn-dim btn-sm btn-primary"><em class="icon ni ni-printer-fill"></em></a>
+                              <?php if ($invoice['is_paid'] == 0): ?>
+                                <a href="javascript:void(0)" onclick="payWithPayStack('<?=$invoice['id']?>')" class="btn btn-dim btn-sm btn-secondary">Pay</a>
+                              <?php endif;?>
                               <a href="/invoice/view_invoice/<?=$invoice['invoice_id']?>" class="btn btn-dim btn-sm btn-primary">View</a>
                             </div>
                             <div class="dropdown d-md-none">
                               <a class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-v"></em></a>
                               <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
                                 <div class="link-list-plain no-bdr">
+                                  <?php if ($invoice['is_paid'] == 0): ?>
+                                    <a href="javascript:void(0)" onclick="payWithPayStack('<?=$invoice['id']?>') class="">Pay Now</a>
+                                  <?php endif;?>
                                   <a href="/invoice/print_invoice/<?=$invoice['invoice_id']?>" target="_blank" class="">Print</a>
                                   <a href="/invoice/view_invoice/<?=$invoice['invoice_id']?>" class="">View</a>
                                 </div>
@@ -136,5 +142,6 @@ $session = session();
   </div>
 </div>
 <?php include(APPPATH.'/Views/_scripts.php'); ?>
+<?php include('_invoice-scripts.php');?>
 </body>
 </html>

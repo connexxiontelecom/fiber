@@ -115,6 +115,75 @@ class Invoice extends BaseController
     return redirect('auth');
   }
 
+  public function get_invoice_by_ref($invoice_ref) {
+    if ($this->session->active) {
+      $invoice = $this->invoiceModel->where('id', $invoice_ref)->first();
+      if ($invoice) {
+        $subscription = $this->subscriptionModel->find($invoice['subscription_id']);
+        if ($subscription) {
+          $user = $this->userModel->find($subscription['user_id']);
+          $invoice['subscription'] = $subscription;
+          $invoice['user'] = $user;
+          $response_data['success'] = true;
+          $response_data['invoice'] = $invoice;
+        } else {
+          $response_data['success'] = false;
+          return $this->response->setJSON($response_data);
+        }
+      } else {
+        $response_data['success'] = false;
+        return $this->response->setJSON($response_data);
+      }
+      return $this->response->setJSON($response_data);
+    }
+    return redirect('auth/login');
+  }
+
+  public function complete_payment() {
+    if ($this->session->active) {
+      $this->validation->setRules([
+        'invoice_id' => 'required',
+        'payment_ref' => 'required',
+        'amount' => 'required',
+      ]);
+      $response_data = array();
+      if ($this->validation->withRequest($this->request)->run()) {
+        $post_data = $this->request->getPost();
+        $invoice = $this->invoiceModel->find($post_data['invoice_id']);
+        if ($invoice) {
+          $payment_data = array(
+            'invoice_id' => $post_data['invoice_id'],
+            'id' => $post_data['payment_ref'],
+            'date' => date('Y-m-d'),
+            'amount' => $post_data['amount'],
+          );
+          $new_payment = $this->paymentModel->insert($payment_data);
+          if ($new_payment) {
+            $invoice_data = [
+              'invoice_id' => $invoice['invoice_id'],
+              'is_paid' => 1
+            ];
+            $this->invoiceModel->save($invoice_data);
+            $response_data['success'] = true;
+            $response_data['msg'] = 'Successfully created new payment';
+          } else {
+            $response_data['success'] = false;
+            $response_data['msg'] = 'There was a problem creating new payment';
+          }
+        } else {
+          $response_data['success'] = false;
+          $response_data['msg'] = 'The invoice for this payment does not exist';
+        }
+      } else {
+        $response_data['success'] = false;
+        $response_data['msg'] = 'There was a problem creating new payment';
+        $response_data['meta'] = $this->validation->getErrors();
+      }
+      return $this->response->setJSON($response_data);
+    }
+    return redirect('auth');
+  }
+
   private function _save_payments($invoice_id, $num_payments, $descriptions, $quantities) {
     for ($i = 0; $i < $num_payments; $i++) {
       $payments_data = array(

@@ -30,7 +30,7 @@
         </ul>
       </li>
       <li class="nk-menu-item">
-        <a href="javascript:void(0)" class="nk-menu-link">
+        <a href="/speedtest" class="nk-menu-link">
           <span class="nk-menu-icon"><em class="icon ni ni-meter"></em></span>
           <span class="nk-menu-text">SpeedTest Gauges</span>
         </a>
@@ -45,12 +45,6 @@
         <a href="/invoice" class="nk-menu-link">
           <span class="nk-menu-icon"><em class="icon ni ni-task"></em></span>
           <span class="nk-menu-text">Invoices</span>
-        </a>
-      </li>
-      <li class="nk-menu-item">
-        <a href="html/subscription/payments.html" class="nk-menu-link">
-          <span class="nk-menu-icon"><em class="icon ni ni-notice"></em></span>
-          <span class="nk-menu-text">Notifications</span>
         </a>
       </li>
       <li class="nk-menu-item">
@@ -71,19 +65,12 @@
       <?php if ($session->is_admin): ?>
         <li class="nk-menu-item">
           <a href="#" class="nk-menu-link">
-            <span class="nk-menu-icon"><em class="icon ni ni-activity-round"></em></span>
-            <span class="nk-menu-text">Activity Logs</span>
-          </a>
-        </li>
-        <li class="nk-menu-item">
-          <a href="#" class="nk-menu-link">
             <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>
             <span class="nk-menu-text">Admin Configuration</span>
           </a>
           <ul class="nk-menu-sub">
             <li class="nk-menu-item"><a href="/user" class="nk-menu-link"><span class="nk-menu-text">User Management</span></a></li>
             <li class="nk-menu-item"><a href="/plan" class="nk-menu-link"><span class="nk-menu-text">Plan</span></a></li>
-            <li class="nk-menu-item"><a href="/service" class="nk-menu-link"><span class="nk-menu-text">Service</span></a></li>
             <li class="nk-menu-item"><a href="/payment_method" class="nk-menu-link"><span class="nk-menu-text">Payment Method</span></a></li>
             </ul>
         </li>
