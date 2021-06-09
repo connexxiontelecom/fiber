@@ -141,8 +141,21 @@ class Subscription extends BaseController {
         );
         $extend_subscription = $this->subscriptionModel->save($subscription_data);
         if ($extend_subscription) {
+          $subscription = $this->subscriptionModel->find($post_data['subscription_id']);
+          $customer = $this->userModel->find($subscription['user_id']);
+          $email_data['data']['name'] = $customer['name'];
+          $email_data['data']['duration'] = $post_data['duration'];
+          $email_data['data']['description'] = $subscription['description'];
+          $email_data['data']['end_date'] = date_format(date_create($post_data['end_date']), 'd M Y');
+          $email_data['subject'] = 'Fiber Portal Subscription Extended';
+          $email_data['email_body'] = 'extend-subscription';
+          $email_data['email'] = $customer['email'];
+          $email_data['from_name'] = 'Connexxion Telecom Support';
+          $email_data['from_email'] = 'support@connexxiontelecom.com';
+          $this->send_mail($email_data);
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully extended the subscription';
+          return $this->response->setJSON($response_data);
         } else {
           $response_data['success'] = false;
           $response_data['msg'] = 'There was a problem extending the subscription';
