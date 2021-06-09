@@ -40,7 +40,7 @@
                               </div>
                               <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                                 <div class="nk-sale-data">
-                                  <span class="amount">0</span>
+                                  <span class="amount"><?=count($pending_requests)?></span>
                                   <span class="sub-title">pending requests</span>
                                 </div>
                               </div>
@@ -60,7 +60,7 @@
                               </div>
                               <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                                 <div class="nk-sale-data">
-                                  <span class="amount">1</span>
+                                  <span class="amount"><?=count($active_subscriptions)?></span>
                                   <span class="sub-title">active subscriptions</span>
                                 </div>
                               </div>
@@ -75,13 +75,13 @@
                                   <h6 class="title">Tickets</h6>
                                 </div>
                                 <div class="card-tools">
-                                  <a href="/subscription" class="link link-sm">View More</a>
+                                  <a href="/ticket" class="link link-sm">View More</a>
                                 </div>
                               </div>
                               <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                                 <div class="nk-sale-data">
-                                  <span class="amount">0</span>
-                                  <span class="sub-title">new tickets</span>
+                                  <span class="amount"><?=count($open_tickets)?></span>
+                                  <span class="sub-title">open tickets</span>
                                 </div>
                               </div>
                             </div>
@@ -95,12 +95,12 @@
                                   <h6 class="title">Invoices</h6>
                                 </div>
                                 <div class="card-tools">
-                                  <a href="/subscription" class="link link-sm">View More</a>
+                                  <a href="/invoice" class="link link-sm">View More</a>
                                 </div>
                               </div>
                               <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                                 <div class="nk-sale-data">
-                                  <span class="amount">0</span>
+                                  <span class="amount"><?=count($unpaid_invoices)?></span>
                                   <span class="sub-title">unpaid invoices</span>
                                 </div>
                               </div>
@@ -115,13 +115,13 @@
                                   <h6 class="title">Payments</h6>
                                 </div>
                                 <div class="card-tools">
-                                  <a href="/subscription" class="link link-sm">View More</a>
+                                  <a href="/payment" class="link link-sm">View More</a>
                                 </div>
                               </div>
                               <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                                 <div class="nk-sale-data">
-                                  <span class="amount">0</span>
-                                  <span class="sub-title">new payments</span>
+                                  <span class="amount"><?=count($all_payments)?></span>
+                                  <span class="sub-title">payments received</span>
                                 </div>
                               </div>
                             </div>
