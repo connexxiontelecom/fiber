@@ -179,13 +179,6 @@ class Subscription extends BaseController {
         );
         $request_new_subscription = $this->subscriptionRequestModel->insert($subscription_request_data);
         if ($request_new_subscription) {
-          $this->_create_new_notification(
-            $this->session->user_id,
-            1,
-            $request_new_subscription,
-            'new_sub_request',
-            'There is a request for a new subscription'
-          );
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully requested new subscription';
         } else {
@@ -219,13 +212,7 @@ class Subscription extends BaseController {
         );
         $request_extend_subscription = $this->subscriptionRequestModel->insert($subscription_request_data);
         if ($request_extend_subscription) {
-          $this->_create_new_notification(
-            $this->session->user_id,
-            1,
-            $request_extend_subscription,
-            'extend_sub_request',
-            'There is a request for a subscription extension'
-          );
+
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully requested subscription extension';
         } else {
@@ -254,13 +241,6 @@ class Subscription extends BaseController {
         );
         $request_cancel_subscription = $this->subscriptionRequestModel->insert($subscription_request_data);
         if ($request_cancel_subscription) {
-          $this->_create_new_notification(
-            $this->session->user_id,
-            1,
-            $request_cancel_subscription,
-            'extend_sub_request',
-            'There is a request for a subscription cancellation'
-          );
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully requested subscription cancellation';
         } else {

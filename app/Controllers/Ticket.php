@@ -62,13 +62,6 @@ class Ticket extends BaseController {
         );
         $new_ticket = $this->ticketModel->insert($ticket_data);
         if ($new_ticket) {
-          $this->_create_new_notification(
-            $this->session->user_id,
-            1,
-            $new_ticket,
-            'submit_ticket',
-            'A new support ticket has been submitted'
-          );
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully submitted a new ticket';
         } else {
@@ -102,13 +95,6 @@ class Ticket extends BaseController {
         );
         $ticket_response = $this->ticketResponseModel->insert($ticket_data);
         if ($ticket_response) {
-          $this->_create_new_notification(
-            $this->session->user_id,
-            1,
-            $ticket_response,
-            'submit_ticket_response',
-            'A new ticket response has been submitted'
-          );
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully submitted a new ticket response';
         } else {
@@ -143,13 +129,6 @@ class Ticket extends BaseController {
         );
         $ticket_response = $this->ticketResponseModel->insert($ticket_data);
         if ($ticket_response) {
-          $this->_create_new_notification(
-            $this->session->user_id,
-            $post_data['user_id'],
-            $ticket_response,
-            'submit_ticket_response',
-            'A new ticket response has been submitted'
-          );
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully submitted a new ticket response';
         } else {

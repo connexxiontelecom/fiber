@@ -31,22 +31,6 @@ class Invoice extends BaseController
     return redirect('auth');
   }
 
-  public function manage_num_payments() {
-    if ($this->session->active) {
-      $plans = $this->planModel->findAll();
-      $services = $this->serviceModel->findAll();
-      $descriptions = array(
-        'plans' => $plans,
-        'services' => $services,
-      );
-      $post_data = $this->request->getPost();
-      $page_data['num_payments'] = $post_data['num_payments'];
-      $page_data['descriptions'] = $descriptions;
-      return view('invoice/_payments', $page_data);
-    }
-    return redirect('auth');
-  }
-
   public function view_invoice($invoice_id) {
     if ($this->session->active) {
       $invoice = $this->_get_invoice($invoice_id);
@@ -182,17 +166,6 @@ class Invoice extends BaseController
       return $this->response->setJSON($response_data);
     }
     return redirect('auth');
-  }
-
-  private function _save_payments($invoice_id, $num_payments, $descriptions, $quantities) {
-    for ($i = 0; $i < $num_payments; $i++) {
-      $payments_data = array(
-        'invoice_id' => $invoice_id,
-        'description' => $descriptions[$i],
-        'quantity' => $quantities[$i],
-      );
-      $this->invoicePaymentModel->save($payments_data);
-    }
   }
 
   private function _get_invoices() {

@@ -25,24 +25,6 @@ class Request extends BaseController {
       );
       $cancel_request = $this->subscriptionRequestModel->save($request_data);
       if ($cancel_request) {
-        $subscription_request = $this->subscriptionRequestModel->find($subscription_request_id);
-        if ($this->session->is_admin) {
-          $this->_create_new_notification(
-            $this->session->user_id,
-            $subscription_request['user_id'],
-            $subscription_request_id,
-            'cancel_request',
-            'The request has been cancelled by the administrator'
-          );
-        } else {
-          $this->_create_new_notification(
-            $this->session->user_id,
-            1,
-            $subscription_request_id,
-            'cancel_request',
-            'The request has been cancelled by the customer'
-          );
-        }
         $response_data['success'] = true;
         $response_data['msg'] = 'Successfully cancelled the request';
       } else {
@@ -63,14 +45,6 @@ class Request extends BaseController {
       );
       $approve_request = $this->subscriptionRequestModel->save($request_data);
       if ($approve_request) {
-        $subscription_request = $this->subscriptionRequestModel->find($subscription_request_id);
-        $this->_create_new_notification(
-          $this->session->user_id,
-          $subscription_request['user_id'],
-          $subscription_request_id,
-          'approve_request',
-          'The request has been approved by the administrator'
-        );
         $response_data['success'] = true;
         $response_data['msg'] = 'Successfully approved the request';
       } else {
