@@ -80,11 +80,24 @@ class User extends BaseController {
         );
         $new_user = $this->userModel->save($user_data);
         if ($new_user) {
+          if ($post_data['is_admin'] == 0) {
+            $email_data['data']['name'] = $post_data['name'];
+            $email_data['data']['login'] = $post_data['login'];
+            $email_data['data']['passcode'] = $post_data['password'];
+            $email_data['subject'] = 'Welcome to Your Fiber Portal';
+            $email_data['email_body'] = 'welcome';
+            $email_data['email'] = $post_data['email'];
+            $email_data['from_name'] = 'Connexxion Telecom Support';
+            $email_data['from_email'] = 'support@connexxiontelecom.com';
+            $this->send_mail($email_data);
+          }
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully created new user';
+          return $this->response->setJSON($response_data);
         } else {
           $response_data['success'] = false;
           $response_data['msg'] = 'There was a problem creating new user';
+          return $this->response->setJSON($response_data);
         }
       } else {
         $response_data['success'] = false;
@@ -152,11 +165,28 @@ class User extends BaseController {
         $customer_info = $this->customerInfoModel->where('user_id', $post_data['user_id'])->first();
         if ($customer_info) {
           $customer_info_data['customer_info_id'] = $customer_info['customer_info_id'];
+          $customer_info_updated = $this->customerInfoModel->save($customer_info_data);
+          $customer_info = $this->customerInfoModel->find($customer_info['customer_info_id']);
+        } else {
+          $customer_info_updated = $this->customerInfoModel->insert($customer_info_data);
+          $customer_info = $this->customerInfoModel->find($customer_info_updated);
         }
-        $customer_info_updated = $this->customerInfoModel->save($customer_info_data);
+        $customer = $this->userModel->find($customer_info['user_id']);
+        $payment_method = $this->paymentMethodModel->find($customer_info['payment_method_id']);
         if ($customer_info_updated) {
+          $email_data['data']['name'] = $customer['name'];
+          $email_data['data']['payment_method'] = $payment_method['name'];
+          $email_data['data']['phone'] = $customer_info['phone'];
+          $email_data['data']['address'] = $customer_info['address'];
+          $email_data['subject'] = 'Fiber Portal Customer Information Updated';
+          $email_data['email_body'] = 'update-customer-info';
+          $email_data['email'] = $customer['email'];
+          $email_data['from_name'] = 'Connexxion Telecom Support';
+          $email_data['from_email'] = 'support@connexxiontelecom.com';
+          $this->send_mail($email_data);
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully updated customer info';
+          return $this->response->setJSON($response_data);
         } else {
           $response_data['success'] = false;
           $response_data['msg'] = 'There was a problem updating the customer info';
@@ -186,8 +216,23 @@ class User extends BaseController {
         );
         $user_update = $this->userModel->save($user_data);
         if ($user_update) {
+          $user = $this->userModel->find($post_data['user_id']);
           $response_data['success'] = true;
-          $response_data['msg'] = 'Successfully updated user';
+          if ($user['status']) {
+            $response_data['msg'] = 'Successfully activated this user account';
+            $email_data['subject'] = 'Fiber Portal Account Activated';
+            $email_data['email_body'] = 'account-activated';
+          } else {
+            $response_data['msg'] = 'Successfully deactivated this user account';
+            $email_data['subject'] = 'Fiber Portal Account Deactivated';
+            $email_data['email_body'] = 'account-deactivated';
+          }
+          $email_data['data']['name'] = $user['name'];
+          $email_data['email'] = $user['email'];
+          $email_data['from_name'] = 'Connexxion Telecom Support';
+          $email_data['from_email'] = 'support@connexxiontelecom.com';
+          $this->send_mail($email_data);
+          return $this->response->setJSON($response_data);
         } else {
           $response_data['success'] = false;
           $response_data['msg'] = 'There was a problem updating the user';

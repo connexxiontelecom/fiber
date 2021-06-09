@@ -8,7 +8,7 @@
         <a href="/dashboard" class="logo-link">
           <img class="logo-light logo-img" src="/assets/images/logo-01-2.png" srcset="/assets/images/logo2x.png 2x" alt="logo">
           <img class="logo-dark logo-img" src="/assets/images/logo-01-2.png" srcset="/assets/images/logo-dark2x.png 2x" alt="logo-dark">
-          <span class="nio-version text-dark">Fiber</span>
+          <span class="nio-version text-dark">Fiber Portal</span>
         </a>
       </div><!-- .nk-header-brand -->
       <div class="nk-header-tools">
@@ -46,32 +46,6 @@
                 <ul class="link-list">
                   <li><a href="/auth/logout"><em class="icon ni ni-signout"></em><span>Logout</span></a></li>
                 </ul>
-              </div>
-            </div>
-          </li><!-- .dropdown -->
-          <li class="dropdown notification-dropdown">
-            <a href="#" class="dropdown-toggle nk-quick-nav-icon mr-lg-n1" data-toggle="dropdown">
-              <div id="notification-icon" class="icon-status"><em class="icon ni ni-bell"></em></div>
-            </a>
-            <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right dropdown-menu-s1">
-              <div class="dropdown-head">
-                <span class="sub-title nk-dropdown-title">Notifications</span>
-              </div>
-              <div class="dropdown-body">
-                <div class="nk-notification">
-                  <div class="nk-notification-item dropdown-inner">
-                    <div class="nk-notification-icon">
-                      <em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
-                    </div>
-                    <div class="nk-notification-content">
-                      <div class="nk-notification-text">You have requested to <span>Widthdrawl</span></div>
-                      <div class="nk-notification-time">2 hrs ago</div>
-                    </div>
-                  </div>
-                </div><!-- .nk-notification -->
-              </div><!-- .nk-dropdown-body -->
-              <div class="dropdown-foot center">
-                <a href="#">View All</a>
               </div>
             </div>
           </li><!-- .dropdown -->

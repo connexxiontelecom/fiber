@@ -19,8 +19,13 @@ use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-
 use Psr\Log\LoggerInterface;
+
+use SendinBlue\Client\Configuration;
+use SendinBlue\Client\Api\TransactionalEmailsApi;
+use SendinBlue\Client\Model\SendSmtpEmail;
+use SendinBlue\Client\ApiException;
+use GuzzleHttp\Client;
 
 /**
  * Class BaseController
@@ -60,6 +65,9 @@ class BaseController extends Controller
 	protected $ticketResponseModel;
 	protected $userModel;
 
+	protected $mail;
+	protected $api_instance;
+
 	/**
 	 * Constructor.
 	 *
@@ -91,6 +99,10 @@ class BaseController extends Controller
     $this->ticketModel = new TicketModel();
     $this->ticketResponseModel = new TicketResponseModel();
     $this->userModel = new UserModel();
+
+    $config = Configuration::getDefaultConfiguration()->setApiKey('api-key', getenv('API_KEY'));
+    $this->api_instance = new TransactionalEmailsApi(new Client(), $config);
+    $this->mail = new SendSmtpEmail();
 	}
 
 	protected function _unauthorized(): string {
@@ -114,4 +126,17 @@ class BaseController extends Controller
 		);
 		$this->notificationModel->save($notification_data);
 	}
+
+	protected function send_mail($email_data) {
+    $this->mail['subject'] = $email_data['subject'];
+    $this->mail['htmlContent'] = view('email/'.$email_data['email_body'], $email_data['data']);
+    $this->mail['sender'] = array('name' => $email_data['from_name'], 'email' => $email_data['from_email']);
+    $this->mail['to'] = array(array('email' => $email_data['email']));
+    try {
+      $result = $this->api_instance->sendTransacEmail($this->mail);
+//      print_r($result);
+    } catch (Exception $e) {
+      print_r('Exception when calling TransactionalEmailsApi->sendTransacEmail:'.$e->getMessage());
+    }
+  }
 }

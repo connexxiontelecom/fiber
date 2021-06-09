@@ -1,6 +1,5 @@
 <script src="/assets/js/bundle.js?ver=2.4.0"></script>
 <script src="/assets/js/scripts.js?ver=2.4.0"></script>
-<?php include('_notification-scripts.php')?>
 <script>
   $(document).ready(function () {
     function testDecimals(currentVal) {
