@@ -242,4 +242,34 @@
       }
     })
   }
+
+  function sendWarningAlert(subscriptionID) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This will send a warning email to the customer. Please ensure the subscription end date is at least 1 week from today.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm'
+    }).then(function (confirm) {
+      if (confirm.value) {
+        $.ajax({
+          url: '<?=site_url('subscription/send_warning_alert')?>/'+subscriptionID,
+          type: 'get',
+          success: function (data) {
+            if (data.success) {
+              Swal.fire('Confirmed!', data.msg, 'success').then(() => {
+                location.href = '<?=site_url('/subscription/manage_subscription/')?>'+subscriptionID
+              })
+            } else {
+              Swal.fire('Sorry!', data.msg, 'error')
+              console.log(data.meta)
+            }
+          },
+          cache: false,
+          contentType: false,
+          processData: false
+        })
+      }
+    })
+  }
 </script>

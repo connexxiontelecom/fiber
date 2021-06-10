@@ -97,16 +97,39 @@ $session = session();
                               </ul>
                             </div>
                           </div><!-- .card-inner -->
-                          <div class="card-inner">
-                            <div class="sp-plan-link">
-                              <?php if ($subscription['is_cancelled'] == 0):?>
-                                <a href="javascript:void(0)" data-toggle="modal" data-target="#extend-subscription" class="link" disabled>
-                                  <span><em class="icon ni ni-edit-alt"></em> Extend Subscription</span>
-                                  <em class="icon ni ni-arrow-right"></em>
-                                </a>
-                              <?php endif;?>
+                          <?php if ($subscription['is_cancelled'] == 0):?>
+                            <div class="card-inner">
+                              <div class="sp-plan-head-group">
+                                <div class="cc-pay">
+                                  <ul class="cc-pay-method">
+                                    <li class="cc-pay-btn mr-5">
+                                      <a href="javascript:void(0)" onclick="sendWarningAlert(<?=$subscription['subscription_id']?>)" class="btn btn-auto btn-dim btn-secondary"><span>Send Warning Alert</span></a>
+                                    </li>
+                                    <li class="cc-pay-btn">
+                                      <a href="#" class="btn btn-auto btn-dim btn-warning"><span>Send Expiry Alert</span></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="sp-plan-amount">
+                                  <span class="sp-plan-status text-primary">Today</span>
+                                  <span class="amount">
+                                    <?php
+                                      $date = date_create(date('Y-m-d'));
+                                      echo date_format($date, 'd M Y');
+                                    ?>
+                                  </span>
+                                </div>
+                              </div>
                             </div>
-                          </div><!-- .card-inner -->
+                            <div class="card-inner">
+                              <div class="sp-plan-link">
+                                  <a href="javascript:void(0)" data-toggle="modal" data-target="#extend-subscription" class="link" disabled>
+                                    <span><em class="icon ni ni-edit-alt"></em> Extend Subscription</span>
+                                    <em class="icon ni ni-arrow-right"></em>
+                                  </a>
+                              </div>
+                            </div><!-- .card-inner -->
+                          <?php endif;?>
                         </div>
                       </div>
                     </div>
@@ -116,7 +139,7 @@ $session = session();
                           <div class="nk-help-text pt-4">
                             <h5>Subscription Requests</h5>
                             <p class="text-soft">
-                              View requests from the customer for this subscription.
+                              View subscription requests from your customers.
                             </p>
                           </div>
                           <div class="nk-help-action">
@@ -130,7 +153,7 @@ $session = session();
                             <div class="nk-help-text">
                               <h5>Subscription Requests</h5>
                               <p class="text-soft">
-                                View requests from the customer for this subscription.
+                                View subscription requests from your customers.
                               </p></div>
                             <div class="nk-help-action">
                               <a href="/request" class="btn btn-primary">View Requests</a>

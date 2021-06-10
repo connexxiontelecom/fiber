@@ -296,6 +296,33 @@ class Subscription extends BaseController {
     return redirect('auth');
   }
 
+  public function send_warning_alert($subscription_id) {
+    if ($this->session->active) {
+      $response_data = array();
+      $subscription = $this->subscriptionModel->find($subscription_id);
+      if ($subscription) {
+        $customer = $this->userModel->find($subscription['user_id']);
+        $email_data['data']['name'] = $customer['name'];
+        $email_data['data']['description'] = $subscription['description'];
+        $email_data['data']['end_date'] = date_format(date_create($subscription['end_date']), 'd M Y');
+        $email_data['subject'] = 'Your Fiber Portal Subscription Will Expire Soon';
+        $email_data['email_body'] = 'warning-alert';
+        $email_data['email'] = $customer['email'];
+        $email_data['from_name'] = 'Connexxion Telecom Support';
+        $email_data['from_email'] = 'support@connexxiontelecom.com';
+        $this->send_mail($email_data);
+        $response_data['success'] = true;
+        $response_data['msg'] = 'Successfully sent the warning alert.';
+        return $this->response->setJSON($response_data);
+      } else {
+        $response_data['success'] = false;
+        $response_data['msg'] = 'Could not find information on this subscription. Warning alert not sent.';
+      }
+      return $this->response->setJSON($response_data);
+    }
+    return redirect('auth');
+  }
+
   private function _get_subscription($subscription_id) {
     $subscription = $this->subscriptionModel->find($subscription_id);
     if ($subscription) {

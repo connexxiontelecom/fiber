@@ -48,7 +48,7 @@ $session = session();
                             <th>Description</th>
                             <th>Duration</th>
                             <th>Price</th>
-                            <th>Start Date</th>
+                            <th>End Date</th>
                             <th>Status</th>
                             <th class="text-center">Action</th>
                           </tr>
@@ -62,7 +62,7 @@ $session = session();
                               <td><?=number_format($subscription['plan']['price'] * $subscription['duration'])?></td>
                               <td>
                                 <?php
-                                  $date = date_create($subscription['start_date']);
+                                  $date = date_create($subscription['end_date']);
                                   echo date_format($date, 'd M Y');
                                 ?>
                               </td>
