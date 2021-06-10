@@ -106,7 +106,7 @@ $session = session();
                                       <a href="javascript:void(0)" onclick="sendWarningAlert(<?=$subscription['subscription_id']?>)" class="btn btn-auto btn-dim btn-secondary"><span>Send Warning Alert</span></a>
                                     </li>
                                     <li class="cc-pay-btn">
-                                      <a href="#" class="btn btn-auto btn-dim btn-warning"><span>Send Expiry Alert</span></a>
+                                      <a href="javascript:void(0)" onclick="sendExpiryAlert(<?=$subscription['subscription_id']?>)" class="btn btn-auto btn-dim btn-warning"><span>Send Expiry Alert</span></a>
                                     </li>
                                   </ul>
                                 </div>

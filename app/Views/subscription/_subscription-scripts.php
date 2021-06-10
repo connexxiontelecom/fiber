@@ -272,4 +272,34 @@
       }
     })
   }
+
+  function sendExpiryAlert(subscriptionID) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This will send a warning email to the customer. Please ensure the subscription has expired before sending this message.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm'
+    }).then(function (confirm) {
+      if (confirm.value) {
+        $.ajax({
+          url: '<?=site_url('subscription/send_expiry_alert')?>/'+subscriptionID,
+          type: 'get',
+          success: function (data) {
+            if (data.success) {
+              Swal.fire('Confirmed!', data.msg, 'success').then(() => {
+                location.href = '<?=site_url('/subscription/manage_subscription/')?>'+subscriptionID
+              })
+            } else {
+              Swal.fire('Sorry!', data.msg, 'error')
+              console.log(data.meta)
+            }
+          },
+          cache: false,
+          contentType: false,
+          processData: false
+        })
+      }
+    })
+  }
 </script>
