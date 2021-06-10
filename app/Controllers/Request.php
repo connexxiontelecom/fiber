@@ -25,8 +25,22 @@ class Request extends BaseController {
       );
       $cancel_request = $this->subscriptionRequestModel->save($request_data);
       if ($cancel_request) {
+        $subscription_request = $this->subscriptionRequestModel->find($subscription_request_id);
+        $customer = $this->userModel->find($subscription_request['user_id']);
+        $email_data['data']['name'] = $customer['name'];
+        $email_data['data']['request_made'] = date_format(date_create($subscription_request['created_at']), 'd M Y, H:i a');
+        if ($subscription_request['type'] == 'new_sub') $email_data['data']['request_type'] = 'New Subscription';
+        else if ($subscription_request['type'] == 'extend_sub') $email_data['data']['request_type'] = 'Extend Subscription';
+        else if ($subscription_request['type'] == 'cancel_sub') $email_data['data']['request_type'] = 'Cancel Subscription';
+        $email_data['subject'] = 'Your Fiber Portal Request Was Cancelled';
+        $email_data['email_body'] = 'cancel-request';
+        $email_data['email'] = $customer['email'];
+        $email_data['from_name'] = 'Connexxion Telecom Support';
+        $email_data['from_email'] = 'support@connexxiontelecom.com';
+        $this->send_mail($email_data);
         $response_data['success'] = true;
         $response_data['msg'] = 'Successfully cancelled the request';
+        return $this->response->setJSON($response_data);
       } else {
         $response_data['success'] = false;
         $response_data['msg'] = 'There was a problem cancelling the request';
