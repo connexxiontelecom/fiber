@@ -28,23 +28,33 @@ $session = session();
                             <?php
                               $date = date_create($subscription['end_date']);
                               echo date_format($date, 'd M Y');
-                            ?>
+                            ?>.
                           </span>
+                          <?php if ($subscription['is_cancelled'] == 1): ?>
+                            <br>
+                            <strong class="font-weight-bolder">Note:</strong> This subscription is cancelled. No further actions can be taken on it.
+                          <?php endif?>
                         </p>
                       </div>
                     </div>
                     <div class="nk-block-head-content">
                       <ul class="nk-block-tools justify-content-md-end g-4 flex-wrap">
-                        <li class="order-md-last">
-                          <button onclick="cancelSubscription(<?=$subscription['subscription_id']?>)" class="btn btn-auto btn-dim btn-danger" id="cancel-subscription"><em class="icon ni ni-cross"></em><span>Cancel Subscription</span></button>
-                        </li>
-                        <li>
-                          <?php if ($subscription['status'] == 1): ?>
-                            <div class="badge badge-dim badge-success">Active</div>
-                          <?php else:?>
-                            <div class="badge badge-dim badge-warning">Inactive</div>
-                          <?php endif;?>
-                        </li>
+                        <?php if ($subscription['is_cancelled'] == 1): ?>
+                          <li>
+                            <div class="badge badge-dim badge-danger">Cancelled</div>
+                          </li>
+                        <?php else:?>
+                          <li class="order-md-last">
+                            <button onclick="cancelSubscription(<?=$subscription['subscription_id']?>)" class="btn btn-auto btn-dim btn-danger" id="cancel-subscription"><em class="icon ni ni-cross"></em><span>Cancel Subscription</span></button>
+                          </li>
+                          <li>
+                            <?php if ($subscription['status'] == 1): ?>
+                              <div class="badge badge-dim badge-success">Active</div>
+                            <?php else:?>
+                              <div class="badge badge-dim badge-warning">Inactive</div>
+                            <?php endif;?>
+                          </li>
+                        <?php endif;?>
                       </ul>
                     </div>
                   </div>
@@ -89,10 +99,12 @@ $session = session();
                           </div><!-- .card-inner -->
                           <div class="card-inner">
                             <div class="sp-plan-link">
-                              <a href="javascript:void(0)" data-toggle="modal" data-target="#extend-subscription" class="link">
-                                <span><em class="icon ni ni-edit-alt"></em> Extend Subscription</span>
-                                <em class="icon ni ni-arrow-right"></em>
-                              </a>
+                              <?php if ($subscription['is_cancelled'] == 0):?>
+                                <a href="javascript:void(0)" data-toggle="modal" data-target="#extend-subscription" class="link" disabled>
+                                  <span><em class="icon ni ni-edit-alt"></em> Extend Subscription</span>
+                                  <em class="icon ni ni-arrow-right"></em>
+                                </a>
+                              <?php endif;?>
                             </div>
                           </div><!-- .card-inner -->
                         </div>
