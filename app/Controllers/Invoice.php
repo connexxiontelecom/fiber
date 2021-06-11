@@ -182,6 +182,36 @@ class Invoice extends BaseController
     return redirect('auth');
   }
 
+  public function send_unpaid_alert($invoice_id) {
+    if ($this->session->active) {
+      $response_data = array();
+      $invoice = $this->invoiceModel->find($invoice_id);
+      if ($invoice) {
+        $subscription = $this->subscriptionModel->find($invoice['subscription_id']);
+        $customer = $this->userModel->find($subscription['user_id']);
+        $email_data['data']['name'] = $customer['name'];
+        $email_data['data']['invoice'] = $invoice['id'];
+        $email_data['data']['issue_date'] = date_format(date_create($invoice['issue_date']), 'd M Y');
+        $email_data['data']['due_date'] = date_format(date_create($invoice['due_date']), 'd M Y');
+        $email_data['data']['amount'] = number_format($invoice['price'] * $invoice['period']);
+        $email_data['subject'] = 'You Have An Unpaid Invoice On The Fiber Portal';
+        $email_data['email_body'] = 'unpaid-alert';
+        $email_data['email'] = $customer['email'];
+        $email_data['from_name'] = 'Connexxion Telecom Support';
+        $email_data['from_email'] = 'support@connexxiontelecom.com';
+        $this->send_mail($email_data);
+        $response_data['success'] = true;
+        $response_data['msg'] = 'Successfully sent the unpaid alert.';
+        return $this->response->setJSON($response_data);
+      } else {
+        $response_data['success'] = false;
+        $response_data['msg'] = 'Could not find information on this invoice. Unpaid alert not sent.';
+      }
+      return $this->response->setJSON($response_data);
+    }
+    return redirect('auth');
+  }
+
   private function _get_invoices() {
     $invoices = $this->invoiceModel->findAll();
     foreach ($invoices as $key => $invoice) {

@@ -155,6 +155,35 @@
 
       }
     })
+  }
 
+  function sendUnpaidAlert(invoiceID) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This will send a warning email to the customer. Please ensure the invoice due date is close or has passed.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm'
+    }).then(function (confirm) {
+      if (confirm.value) {
+        $.ajax({
+          url: '<?=site_url('invoice/send_unpaid_alert')?>/'+invoiceID,
+          type: 'get',
+          success: function (data) {
+            if (data.success) {
+              Swal.fire('Confirmed!', data.msg, 'success').then(() => {
+                location.href = '<?=site_url('/invoice')?>'
+              })
+            } else {
+              Swal.fire('Sorry!', data.msg, 'error')
+              console.log(data.meta)
+            }
+          },
+          cache: false,
+          contentType: false,
+          processData: false
+        })
+      }
+    })
   }
 </script>
