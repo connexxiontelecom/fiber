@@ -83,8 +83,22 @@ class Payment extends BaseController
               'is_paid' => 1
             ];
             $this->invoiceModel->save($invoice_data);
+            $subscription = $this->subscriptionModel->find($invoice['subscription_id']);
+            $customer = $this->userModel->find($subscription['user_id']);
+            $email_data['data']['name'] = $customer['name'];
+            $email_data['data']['invoice'] = $invoice['id'];
+            $email_data['data']['receipt'] = $payment_data['id'];
+            $email_data['data']['date'] = date_format(date_create($post_data['date']), 'd M Y');
+            $email_data['data']['amount'] = number_format($post_data['amount']);
+            $email_data['subject'] = 'Your Payment Was Received On The Fiber Portal';
+            $email_data['email_body'] = 'create-payment';
+            $email_data['email'] = $customer['email'];
+            $email_data['from_name'] = 'Connexxion Telecom Support';
+            $email_data['from_email'] = 'support@connexxiontelecom.com';
+            $this->send_mail($email_data);
             $response_data['success'] = true;
             $response_data['msg'] = 'Successfully created new payment';
+            return $this->response->setJSON($response_data);
           } else {
             $response_data['success'] = false;
             $response_data['msg'] = 'There was a problem creating new payment';

@@ -83,8 +83,22 @@ class Invoice extends BaseController
         );
         $new_invoice = $this->invoiceModel->insert($invoice_data);
         if ($new_invoice) {
+          $subscription = $this->subscriptionModel->find($post_data['subscription']);
+          $customer = $this->userModel->find($subscription['user_id']);
+          $email_data['data']['name'] = $customer['name'];
+          $email_data['data']['invoice'] = $invoice_data['id'];
+          $email_data['data']['issue_date'] = date_format(date_create($post_data['issue_date']), 'd M Y');
+          $email_data['data']['due_date'] = date_format(date_create($post_data['due_date']), 'd M Y');
+          $email_data['data']['amount'] = number_format($invoice_data['price'] * $invoice_data['period']);
+          $email_data['subject'] = 'An Invoice Was Added On The Fiber Portal';
+          $email_data['email_body'] = 'create-invoice';
+          $email_data['email'] = $customer['email'];
+          $email_data['from_name'] = 'Connexxion Telecom Support';
+          $email_data['from_email'] = 'support@connexxiontelecom.com';
+          $this->send_mail($email_data);
           $response_data['success'] = true;
           $response_data['msg'] = 'Successfully created new invoice';
+          return $this->response->setJSON($response_data);
         } else {
           $response_data['success'] = false;
           $response_data['msg'] = 'There was a problem creating new invoice';
@@ -162,6 +176,36 @@ class Invoice extends BaseController
         $response_data['success'] = false;
         $response_data['msg'] = 'There was a problem creating new payment';
         $response_data['meta'] = $this->validation->getErrors();
+      }
+      return $this->response->setJSON($response_data);
+    }
+    return redirect('auth');
+  }
+
+  public function send_unpaid_alert($invoice_id) {
+    if ($this->session->active) {
+      $response_data = array();
+      $invoice = $this->invoiceModel->find($invoice_id);
+      if ($invoice) {
+        $subscription = $this->subscriptionModel->find($invoice['subscription_id']);
+        $customer = $this->userModel->find($subscription['user_id']);
+        $email_data['data']['name'] = $customer['name'];
+        $email_data['data']['invoice'] = $invoice['id'];
+        $email_data['data']['issue_date'] = date_format(date_create($invoice['issue_date']), 'd M Y');
+        $email_data['data']['due_date'] = date_format(date_create($invoice['due_date']), 'd M Y');
+        $email_data['data']['amount'] = number_format($invoice['price'] * $invoice['period']);
+        $email_data['subject'] = 'You Have An Unpaid Invoice On The Fiber Portal';
+        $email_data['email_body'] = 'unpaid-alert';
+        $email_data['email'] = $customer['email'];
+        $email_data['from_name'] = 'Connexxion Telecom Support';
+        $email_data['from_email'] = 'support@connexxiontelecom.com';
+        $this->send_mail($email_data);
+        $response_data['success'] = true;
+        $response_data['msg'] = 'Successfully sent the unpaid alert.';
+        return $this->response->setJSON($response_data);
+      } else {
+        $response_data['success'] = false;
+        $response_data['msg'] = 'Could not find information on this invoice. Unpaid alert not sent.';
       }
       return $this->response->setJSON($response_data);
     }
